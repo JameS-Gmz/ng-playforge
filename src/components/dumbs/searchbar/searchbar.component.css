@@ -1,0 +1,26 @@
+.searchbar {
+    display: flex;
+    flex-direction:row;
+    justify-content: center;
+    align-items: center;
+
+  }
+  
+  .search{
+    justify-content: center;
+    align-items: center;
+    width: 60vh;
+    height: 3vh;
+    border: rgb(26,104,255);
+    border-radius: 25vh 0vh 0vh 25vh !important;
+    opacity: 60%;
+    color: rgb(51, 51, 51);
+    padding: 1vh;
+  }
+  
+  .btnsearch{
+    background-color: rgb(26,104,255);
+    height: 40%;
+    border-color: rgb(26,104,255);
+    border-radius: 0vh 25vh 25vh 0vh;
+  }

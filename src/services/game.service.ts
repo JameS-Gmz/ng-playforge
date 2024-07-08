@@ -11,8 +11,7 @@ export class GameService implements OnInit {
 
     fetch("http://localhost/9090/game",
       {
-        method : "POST",
-        headers: headers,
+                headers: headers,
       }
     )
   }

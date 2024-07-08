@@ -1,0 +1,13 @@
+:root{
+  
+}
+
+body{
+  display: flex;
+  margin: 0px;
+  justify-content: center;
+  align-items: center;
+  width:100vw;
+  background-color: rgb(37,43,67);
+}
+

@@ -1,13 +1,26 @@
-<div class="container">
-    <div class="wrapper">
-      <div class="banner-image"> </div>
-      <h1><input class="Title-game" type="text"></h1>
-      <p>Lorem ipsum dolor sit amet, <br/>
-        consectetur adipiscing elit.</p>
-     </div>
-     <div class="button-wrapper"> 
-     <button class="btn outline">DETAILS</button>
-       <button class="btn fill">BUY NOW</button>
-     </div>
-</div>
+<div class="content">
+  <div class="column-right"></div>
 
+  <div class="column-center">
+    <div class="card">
+      <label for="images" class="drop-container" id="dropcontainer">
+        <span class="drop-title">Déposer vos fichiers</span>
+        ou
+        <input type="file" id="images" accept="image/*" required>
+      </label>
+      <div class="title-game">
+        <input placeholder="Title of Game..." class="input" type="text" ({NgModel})="title">
+      </div>
+      <div class="content-game">
+        <textarea class="input" placeholder="Description of the Game..."></textarea>
+      </div>
+      <div class="button-wrapper">
+        <app-button-red text="CANCEL"></app-button-red>
+        <app-button-green text="ADD"  (click)="printvalue()"></app-button-green>
+      </div>
+    </div>
+
+    <div class="column-left"></div>
+
+  </div>
+</div>

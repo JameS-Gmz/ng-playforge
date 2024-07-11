@@ -1,6 +1,6 @@
 {
   "name": "ng-boutique",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -25,7 +25,7 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.0.4",
     "@angular/cli": "^18.0.4",
-    "@angular/compiler-cli": "^18.0.0",
+    "@angular/compiler-cli": "^18.0.4",
     "@types/jasmine": "~5.1.0",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",

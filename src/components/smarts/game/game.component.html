@@ -1,26 +1,67 @@
 <div class="content">
-  <div class="column-right"></div>
-
-  <div class="column-center">
-    <div class="card">
-      <label for="images" class="drop-container" id="dropcontainer">
-        <span class="drop-title">Déposer vos fichiers</span>
-        ou
-        <input type="file" id="images" accept="image/*" required>
-      </label>
-      <div class="title-game">
-        <input placeholder="Title of Game..." class="input" type="text" ({NgModel})="title">
-      </div>
-      <div class="content-game">
-        <textarea class="input" placeholder="Description of the Game..."></textarea>
-      </div>
-      <div class="button-wrapper">
-        <app-button-red text="CANCEL"></app-button-red>
-        <app-button-green text="ADD"  (click)="printvalue()"></app-button-green>
-      </div>
-    </div>
-
-    <div class="column-left"></div>
-
+  
+  <div class="row-one">
+    <app-carousel></app-carousel>
   </div>
+
+  <div class="row-two">
+    <div class="card">
+      <div class="container">
+        <!-- code here -->
+        <div class="card-image">
+          <app-input-file></app-input-file>
+        </div>
+        
+        <form class="card-form">
+          <div class="input">
+            <input type="text" class="input-field" required
+              placeholder="write something here..." />
+            <label class="input-label">Title of your Game</label>
+          </div>
+          <div class="input">
+            <textarea type="text" class="input-field" required
+              placeholder="write something here..."></textarea>
+            <label class="input-label">Description of your Game</label>
+          </div>
+          <div class="action">
+            <button class="action-button">Add your Game</button>
+          </div>
+        </form>
+        <div class="card-info">
+          <p>For publish your Game you are agreeing to our <a href="#">Terms and
+              Conditions</a></p>
+        </div>
+      </div>
+      
+    </div>
+    
+      <div class="card">
+        <div class="container">
+          <!-- code here -->
+          <div class="card-image">
+            <app-input-file></app-input-file>
+          </div>
+          
+          <form class="card-form">
+            <div class="input">
+              <input type="text" class="input-field" required
+                placeholder="write something here..." />
+              <label class="input-label">Title of your Game</label>
+            </div>
+            <div class="input">
+              <textarea type="text" class="input-field" required
+                placeholder="write something here..."></textarea>
+              <label class="input-label">Description of your Game</label>
+            </div>
+            <div class="action">
+              <button class="action-button">Add your Game</button>
+            </div>
+          </form>
+          <div class="card-info">
+            <p>For publish your Game you are agreeing to our <a href="#">Terms and
+                Conditions</a></p>
+          </div>
+        </div>
+        
+      </div>
 </div>

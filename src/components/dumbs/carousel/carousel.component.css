@@ -121,7 +121,7 @@ li {
   width: 100%;
   background-image:url(/chiffres-jeu-video.jpg);
   counter-increment: item;
-  border: solid 0.5vh #ffb000;
+  border: solid 0.5vh #1a68ff;
   border-radius: 2em;
 
 
@@ -129,7 +129,7 @@ li {
 
 .carousel__slide:nth-child(even) {
   background-image: url(/230213-jeux-video.jpg);
-  object-fit: contain;
+ background-size: contain;
 }
 
 .carousel__slide:before {
@@ -192,12 +192,13 @@ li {
   display: block;
   width: 1rem;
   height: 1rem;
-  background-color: #1a65ff;
+  background-color: #ffffff;
   background-clip: crgb(255, 255, 255)box;
-  border: 0.25rem solid transparent;
+  border: 0.3rem double ;
   border-radius: 50%;
   font-size: 0;
   transition: transform 1.5s;
+  margin: 1vh;
 }
 
 .carousel::before,
@@ -207,8 +208,8 @@ li {
   position: absolute;
   top: 0;
   margin-top: 37.5%;
-  width: 4rem;
-  height: 4rem;
+  width: 3rem;
+  height: 3rem;
   transform: translateY(-50%);
   border-radius: 50%;
   font-size: 0;
@@ -217,13 +218,13 @@ li {
 
 .carousel::before,
 .carousel__prev {
-  left: -2rem;
+  left:-1.5rem;
   top: -4rem;
 }
 
 .carousel::after,
 .carousel__next {
-  right: -2rem;
+  right: -1.5rem;
   top: -4rem;
 }
 
@@ -231,14 +232,13 @@ li {
 .carousel::after {
   content: '';
   z-index: 1;
-  background-color: #1a68ff;
-  background-size: 1.5rem 1.5rem;
+  background-color: #ffb000;
+  background-size: 1rem 1rem;
   background-repeat: no-repeat;
   background-position: center center;
   color: #fff;
   font-size: 2.5rem;
   line-height: 4rem;
-  text-align: center;
   pointer-events: none;
 }
 

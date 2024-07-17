@@ -1,4 +1,4 @@
-import { Component, Input, input } from '@angular/core';
+import { Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-checkbox-template',
@@ -7,6 +7,6 @@ import { Component, Input, input } from '@angular/core';
   templateUrl: './checkbox-template.component.html',
   styleUrl: './checkbox-template.component.css'
 })
-export class CeckboxTemplateComponent {
+export class CheckboxTemplateComponent {
 @Input() text ="";
 }

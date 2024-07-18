@@ -6,11 +6,12 @@ import { FormControl, FormGroup, NgForm } from '@angular/forms';
 import { InputFileComponent } from "../../dumbs/input-file/input-file.component";
 import { CarouselComponent } from "../../dumbs/carousel/carousel.component";
 import { CategoryCreateComponent } from "../../dumbs/category-create/category-create.component";
+import { FormGameComponent } from "../../dumbs/form-game/form-game.component";
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [RouterLink, ButtonGreenComponent, ButtonRedComponent, InputFileComponent, CarouselComponent, CategoryCreateComponent],
+  imports: [RouterLink, ButtonGreenComponent, ButtonRedComponent, InputFileComponent, CarouselComponent, CategoryCreateComponent, FormGameComponent],
   templateUrl: './game.component.html',
   styleUrl: './game.component.css'
 })

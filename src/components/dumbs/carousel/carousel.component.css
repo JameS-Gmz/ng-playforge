@@ -1,251 +1,86 @@
-@keyframes tonext {
-  75% {
-    left: 0;
-  }
 
-  95% {
-    left: 100%;
-  }
-
-  98% {
-    left: 100%;
-  }
-
-  99% {
-    left: 0;
-  }
-}
-
-@keyframes tostart {
-  75% {
-    left: 0;
-  }
-
-  95% {
-    left: -300%;
-  }
-
-  98% {
-    left: -300%;
-  }
-
-  99% {
-    left: 0;
-  }
-}
-
-@keyframes snap {
-  96% {
-    scroll-snap-align: center;
-  }
-
-  97% {
-    scroll-snap-align: none;
-  }
-
-  99% {
-    scroll-snap-align: none;
-  }
-
-  100% {
-    scroll-snap-align: center;
-  }
-}
-
-body {
-  max-width: 37.5rem;
-  margin: 0 auto;
-  padding: 0 1.25rem;
-  font-family: 'Lato', sans-serif;
-  border-radius: 2vh;
-
-}
-
-* {
-  box-sizing: border-box;
-  scrollbar-color: transparent transparent;
-  /* thumb and track color */
-  scrollbar-width: 0px;
-}
-
-*::-webkit-scrollbar {
-  width: 0;
-}
-
-*::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-*::-webkit-scrollbar-thumb {
-  background: transparent;
-  border: none;
-}
-
-* {
-  -ms-overflow-style: none;
-}
-
-ol,
-li {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.carousel {
-  padding-top: 50vh;
-  filter: drop-shadow(0 0 10px #0003);
-  perspective: 100px;
-  width: 90vh;
-}
-
-.carousel__viewport {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  overflow-x: scroll;
-  counter-reset: item;
-  scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
-
-
-
-}
-
-.carousel__slide {
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
   position: relative;
-  flex: 0 0 100%;
-  width: 100%;
-  background-image:url(/chiffres-jeu-video.jpg);
-  counter-increment: item;
-  border: solid 0.5vh #1a68ff;
-  border-radius: 2em;
-
-
+  margin: auto;
 }
 
-.carousel__slide:nth-child(even) {
-  background-image: url(/230213-jeux-video.jpg);
- background-size: contain;
+/* Hide the images by default */
+.mySlides {
+  display: none;
 }
 
-.carousel__slide:before {
-  content: counter(item);
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate3d(-50%, -40%, 70px);
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
   color: white;
-  font-size: 5em;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
 }
 
-.carousel__snapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  scroll-snap-align: center;
-}
-
-@media (hover: hover) {
-  .carousel__snapper {
-    animation-name: tonext, snap;
-    animation-timing-function: ease;
-    animation-duration: 4s;
-    animation-iteration-count: infinite;
-  }
-
-  .carousel__slide:last-child .carousel__snapper {
-    animation-name: tostart, snap;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .carousel__snapper {
-    animation-name: none;
-  }
-}
-
-.carousel:hover .carousel__snapper,
-.carousel:focus-within .carousel__snapper {
-  animation-name: none;
-}
-
-.carousel__navigation {
+/* Position the "next button" to the right */
+.next {
   right: 0;
-  bottom: 0;
-  left: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
   text-align: center;
-  position: relative;
 }
 
-.carousel__navigation-list,
-.carousel__navigation-item {
-  display: inline-block;
-}
-
-.carousel__navigation-button {
-  display: block;
-  width: 1rem;
-  height: 1rem;
-  background-color: #ffffff;
-  background-clip: crgb(255, 255, 255)box;
-  border: 0.3rem double ;
-  border-radius: 50%;
-  font-size: 0;
-  transition: transform 1.5s;
-  margin: 1vh;
-}
-
-.carousel::before,
-.carousel::after,
-.carousel__prev,
-.carousel__next {
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
   position: absolute;
   top: 0;
-  margin-top: 37.5%;
-  width: 3rem;
-  height: 3rem;
-  transform: translateY(-50%);
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
   border-radius: 50%;
-  font-size: 0;
-  outline: 0;
+  display: inline-block;
+  transition: background-color 0.6s ease;
 }
 
-.carousel::before,
-.carousel__prev {
-  left:-1.5rem;
-  top: -4rem;
+.active, .dot:hover {
+  background-color: #717171;
 }
 
-.carousel::after,
-.carousel__next {
-  right: -1.5rem;
-  top: -4rem;
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
 }
 
-.carousel::before,
-.carousel::after {
-  content: '';
-  z-index: 1;
-  background-color: #ffb000;
-  background-size: 1rem 1rem;
-  background-repeat: no-repeat;
-  background-position: center center;
-  color: #fff;
-  font-size: 2.5rem;
-  line-height: 4rem;
-  pointer-events: none;
-}
-
-.carousel::before {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='0,50 80,100 80,0' fill='%23fff'/%3E%3C/svg%3E");
-}
-
-.carousel::after {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='100,50 20,100 20,0' fill='%23fff'/%3E%3C/svg%3E");
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
 }

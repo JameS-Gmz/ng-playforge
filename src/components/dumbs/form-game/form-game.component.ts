@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { InputFileComponent } from "../input-file/input-file.component";
 
 @Component({
-  selector: 'app-carousel',
+  selector: 'app-form-game',
   standalone: true,
   imports: [InputFileComponent],
-  templateUrl: './carousel.component.html',
-  styleUrl: './carousel.component.css'
+  templateUrl: './form-game.component.html',
+  styleUrl: './form-game.component.css'
 })
-export class CarouselComponent {
+export class FormGameComponent {
 
 }

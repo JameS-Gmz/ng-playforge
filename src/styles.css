@@ -1,13 +1,8 @@
-
-body{
-  display: flex;
-    padding: 0px;;
-    margin: 0px;
-  justify-content: center;
+body {
+  padding: 0px !important;
+  margin: 0% !important;
+  justify-items: center;
   align-items: center;
-  width:100vw;
-  background-color: rgb(37,43,67);
-  overflow-x: hidden;
+  background-color: rgb(37, 43, 67);
+  width: 90%;
 }
-
-

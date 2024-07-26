@@ -4,7 +4,7 @@ import { ButtonGreenComponent } from '../../dumbs/button-green/button-green.comp
 import { ButtonRedComponent } from "../../dumbs/button-red/button-red.component";
 import { FormControl, FormGroup, NgForm } from '@angular/forms';
 import { InputFileComponent } from "../../dumbs/input-file/input-file.component";
-import { CarouselComponent } from "../../dumbs/carousel/carousel.component";
+import { CarouselComponent } from "../carousel/carousel.component";
 import { CategoryCreateComponent } from "../../dumbs/category-create/category-create.component";
 import { FormGameComponent } from "../../dumbs/form-game/form-game.component";
 

@@ -2,14 +2,10 @@
     text-align: center;
     justify-content: center;
     align-items: center;
+    width: 100%;
   }
   
 .nav-link{
     text-decoration: none;
     color: white;
-}
-
-img{
-  width: auto;
-  height: 1.7em;
 }

@@ -9,7 +9,7 @@ select {
 	background-color:#252B43;
 	background-image: none;
 	cursor: pointer;
-    font-size:larger;
+    font-size:large;
 	padding-left: 0.15vh;
   }
   /* Remove IE arrow */
@@ -21,9 +21,9 @@ select {
   .select {
 	position: relative;
 	display: flex;
-	width: 15em;
+	width: 5%;
     min-width:15em ;
-	height: 3em;
+	height: 3%;
 	border-radius: .25em;
 	overflow: hidden;
   }

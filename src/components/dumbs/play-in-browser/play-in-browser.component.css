@@ -1,0 +1,10 @@
+.browser {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.browser  h1{
+color: white;
+}

@@ -2,6 +2,7 @@
 <div class="container">
   <!-- code here -->
   <div class="card-two ">
+    
   <form class="card-form">
 
     <div class="row-one">
@@ -61,10 +62,17 @@
 
       <div class="input">
         <input type="text" class="input-field" required
-          placeholder="write here..." />
+        placeholder="write here..." />
         <label class="input-label">Author / Studio</label>
       </div>
-
+      <div class="input">
+        <input type="text" class="input-field" required
+        placeholder="write here..." />
+        <label class="input-label"> Made with</label>
+      </div>
+    </div>
+    
+    <div class="row-three">
       <div class="Genre">
         <h2>Genre</h2>
         <div class="column-one">
@@ -73,6 +81,7 @@
           <app-checkbox-template text="Action/Aventure"></app-checkbox-template>
           <app-checkbox-template text="Rogue Like"></app-checkbox-template>
           <app-checkbox-template text="Simulation"></app-checkbox-template>
+          <app-checkbox-template text="RTS"></app-checkbox-template>
         </div>
         <div class="column-one">
           <app-checkbox-template text="TPS"></app-checkbox-template>
@@ -80,6 +89,8 @@
           <app-checkbox-template text="Battle Royale"></app-checkbox-template>
           <app-checkbox-template text="MMORPG"></app-checkbox-template>
           <app-checkbox-template text="MOBA"></app-checkbox-template>
+          <app-checkbox-template text="Party Games"></app-checkbox-template>
+          <app-checkbox-template text="Puzzlers"></app-checkbox-template>
         </div>
         <div class="column-one">
           <app-checkbox-template text="RPG"></app-checkbox-template>
@@ -87,26 +98,15 @@
           <app-checkbox-template text="Hack N' Slash"></app-checkbox-template>
           <app-checkbox-template text="Reflexion"></app-checkbox-template>
           <app-checkbox-template text="Beat them All"></app-checkbox-template>
-        </div>
-
-        <div class="column-one">
-          <app-checkbox-template text="RTS"></app-checkbox-template>
-          <app-checkbox-template text="Puzzlers"></app-checkbox-template>
-          <app-checkbox-template text="Party Games"></app-checkbox-template>
           <app-checkbox-template text="Plateforme"></app-checkbox-template>
         </div>
+
+
       </div>
 
-    </div>
 
-    <div class="row-three">
 
-      <div class="input">
-        <input type="text" class="input-field" required
-          placeholder="write here..." />
-        <label class="input-label"> Made with</label>
-      </div>
-
+      
       <div class="Tags">
         <h2>Tags</h2>
         <div class="column-one">
@@ -117,16 +117,14 @@
         </div>
         <div class="column-one">
           <app-checkbox-template
-            text="local Multiplayer"></app-checkbox-template>
+          text="local Multiplayer"></app-checkbox-template>
           <app-checkbox-template
-            text="Server Multiplayer"></app-checkbox-template>
+          text="Server Multiplayer"></app-checkbox-template>
           <app-checkbox-template
-            text="Network Multiplayer"></app-checkbox-template>
+          text="Network Multiplayer"></app-checkbox-template>
         </div>
-
       </div>
-
-    </div>
+ </div>
 
     <div class="row-four">
 

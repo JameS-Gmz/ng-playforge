@@ -3,21 +3,24 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: auto;
+	width: 100%;
+	height: 100%;
 	padding-top: 2% ;
 	padding-bottom: 2%;
 	
 }
 
-.row-two{
+.row{
 	display: grid;
 	grid-template-columns: 1fr 2fr;
-	gap: 2%;
-	padding-bottom:2%;
+	gap: 1%;
+}
+.row-two,.row-three{
+	padding-bottom: 5%;
 }
 
 @media (max-width:768px) {
-	.row-one,.row-two{
+	.row-one,.row{
 		display: flex;
 		flex-direction: column;
 		justify-content: center;

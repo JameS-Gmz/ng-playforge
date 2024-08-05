@@ -36,11 +36,6 @@ nav {
   justify-content: center;
 }
 
-.menu-toggle {
-  display: none;
-  color: white;
-  cursor: pointer;
-}
 
 
 @media (max-width: 768px) {
@@ -55,13 +50,10 @@ nav {
   }
   
   nav {
-    display: grid;
-    align-items: flex-start;
+    display: flex;
+    align-items: center;
   }
   
-    .menu-toggle {
-        display: block;
-    }
 
   .app-searchbar {
       width: 100%;

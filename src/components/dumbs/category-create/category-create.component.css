@@ -2,12 +2,12 @@
   .card-two {
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	width: 100%;
 	height: 100%;
 	background-color: #161C34;
 	border-radius: 10px;
 	box-shadow: 0 100px 200px 0 rgba(0, 0, 0, 0.25);
-	padding: 20px;
 	box-sizing: border-box;
   }
   
@@ -16,10 +16,10 @@
   }
 
   .form-section{
+	width: 100%;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	
 	gap: 2%;
 	padding: 1%;
   }
@@ -44,11 +44,10 @@
 	border: 0;
 	background-color: transparent;
 	border-bottom: 2px solid #eee;
-	font-size: 1.125rem;
-	padding: 0.25rem 0;
+	padding: 0.50%;
 	color: white;
-	width: 100%; /* S'assurer que le champ d'entrée occupe toute la largeur disponible */
-	box-sizing: border-box; /* Inclure le padding dans la largeur totale */
+	width: 100%;
+	box-sizing: border-box;
   }
 
   .genre,.tags{
@@ -79,9 +78,9 @@ legend{
 	max-width: 70vh;
 }
   
-  @media (max-width: 768px) {
+  @media (max-width: 1600px) {
 	.card-two{
-		padding: 1rem;
+		padding: 1%;
 	}
 
 
@@ -90,5 +89,9 @@ legend{
 		flex-direction: column;
 	}
 
+  }
 
+  @media (max-width:768px) {
+	.card-two{
+width: 100vw;	}
   }

@@ -19,7 +19,7 @@ select::-ms-expand {
 .select {
 	position: relative;
 	display: flex;
-	width: 100%;
+	width: 95%;
 	min-width: 15em;
 	border-radius: .25em;
 	overflow: hidden;
@@ -30,9 +30,8 @@ select::-ms-expand {
 	position: absolute;
 	top: 0;
 	right: 0;
-	padding: 1em;
+	padding: 1em;	
 	background-color: #1a68ff;
-	transition: .25s all ease;
 	pointer-events: none;
 }
 

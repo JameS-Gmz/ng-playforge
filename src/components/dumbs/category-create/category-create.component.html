@@ -1,42 +1,30 @@
-
-<div class="container">
-  <!-- code here -->
-  <div class="card-two ">
-    
+<div class="card-two">
   <form class="card-form">
+    <div class="form-section">
+      <app-select-components text="Languages"
+        value1="French"
+        value2="English"
+        value3="Spanish"
+        value4="Italian"
+        value5="German">
+      </app-select-components>
 
-    <div class="row-one">
+      <app-select-components text="Inputs"
+        value1="Xbox Controller"
+        value2="Kinect"
+        value3="Playstation Controller"
+        value4="WiiMote"
+        value5="SmartPhone"
+        value6="TouchScreen"
+        value7="Voice Control"
+        value8="JoyCon"
+        value9="SimRacing"
+        value10="Virtual Reality (VR)"
+        value11="DancePad"
+        value12="Mouse and Keyboard">
+      </app-select-components>
 
-      <div class="column">
-
-        <app-select-components text="Languages"
-          value1="French"
-          value2="English"
-          value3="Spanish"
-          value4="Italian"
-          value5="German">
-        </app-select-components>
-
-        <app-select-components text="Inputs" 
-          value1="Xbox Controller"
-          value2="Kinect"
-          value3="Playstation Controller"
-          value4="WiiMote"
-          value5="SmartPhone"
-          value6="TouchScreen"
-          value7="Voice Control"
-          value8="JoyCon"
-          value9="SimRacing"
-          value10="Virtual Reality (VR)"
-          value11="DancePad"
-          value12="Mouse and Keyboard">
-        </app-select-components>
-
-      </div>
-      
-
-      <div class="column">
-        <app-select-components text="Status"
+      <app-select-components text="Status"
         value1="Alpha"
         value2="Beta"
         value3="Demo"
@@ -44,96 +32,86 @@
         value5="Released">
       </app-select-components>
 
-        <app-select-components  text="Plateforms"
-          value1="MacOS"
-          value2="Linux"
-          value3="Windows"
-          value4="IOS"
-          value5="Android"
-          value1="Play in Browser">
-        </app-select-components>
-
-      </div>
-
+      <app-select-components text="Platforms"
+        value1="MacOS"
+        value2="Linux"
+        value3="Windows"
+        value4="iOS"
+        value5="Android"
+        value6="Play in Browser">
+      </app-select-components>
     </div>
-    
 
-    <div class="row-two">
+<div class="form-list-input">
+  <div class="form-input">
+    <label class="input-label" for="author-studio">
+      <input type="text" id="author-studio" class="input-field" required
+        placeholder="write here..." >
+        Author / Studio
+    </label>
+  </div>
 
-      <div class="input">
-        <input type="text" class="input-field" required
-        placeholder="write here..." />
-        <label class="input-label">Author / Studio</label>
+  <div class="form-input">
+    <label class="input-label" for="made-with">
+      <input type="text" id="made-with" class="input-field" required
+        placeholder="write here..." title="Made with"/>
+      <p>Made with</p>
+    </label>
+  </div>
+</div>
+
+    <fieldset class="genre">
+      <legend>Genre</legend>
+      <div class="genre-column">
+        <app-checkbox-template id="genre-fps" text="FPS"></app-checkbox-template>
+        <app-checkbox-template id="genre-survival" text="Survival"></app-checkbox-template>
+        <app-checkbox-template id="genre-action-adventure" text="Action/Adventure"></app-checkbox-template>
+        <app-checkbox-template id="genre-rogue-like" text="Rogue Like"></app-checkbox-template>
+        <app-checkbox-template id="genre-simulation" text="Simulation"></app-checkbox-template>
+        <app-checkbox-template id="genre-rts" text="RTS"></app-checkbox-template>
       </div>
-      <div class="input">
-        <input type="text" class="input-field" required
-        placeholder="write here..." />
-        <label class="input-label"> Made with</label>
+      <div class="genre-column">
+        <app-checkbox-template id="genre-rpg" text="RPG"></app-checkbox-template>
+        <app-checkbox-template id="genre-rythme" text="Rhythm"></app-checkbox-template>
+        <app-checkbox-template id="genre-hack-slash" text="Hack N' Slash"></app-checkbox-template>
+        <app-checkbox-template id="genre-reflexion" text="Reflection"></app-checkbox-template>
+        <app-checkbox-template id="genre-beat-them-all" text="Beat them All"></app-checkbox-template>
+        <app-checkbox-template id="genre-platformer" text="Platformer"></app-checkbox-template>
       </div>
-    </div>
-    
-    <div class="row-three">
-      <div class="Genre">
-        <h2>Genre</h2>
-        <div class="column-one">
-          <app-checkbox-template text="FPS"></app-checkbox-template>
-          <app-checkbox-template text="Survival"></app-checkbox-template>
-          <app-checkbox-template text="Action/Aventure"></app-checkbox-template>
-          <app-checkbox-template text="Rogue Like"></app-checkbox-template>
-          <app-checkbox-template text="Simulation"></app-checkbox-template>
-          <app-checkbox-template text="RTS"></app-checkbox-template>
-        </div>
-        <div class="column-one">
-          <app-checkbox-template text="TPS"></app-checkbox-template>
-          <app-checkbox-template text="Combat"></app-checkbox-template>
-          <app-checkbox-template text="Battle Royale"></app-checkbox-template>
-          <app-checkbox-template text="MMORPG"></app-checkbox-template>
-          <app-checkbox-template text="MOBA"></app-checkbox-template>
-          <app-checkbox-template text="Party Games"></app-checkbox-template>
-          <app-checkbox-template text="Puzzlers"></app-checkbox-template>
-        </div>
-        <div class="column-one">
-          <app-checkbox-template text="RPG"></app-checkbox-template>
-          <app-checkbox-template text="Rythme"></app-checkbox-template>
-          <app-checkbox-template text="Hack N' Slash"></app-checkbox-template>
-          <app-checkbox-template text="Reflexion"></app-checkbox-template>
-          <app-checkbox-template text="Beat them All"></app-checkbox-template>
-          <app-checkbox-template text="Plateforme"></app-checkbox-template>
-        </div>
-
-
+      <div class="genre-column">
+        <app-checkbox-template id="genre-tps" text="TPS"></app-checkbox-template>
+        <app-checkbox-template id="genre-combat" text="Combat"></app-checkbox-template>
+        <app-checkbox-template id="genre-battle-royale" text="Battle Royale"></app-checkbox-template>
+        <app-checkbox-template id="genre-mmorpg" text="MMORPG"></app-checkbox-template>
+        <app-checkbox-template id="genre-moba" text="MOBA"></app-checkbox-template>
+        <app-checkbox-template id="genre-party-games" text="Party Games"></app-checkbox-template>
+        <app-checkbox-template id="genre-puzzlers" text="Puzzlers"></app-checkbox-template>
       </div>
+    </fieldset>
 
-
-
-      
-      <div class="Tags">
-        <h2>Tags</h2>
-        <div class="column-one">
-          <app-checkbox-template text="Free"></app-checkbox-template>
-          <app-checkbox-template text="On Sale !"></app-checkbox-template>
-          <app-checkbox-template text="5€ or less"></app-checkbox-template>
-          <app-checkbox-template text="10€ or less"></app-checkbox-template>
-        </div>
-        <div class="column-one">
-          <app-checkbox-template
-          text="local Multiplayer"></app-checkbox-template>
-          <app-checkbox-template
-          text="Server Multiplayer"></app-checkbox-template>
-          <app-checkbox-template
-          text="Network Multiplayer"></app-checkbox-template>
-        </div>
+    <fieldset class="tags">
+      <legend>Tags</legend>
+      <div class="tags-column">
+        <legend class="small-legend">Price</legend>
+        <app-checkbox-template id="tag-free" text="Free"></app-checkbox-template>
+        <app-checkbox-template id="tag-on-sale" text="On Sale!"></app-checkbox-template>
+        <app-checkbox-template id="tag-5-euros-or-less" text="5€ or less"></app-checkbox-template>
+        <app-checkbox-template id="tag-10-euros-or-less" text="10€ or less"></app-checkbox-template>
       </div>
- </div>
-
-    <div class="row-four">
-
-      <div class="input">
-        <textarea type="text" class="input-field" id="input-field" required
-          placeholder="comment the new updated..."></textarea>
-        <label class="input-label">Last Updated</label>
+      <div class="tags-column">
+        <legend class="small-legend">Players</legend>
+        <app-checkbox-template id="tag-local-multiplayer" text="Local Multiplayer"></app-checkbox-template>
+        <app-checkbox-template id="tag-server-multiplayer" text="Server Multiplayer"></app-checkbox-template>
+        <app-checkbox-template id="tag-network-multiplayer" text="Network Multiplayer"></app-checkbox-template>
       </div>
+    </fieldset>
+
+    <div class="form-input">
+      <label class="input-label" for="last-updated" id="last-updated">
+        <textarea  class="input-field" required
+          placeholder="Comment the new update..."></textarea>
+        <p>Last Updated</p>
+      </label>
     </div>
   </form>
-</div>
 </div>

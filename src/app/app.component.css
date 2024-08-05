@@ -1,8 +1,9 @@
 .page  {
     width:100vw;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
     margin:0px;
     padding: 0px;
 }
-
-
-

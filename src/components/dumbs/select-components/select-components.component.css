@@ -1,4 +1,3 @@
-
 select {
 	/* Reset Select */
 	border: 0;
@@ -6,40 +5,37 @@ select {
 	/* Personalize */
 	flex: 1;
 	color: #ffffff;
-	background-color:#252B43;
+	background-color: #252B43;
 	background-image: none;
 	cursor: pointer;
-    font-size:large;
-	padding-left: 0.15vh;
-  }
-  /* Remove IE arrow */
-  select::-ms-expand {
-	display: none;
-  }
-  /* Custom Select wrapper */
+	font-size: large;
+	padding: 1vh;
+}
 
-  .select {
+select::-ms-expand {
+	display: none;
+}
+
+.select {
 	position: relative;
 	display: flex;
-	width: 5%;
-    min-width:15em ;
-	height: 3%;
+	width: 100%;
+	min-width: 15em;
 	border-radius: .25em;
 	overflow: hidden;
-  }
-  /* Arrow */
-  .select::after {
+}
+
+.select::after {
 	content: '\25BC';
 	position: absolute;
 	top: 0;
 	right: 0;
 	padding: 1em;
-	background-color:#1a68ff;
+	background-color: #1a68ff;
 	transition: .25s all ease;
 	pointer-events: none;
-  }
-  /* Transition */
-  .select:hover::after {
+}
+
+.select:hover::after {
 	color: #ffb000;
-  }
- 
+}

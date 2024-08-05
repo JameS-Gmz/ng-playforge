@@ -1,11 +1,22 @@
-.nav-item{
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-  }
-  
-.nav-link{
-    text-decoration: none;
-    color: white;
+.nav-item {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.nav-item img {
+
+  min-height: auto;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+  font-size: auto;
+}
+
+p {
+  color: white;
+  font-size: auto;
 }

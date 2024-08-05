@@ -18,7 +18,7 @@ export class CarouselComponent {
   }
 
   getPrev() {
-      this.i = this.i===0 ? 0 : this.i - 1;
+      this.i = this.i===0 ? 0 : this.i - 2;
   }
 //edit here    
   getNext() {

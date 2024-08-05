@@ -11,7 +11,17 @@
 
 .row-two{
 	display: grid;
-	grid-template-columns: 1fr 4fr;
-	justify-items: center;
-	align-items: center;
+	grid-template-columns: 1fr 2fr;
+	gap: 2%;
+	padding-bottom:2%;
+}
+
+@media (max-width:768px) {
+	.row-one,.row-two{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		}
+
 }

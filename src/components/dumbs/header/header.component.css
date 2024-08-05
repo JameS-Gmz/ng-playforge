@@ -1,17 +1,70 @@
+/* Basic Reset */
+
+
 .header {
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  justify-items: center;
+  background-color: rgb(22, 28, 52);
+  padding: 10px 0;
+}
+
+nav {
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(22, 28, 52);
-  text-decoration: none;
+  flex-wrap: wrap;
+  padding: 0 20px;
 }
 
 .nav {
   display: flex;
-  width: 100%;
-  align-items: center;
   list-style-type: none;
+}
+
+.nav li {
+  margin: 0 10px;
+}
+
+.nav li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.app-searchbar {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.menu-toggle {
+  display: none;
+  color: white;
+  cursor: pointer;
+}
+
+
+@media (max-width: 768px) {
+  .nav {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+  }
+
+  .nav.active {
+      display: flex;
+  }
+  
+  nav {
+    display: grid;
+    align-items: flex-start;
+  }
+  
+    .menu-toggle {
+        display: block;
+    }
+
+  .app-searchbar {
+      width: 100%;
+      margin: 10px 0;
+  }
 }

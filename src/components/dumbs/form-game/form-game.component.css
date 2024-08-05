@@ -1,150 +1,118 @@
-
-*, *:after, *:before {
-	box-sizing: border-box;
-}
-
-body {
-	font-family: "DM Sans", sans-serif;
-	line-height: 1.5;
-	background-color: #f1f3fb;
-	padding: 0 2rem;
-}
-
-img {
-	max-width: 100%;
-	display: block;
-}
-
-
-/* iOS Reset */ 
-input {
-	appearance: none;
-	border-radius: 0;
-}
-
 .card {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-  height: 70vh;
-	max-width: 50vh;
-	background-color: #161C34;
-	border-radius: 10px;
-	box-shadow:  0 100px 200px 0 rgba(#000000, .25);
-	padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    background-color: #161C34;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+    padding: 2rem;
 
 }
-
-
 
 .card-image {
-	border-radius: 8px;
-	overflow: hidden;
-	padding-bottom: 65%;
-	background-image: url(/chiffres-jeu-video.jpg);
- background-size:contain ;
-	background-repeat: no-repeat;
-	background-size: 150%;
-	background-position: 0 5%;
-	position: relative;
-  border:  #ffb000 2px solid;
-  padding: 5vh;
+    border-radius: 8px;
+    overflow: hidden;
+    background-image: url(/chiffres-jeu-video.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: #ffb000 2px solid;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 25vh;
 }
 
 .card-heading {
-  display: flex;
-flex-direction: column;
-  justify-content: center;
-  align-items: center;
-	font-size: 1.50rem;
-	font-weight: 700;
-  color: #1A68FF;
-  background-color: rgba(255, 255, 255, 0.9) ;
-   border-radius: 1vh;
-  padding: 2vh;
-  line-height: 1;
-	small {
-		display: block;
-		font-size: .75em;
-		font-weight: 400;
-		margin-top: .25em;
-	}
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #1A68FF;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 1vh;
+    padding: 2vh;
+    position: absolute;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 30vh;
 }
 
-.card-form {
-	padding: 2rem 1rem 0;
+.card-heading small {
+    display: block;
+    font-size: 0.75em;
+    font-weight: 400;
+    margin-top: 0.25em;
 }
+
 
 .input {
-	display: flex;
-	flex-direction: column-reverse;
-	position: relative;
-	padding-top: 2rem;
-	&+.input {
-		margin-top: 1.5rem;
-	}
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-top: 2%;
 }
 
 .input-label {
-	color: #ffffff;
-	position: absolute;
-	top: 1.5rem;
-	transition: .25s ease;
+    display: flex;
+    flex-direction: column-reverse;
+    color: #ffffff;
+    position: relative;
+    width: 100%;
 }
 
 .input-field {
-
-	border: 0;
-	z-index: 1;
-	background-color: transparent;
-	border-bottom: 2px solid #eee; 
-	font: inherit;
-	font-size: 1rem;
-	padding: 5% ;
-  color: white;
-  height: 3vh;
-  min-height: 3vh;
-  max-height: 15vh;
-  min-width: 40vh;
-  max-width: 40vh;
-	&:focus, &:valid {
-		outline: 0;
-		border-bottom-color:  #ffb000;
-		&+.input-label {
-			color: rgb(255, 255, 255);
-			transform: translateY(-1.5rem);
-		}
-	}
-}
-
-.action {
-	margin-top: 2rem;
+    border: 0;
+    background-color: transparent;
+    border-bottom: 2px solid #eee;
+    font: inherit;
+    font-size: 1rem;
+    padding: 0.5rem;
+    color: white;
+    max-width: 4%;
+    min-width: 40vh;
+    max-height: 20vh;
+    min-height: 5vh;
 }
 
 .action-button {
-	font: inherit;
-	font-size: 1.25rem;
-	padding: 1em;
-	width: 100%;
-	font-weight: 500;
-	background-color: #1A68FF;
-	border-radius: 6px;
-	color: #FFF;
-	border: 0;
-	&:focus {
-		outline: 0;
-	}
+    margin-top: 2%;
+    padding: 1em;
+    width: 100%;
+    background-color: #1A68FF;
+    border-radius: 6px;
+    color: #FFF;
+    border: 0;
+    cursor: pointer;
 }
 
 .card-info {
-	padding: 1rem 1rem;
-	text-align: center;
-	font-size: .875rem;
-	color: #8597a3;
-	a {
-		display: block;
-		color: #6658d3;
-		text-decoration: none;
-	}
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #8597a3;
 }
 
+.card-info a {
+    color: #6658d3;
+    text-decoration: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card {
+        padding: 1rem;
+    }
+
+    .card-heading {
+        font-size: 1.25rem;
+        padding: 1vh;
+        width: auto;
+        max-width: none;
+    }
+
+    .input-field,
+    .action-button {
+        width: 100%;
+    }
+}

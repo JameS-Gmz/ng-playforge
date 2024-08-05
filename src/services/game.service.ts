@@ -5,7 +5,21 @@ import { FormGroup, FormControl } from '@angular/forms';
   providedIn: 'root'
 })
 export class GameService implements OnInit {
-
+  
+  clearGame(): void {
+    try {
+      
+    } catch (Error) {
+      console.log(Error)
+    }
+  }
+  getInfo() {
+    try {
+      
+    } catch (Error) {
+      console.log(Error)
+    }
+  }
   ngOnInit(): void {
     const headers: Headers = new Headers()
     headers.append("Content-Type", "application/json")

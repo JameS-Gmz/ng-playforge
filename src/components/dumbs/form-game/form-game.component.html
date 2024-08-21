@@ -1,45 +1,27 @@
 <div class="card">
-    <div class="card-image">
+  <div class="card-image">
       <app-input-file></app-input-file>
-    </div>
+  </div>
 
-    <form class="card-form" (ngSubmit)="OnSubmit()">
+  <form #postGameForm="ngForm" class="card-form">
 
       <div class="input">
-
-        <label class="input-label" for="title">
-          <input type="text" class="input-field" id="title"
-            formControlName="title" required
-            placeholder="write something here..." />
-
-          Title of your Game</label>
-
+          <label class="input-label" for="title">
+              Title of your Game
+              <input type="text" class="input-field" id="title" name="title" placeholder="write something here..." required ngModel/>
+          </label>
       </div>
 
       <div class="input">
-
-        <label class="input-label" for="description">
-          <textarea type="text" name="" class="input-field" required
-            placeholder="write something here..." id="description"
-            formControlName="description"></textarea>
-
-          Description of your Game
-        </label>
-
+          <label class="input-label" for="description">
+              Description of your Game
+              <textarea id="description" class="input-field" name="description" placeholder="write something here..." required ngModel></textarea>
+          </label>
       </div>
-
-      <div class="action">
-        <button class="action-button" type="submit">Add your Game</button>
-
-      </div>
+    </form>
 
       <div class="card-info">
-
-        <p>For publish your Game you are agreeing to our <a href="#">Terms
-            and
-            Conditions</a></p>
-
+          <p>To publish your Game, you are agreeing to our <a href="#">Terms and Conditions</a></p>
       </div>
 
-    </form>
-  </div>
+</div>

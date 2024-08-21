@@ -1,32 +1,28 @@
-import { Component } from '@angular/core';
+import { booleanAttribute, Component, ViewChild } from '@angular/core';
 import { InputFileComponent } from "../input-file/input-file.component";
-import { FormBuilder} from "@angular/forms";
-import { GameService } from '../../../services/game.service';
+import { FormBuilder, FormsModule, NgForm } from "@angular/forms";
+import { CategoryCreateComponent } from '../category-create/category-create.component';
 @Component({
   selector: 'app-form-game',
   standalone: true,
-  imports: [InputFileComponent],
+  imports: [InputFileComponent, FormsModule,CategoryCreateComponent],
   templateUrl: './form-game.component.html',
   styleUrl: './form-game.component.css'
 })
 export class FormGameComponent {
-OnSubmit() {
-  this.Info = this.gameService.clearGame();
-  console.warn('Your order has been submitted', this.postGame.value);
-  this.postGame.reset();
-  console.log(this.postGame.value)
-}
 
-  postGame = this.formBuilder.group({
-   title: "",
-   description:""
-  });
+  @ViewChild('postGameForm') postGameForm!: NgForm;
 
-  constructor(
-    private gameService : GameService,
-    private formBuilder: FormBuilder
-  ){}
+  isValid(): boolean|null{
+    return this.postGameForm ? this.postGameForm.valid : null;
 
-  Info = this.gameService.getInfo()
+  }
 
-}
+  getFormValues() {
+    if (this.postGameForm) {
+      return this.postGameForm.value;
+    }
+  }
+  }
+  
+

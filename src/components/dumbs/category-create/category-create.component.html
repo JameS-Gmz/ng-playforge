@@ -1,15 +1,16 @@
 <div class="card-two">
-  <form class="card-form">
+  <form class="card-form" #categoryCreateForm="ngForm">
     <div class="form-section">
       <app-select-components text="Languages"
         value1="French"
         value2="English"
         value3="Spanish"
         value4="Italian"
-        value5="German">
+        value5="German"
+        [(ngModel)]="formData.languages" name="languages">
       </app-select-components>
 
-      <app-select-components text="Inputs"
+      <app-select-components text="Controller"
         value1="Xbox Controller"
         value2="Kinect"
         value3="Playstation Controller"
@@ -21,7 +22,9 @@
         value9="SimRacing"
         value10="Virtual Reality (VR)"
         value11="DancePad"
-        value12="Mouse and Keyboard">
+        value12="Mouse and Keyboard"
+        [(ngModel)]="formData.controller" name="Controller">
+        >
       </app-select-components>
 
       <app-select-components text="Status"
@@ -29,7 +32,9 @@
         value2="Beta"
         value3="Demo"
         value4="In development"
-        value5="Released">
+        value5="Released"
+        [(ngModel)]="formData.status" name="Status">
+        >
       </app-select-components>
 
       <app-select-components text="Platforms"
@@ -38,23 +43,25 @@
         value3="Windows"
         value4="iOS"
         value5="Android"
-        value6="Play in Browser">
+        value6="Play in Browser"
+        [(ngModel)]="formData.platforms" name="Platforms">
+        >
       </app-select-components>
     </div>
 
 <div class="form-list-input">
   <div class="form-input">
-    <label class="input-label" for="author-studio">
-      <input type="text" id="author-studio" class="input-field" required
+    <label class="input-label" for="author-studio" required>
+      <input type="text" id="author-studio" class="input-field" required  [(ngModel)]="formData.authorStudio" name="authorStudio"
         placeholder="write here..." >
         Author / Studio
     </label>
   </div>
 
   <div class="form-input">
-    <label class="input-label" for="made-with">
+    <label class="input-label" for="made-with" required>
       <input type="text" id="made-with" class="input-field" required
-        placeholder="write here..." title="Made with"/>
+        placeholder="write here..." title="Made with" [(ngModel)]="formData.madeWith" name="madeWith"/>
       <p>Made with</p>
     </label>
   </div>
@@ -63,29 +70,29 @@
     <fieldset class="genre">
       <legend>Genre</legend>
       <div class="genre-column">
-        <app-checkbox-template id="genre-fps" text="FPS"></app-checkbox-template>
-        <app-checkbox-template id="genre-survival" text="Survival"></app-checkbox-template>
-        <app-checkbox-template id="genre-action-adventure" text="Action/Adventure"></app-checkbox-template>
-        <app-checkbox-template id="genre-rogue-like" text="Rogue Like"></app-checkbox-template>
-        <app-checkbox-template id="genre-simulation" text="Simulation"></app-checkbox-template>
-        <app-checkbox-template id="genre-rts" text="RTS"></app-checkbox-template>
+        <app-checkbox-template id="genre-fps" text="FPS"[(ngModel)]="formData.genres.fps" name="genreFps"></app-checkbox-template>
+        <app-checkbox-template id="genre-survival" text="Survival"[(ngModel)]="formData.genres.survival" name="genreSurvival"></app-checkbox-template>
+        <app-checkbox-template id="genre-action-adventure" text="Action/Adventure"[(ngModel)]="formData.genres.actionadventure" name="genreActionAdventure"></app-checkbox-template>
+        <app-checkbox-template id="genre-rogue-like" text="Rogue Like"[(ngModel)]="formData.genres.roguelike" name="genreRogueLike"></app-checkbox-template>
+        <app-checkbox-template id="genre-simulation" text="Simulation"[(ngModel)]="formData.genres.simulation" name="genreSimulation"></app-checkbox-template>
+        <app-checkbox-template id="genre-rts" text="RTS"[(ngModel)]="formData.genres.rts" name="genreRts"></app-checkbox-template>
       </div>
       <div class="genre-column">
-        <app-checkbox-template id="genre-rpg" text="RPG"></app-checkbox-template>
-        <app-checkbox-template id="genre-rythme" text="Rhythm"></app-checkbox-template>
-        <app-checkbox-template id="genre-hack-slash" text="Hack N' Slash"></app-checkbox-template>
-        <app-checkbox-template id="genre-reflexion" text="Reflection"></app-checkbox-template>
-        <app-checkbox-template id="genre-beat-them-all" text="Beat them All"></app-checkbox-template>
-        <app-checkbox-template id="genre-platformer" text="Platformer"></app-checkbox-template>
+        <app-checkbox-template id="genre-rpg" text="RPG"[(ngModel)]="formData.genres.rpg" name="genreRpg"></app-checkbox-template>
+        <app-checkbox-template id="genre-rythme" text="Rhythm"[(ngModel)]="formData.genres.rhythm" name="genreRhythm"></app-checkbox-template>
+        <app-checkbox-template id="genre-hack-slash" text="Hack N' Slash" [(ngModel)]="formData.genres.hacknslash" name="genreHackSlash"></app-checkbox-template>
+        <app-checkbox-template id="genre-reflexion" text="Reflection"[(ngModel)]="formData.genres.reflection" name="genreReflection"></app-checkbox-template>
+        <app-checkbox-template id="genre-beat-them-all" text="Beat them All" [(ngModel)]="formData.genres.beatthemall" name="genreBeatThemAll"></app-checkbox-template>
+        <app-checkbox-template id="genre-platformer" text="Platformer"[(ngModel)]="formData.genres.plateformer" name="genrePlateformer"></app-checkbox-template>
       </div>
       <div class="genre-column">
-        <app-checkbox-template id="genre-tps" text="TPS"></app-checkbox-template>
-        <app-checkbox-template id="genre-combat" text="Combat"></app-checkbox-template>
-        <app-checkbox-template id="genre-battle-royale" text="Battle Royale"></app-checkbox-template>
-        <app-checkbox-template id="genre-mmorpg" text="MMORPG"></app-checkbox-template>
-        <app-checkbox-template id="genre-moba" text="MOBA"></app-checkbox-template>
-        <app-checkbox-template id="genre-party-games" text="Party Games"></app-checkbox-template>
-        <app-checkbox-template id="genre-puzzlers" text="Puzzlers"></app-checkbox-template>
+        <app-checkbox-template id="genre-tps" text="TPS"[(ngModel)]="formData.genres.tps" name="genreTps"></app-checkbox-template>
+        <app-checkbox-template id="genre-combat" text="Combat"[(ngModel)]="formData.genres.combat" name="genreCombat"></app-checkbox-template>
+        <app-checkbox-template id="genre-battle-royale" text="Battle Royale"[(ngModel)]="formData.genres.battleroyale" name="genreBattleRoyale"></app-checkbox-template>
+        <app-checkbox-template id="genre-mmorpg" text="MMORPG"[(ngModel)]="formData.genres.mmorpg" name="genreMMORpg"></app-checkbox-template>
+        <app-checkbox-template id="genre-moba" text="MOBA"[(ngModel)]="formData.genres.moba" name="genreMoba"></app-checkbox-template>
+        <app-checkbox-template id="genre-party-games" text="Party Games"[(ngModel)]="formData.genres.partygames" name="genrePartyGames"></app-checkbox-template>
+        <app-checkbox-template id="genre-puzzlers" text="Puzzlers"[(ngModel)]="formData.genres.puzzlers" name="genrePuzzlers"></app-checkbox-template>
       </div>
     </fieldset>
 
@@ -93,23 +100,23 @@
       <legend>Tags</legend>
       <div class="tags-column">
         <legend class="small-legend">Price</legend>
-        <app-checkbox-template id="tag-free" text="Free"></app-checkbox-template>
-        <app-checkbox-template id="tag-on-sale" text="On Sale!"></app-checkbox-template>
-        <app-checkbox-template id="tag-5-euros-or-less" text="5€ or less"></app-checkbox-template>
-        <app-checkbox-template id="tag-10-euros-or-less" text="10€ or less"></app-checkbox-template>
+        <app-checkbox-template id="tag-free" text="Free"[(ngModel)]="formData.tags.free" name="tagFree"></app-checkbox-template>
+        <app-checkbox-template id="tag-on-sale" text="On Sale!" [(ngModel)]="formData.tags.onSale" name="tagOnSale"></app-checkbox-template>
+        <app-checkbox-template id="tag-5-euros-or-less" text="5€ or less"[(ngModel)]="formData.tags.fiveEuroOrLess" name="tag5euroorless"></app-checkbox-template>
+        <app-checkbox-template id="tag-10-euros-or-less" text="10€ or less"[(ngModel)]="formData.tags.tenEuroOrLess" name="tag10euroorless"></app-checkbox-template>
       </div>
       <div class="tags-column">
         <legend class="small-legend">Players</legend>
-        <app-checkbox-template id="tag-local-multiplayer" text="Local Multiplayer"></app-checkbox-template>
-        <app-checkbox-template id="tag-server-multiplayer" text="Server Multiplayer"></app-checkbox-template>
-        <app-checkbox-template id="tag-network-multiplayer" text="Network Multiplayer"></app-checkbox-template>
+        <app-checkbox-template id="tag-local-multiplayer" text="Local Multiplayer"[(ngModel)]="formData.tags.localmultiplayer" name="tagLocalMultipayer"></app-checkbox-template>
+        <app-checkbox-template id="tag-server-multiplayer" text="Server Multiplayer"[(ngModel)]="formData.tags.servermultiplayer" name="tagServerMultipayer"></app-checkbox-template>
+        <app-checkbox-template id="tag-network-multiplayer" text="Network Multiplayer"[(ngModel)]="formData.tags.networkmultiplayer" name="tagNetworkMultipayer"></app-checkbox-template>
       </div>
     </fieldset>
 
     <div class="form-input">
       <label class="input-label" for="last-updated" id="last-updated">
         <textarea  class="input-field" required
-          placeholder="Comment the new update..."></textarea>
+          placeholder="Comment the new update..."  [(ngModel)]="formData.lastUpdated" name="lastUpdated"></textarea>
         <p>Last Updated</p>
       </label>
     </div>

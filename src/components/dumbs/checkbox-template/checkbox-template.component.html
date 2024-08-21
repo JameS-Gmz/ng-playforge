@@ -1,6 +1,7 @@
 <div class="container">
     <label class="checkbox-label">
-        <input type="checkbox" name="todo" value="todo">
+        <input type="checkbox"  [checked]="isChecked" 
+        (change)="onCheckboxChange($event)">
     </label>
     <p>{{text}}</p>
 </div>

@@ -10,7 +10,7 @@ import { CheckboxTemplateComponent } from "../../dumbs/checkbox-template/checkbo
   styleUrl: './carousel.component.css'
 })
 export class CarouselComponent {
-  slides: string [] = ['Ago-Que-es-un-gamer_2.jpg', '230213-jeux-video.jpg', 'chiffres-jeu-video.jpg', 'R.jpg' ]
+  slides: string [] = ['Ago-Que-es-un-gamer_2.jpg', '230213-jeux-video.jpg', 'chiffres-jeu-video.jpg', 'SpaceInvaders.jpg' ]
   i=0;
 
   getSlide() {
@@ -18,7 +18,7 @@ export class CarouselComponent {
   }
 
   getPrev() {
-      this.i = this.i===0 ? 0 : this.i - 2;
+      this.i = this.i===0 ? 0 : this.i - 1;
   }
 //edit here    
   getNext() {

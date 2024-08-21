@@ -116,8 +116,7 @@
         height: 5%;
     }
 
-    .input-field,
-    .action-button {
+    .input-field {
         width: 100%;
         max-width: 100vw;
     }

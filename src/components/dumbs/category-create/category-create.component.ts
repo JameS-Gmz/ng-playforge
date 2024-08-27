@@ -56,8 +56,10 @@ export class CategoryCreateComponent {
   @ViewChild('categoryCreateForm') categoryCreateForm!: NgForm;
 
   getFormValues() {
-    console.log(this.formData.languages)
-    return this.categoryCreateForm ? this.categoryCreateForm.value : {};
+    return {
+      authorStudio : this.categoryCreateForm.value.authorStudio,
+      madewith : this.categoryCreateForm.value.madewith,
+      category : this.categoryCreateForm ? this.categoryCreateForm.value : {}}
   }
   isValid(): boolean | null {
     return this.categoryCreateForm ? this.categoryCreateForm.valid : null;

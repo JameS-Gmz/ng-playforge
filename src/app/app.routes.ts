@@ -6,7 +6,7 @@ import { LibraryComponent } from '../components/dumbs/library/library.component'
 import { ProfileComponent } from '../components/dumbs/profile/profile.component';
 
 export const routes: Routes = [
-    {path: "home", component:HomeComponent},
+    {path: "", component:HomeComponent},
     {path: "game", component:GameComponent},
     {path: "all-game", component:AllGamesComponent},
     {path: "library", component:LibraryComponent},

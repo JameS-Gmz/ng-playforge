@@ -13,16 +13,25 @@ export class FormGameComponent {
 
   @ViewChild('postGameForm') postGameForm!: NgForm;
 
+  form = {
+    title: '',
+    description: '',
+    // autres champs
+  };
+
   isValid(): boolean|null{
     return this.postGameForm ? this.postGameForm.valid : null;
 
   }
 
   getFormValues() {
-    if (this.postGameForm) {
-      return this.postGameForm.value;
+      return {
+        title : this.postGameForm.value.title,
+        description : this.postGameForm.value.description,
+        price : this.postGameForm.value.price
+      }
     }
   }
-  }
+
   
 

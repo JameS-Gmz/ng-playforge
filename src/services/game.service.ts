@@ -1,35 +1,34 @@
 import { Injectable, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GameService implements OnInit {
-  
-  clearGame(): void {
-    try {
-      
-    } catch (Error) {
-      console.log(Error)
-    }
-  }
-  getInfo() {
-    try {
-      
-    } catch (Error) {
-      console.log(Error)
-    }
-  }
-  ngOnInit(): void {
-    const headers: Headers = new Headers()
-    headers.append("Content-Type", "application/json")
+export class GameService{
 
-    fetch("http://localhost/9090/game",
-      {
-                headers: headers,
+  private apiUrl = 'http://localhost:9090/game/new'; // Remplacez par votre URL API
+
+  constructor() { }
+
+  sendGameData(gameData: any): Promise<any> {
+    return fetch(this.apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(gameData)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erreur lors de l\'envoi des données : ' + response.statusText);
       }
-    )
+      return response.json();
+    })
+    .catch(error => {
+      console.error('Erreur:', error);
+      throw error; // Propager l'erreur pour une gestion ultérieure
+    });
   }
+ 
 }
 
 

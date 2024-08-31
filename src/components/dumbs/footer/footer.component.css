@@ -3,6 +3,7 @@
     text-align: center;
     background-color: rgb(22,28,52);
     width: 100vw;
+
   }
   
   .Social-media{
@@ -43,4 +44,30 @@
 
   a:link,a:visited{
     color: white;
+  }
+
+  @media (max-width: 768px) {
+    .Social-media {
+      grid-template-columns: 1fr; /* Une seule colonne sur les petits écrans */
+    }
+  
+    .footer-text {
+      flex-direction: column; /* Empile les éléments verticalement sur les petits écrans */
+    }
+  
+    .playforge-link,
+    .Store {
+      gap: 2%; /* Augmente l'espace entre les éléments pour plus de clarté */
+    }
+  }
+  
+  /* Médias queries pour les très petits écrans (comme les téléphones) */
+  @media (max-width: 480px) {
+    .footer {
+      padding: 0.5rem; /* Réduit le padding pour les très petits écrans */
+    }
+  
+    .footer-text {
+      font-size: 0.9rem; /* Réduit la taille de la police pour les petits écrans */
+    }
   }

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 
+
 @Component({
   selector: 'app-card-game',
   standalone: true,
@@ -8,6 +9,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './card-game.component.css'
 })
 export class CardGameComponent {
-@Input() game : any;
+@Input() game:any = {} 
 
 }

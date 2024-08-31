@@ -1,31 +1,29 @@
 .Grid {
     display: grid;
-    grid-template-columns: 15fr 1fr;
+    grid-template-columns: 40fr 1fr;
     justify-items: center;
     align-items: center;
-
+  padding: 1%;
   }
   
   .search{
     width: 100%;
-    height: 90%;
+    height: 100%;
     justify-items: center;
     align-items: center;
-    border: 2px solid;
-    border-color: rgb(255, 255, 255) ;
+    border: 2px solid transparent;
     border-radius: 25vh 0vh 0vh 25vh !important;
-    opacity: 80%;
-    color: rgb(51, 51, 51);
+    background-color: rgb(186, 186, 186,30%);
+    color:rgb(254, 254, 254);
+    padding: 1%;
   }
   
   .btnsearch{
-    width: 100%;
-    height: 90%;
+    width: 150%;
+    height: 100%;
     justify-items: center;
     align-items: center;
     background-color: #1a68ff;
     border: none;
     border-radius: 0vh 25vh 25vh 0vh;
   }
-
-  .menu-mobile{}

@@ -1,6 +1,90 @@
-.card {
-    width: 20%;
-    padding: 1%;
-    background-color: #161C34;
 
+.card-wrapper {
+    position: relative;
+    display: inline-block;
+    padding: 4px;
+    border-radius: 15px; /* Bordures arrondies du conteneur principal */
+  }
+
+  .card-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0px; /* Dépassement vers le haut */
+    left: 0px; /* Dépassement vers la gauche */
+    right: 0px; /* Dépassement vers la droite */
+    bottom: 0px; /* Dépassement vers le bas */
+  
+    border-radius: 2vh; /* Bordures arrondies du pseudo-élément */
+    background: linear-gradient(
+      to bottom,
+      #1a68ff,
+      #ffb000,
+      #1a68ff
+    ); /* Dégradé de fond */
+    z-index: -1; /* Place la bordure derrière le contenu */
+  }
+
+  .card {
+    background-color: #161C34;
+    border-radius: 15px; /* Bordures arrondies du contenu */
+    position: relative; /* Assurez-vous que le contenu est au-dessus de la bordure */
+    color: white;
+  }
+
+.content-game{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2%;
+}
+
+img{
+    width: 100%;
+    border-bottom:4px solid #ffae00e3;
+    border-radius: 1.7vh 1.7vh 0vh 0vh;
+
+}
+
+a{
+    color: rgba(255, 255, 255, 0.749);
+    text-decoration: none;
+}
+
+.title {
+    width: 100%;
+    background-color:#252B43;
+    border: 2px solid transparent;
+    border-radius: 15px ;
+    color: rgb(255, 255, 255);
+    padding: 1%;
+    text-transform: uppercase;
+    font-size:small;
+}
+
+.description {
+    padding: 1%;
+}
+
+.authorStudio{
+    width: 100%;
+    color: #ffb000;
+    padding: 1%;
+    text-transform: uppercase;
+    font-size:small;
+}
+
+.price {
+    width: 30%;
+    background-color:#252B43;
+    border: 2px solid transparent;
+    border-radius: 15px ;
+    color: white;
+    padding: 1%;
+}
+
+@media (max-width : 1600px) {
+    .card-wrapper{
+        margin-bottom: 5% ;
+    }
 }

@@ -1,52 +1,11 @@
 <div class="card-two">
   <form class="card-form" #categoryCreateForm="ngForm">
     <div class="form-section">
-      <app-select-components text="Languages"
-        value1="French"
-        value2="English"
-        value3="Spanish"
-        value4="Italian"
-        value5="German"
-        [(ngModel)]="formData.languages" name="languages">
-      </app-select-components>
+      <app-select-components tableName="Controllers"></app-select-components>
+      <app-select-components tableName="Statuses"></app-select-components>
+      <app-select-components tableName="Platforms"></app-select-components>
+      <app-select-components tableName="Languages"></app-select-components>
 
-      <app-select-components text="Controller"
-        value1="Xbox Controller"
-        value2="Kinect"
-        value3="Playstation Controller"
-        value4="WiiMote"
-        value5="SmartPhone"
-        value6="TouchScreen"
-        value7="Voice Control"
-        value8="JoyCon"
-        value9="SimRacing"
-        value10="Virtual Reality (VR)"
-        value11="DancePad"
-        value12="Mouse and Keyboard"
-        [(ngModel)]="formData.controller" name="Controller">
-        >
-      </app-select-components>
-
-      <app-select-components text="Status"
-        value1="Alpha"
-        value2="Beta"
-        value3="Demo"
-        value4="In development"
-        value5="Released"
-        [(ngModel)]="formData.status" name="Status">
-        >
-      </app-select-components>
-
-      <app-select-components text="Platforms"
-        value1="MacOS"
-        value2="Linux"
-        value3="Windows"
-        value4="iOS"
-        value5="Android"
-        value6="Play in Browser"
-        [(ngModel)]="formData.platforms" name="Platforms">
-        >
-      </app-select-components>
     </div>
 
 <div class="form-list-input">

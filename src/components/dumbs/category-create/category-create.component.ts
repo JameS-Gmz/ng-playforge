@@ -1,14 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavItemComponent } from "../../smarts/nav-item/nav-item.component";
-import { RatingComponentComponent } from "../rating-component/rating-component.component";
 import { CheckboxTemplateComponent } from "../checkbox-template/checkbox-template.component";
-import { SelectComponentsComponent } from '../select-components/select-components.component';
 import { FormsModule, NgForm } from '@angular/forms';
+import { SelectComponentsComponent } from '../../smarts/select-components/select-components.component';
+
 
 @Component({
   selector: 'app-category-create',
-  standalone: true,
-  imports: [NavItemComponent, RatingComponentComponent, CheckboxTemplateComponent,SelectComponentsComponent,FormsModule],
+  imports: [NavItemComponent, CheckboxTemplateComponent, FormsModule, SelectComponentsComponent],
+  standalone : true,
   templateUrl: './category-create.component.html',
   styleUrl: './category-create.component.css'
 })

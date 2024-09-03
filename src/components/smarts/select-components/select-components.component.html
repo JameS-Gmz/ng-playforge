@@ -1,0 +1,10 @@
+<div class="select-container">
+    <div class="select">
+
+        <select name="state" >
+            <option [value]="tableName">{{ tableName }}</option>
+            <option *ngFor="let item of data" value="item.id">{{item.name}}</option>
+          </select>
+
+    </div>
+</div>

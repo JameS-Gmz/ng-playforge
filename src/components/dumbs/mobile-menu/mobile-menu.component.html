@@ -1,1 +1,33 @@
-<p>mobile-menu works!</p>
+<nav class="nav">
+    <input id="menu" type="checkbox">
+    <label id="menu-title" for="menu">Menu</label>
+    <ul class="menu">
+        <li>
+            <a routerLink="/">
+               <app-nav-item img="/ion_home.svg"
+                        ></app-nav-item>
+
+            </a>
+        </li>
+        <li>
+            <a routerLink="/library">
+               <app-nav-item
+                        img="/ion_library.svg"></app-nav-item>
+        
+            </a>
+        </li>
+        <li>
+            <a routerLink="/profile">
+               <app-nav-item
+                        img="/ion_profile.svg"></app-nav-item>
+    
+            </a>
+        </li>
+        <li>
+            <a routerLink="/privacy">
+                <app-nav-item img="/ion_privacy.svg"></app-nav-item>
+
+            </a>
+        </li>
+    </ul>
+</nav>

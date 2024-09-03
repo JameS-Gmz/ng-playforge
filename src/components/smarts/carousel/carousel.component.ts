@@ -1,31 +1,35 @@
-import { Component } from '@angular/core';
-import { InputFileComponent } from "../../dumbs/input-file/input-file.component";
-import { CheckboxTemplateComponent } from "../../dumbs/checkbox-template/checkbox-template.component";
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-carousel',
   standalone: true,
-  imports: [InputFileComponent, CheckboxTemplateComponent],
+  imports: [CommonModule],
   templateUrl: './carousel.component.html',
-  styleUrl: './carousel.component.css'
+  styleUrls: ['./carousel.component.css']
 })
 export class CarouselComponent {
-  slides: string [] = ['Ago-Que-es-un-gamer_2.jpg', '230213-jeux-video.jpg', 'chiffres-jeu-video.jpg', 'SpaceInvaders.jpg' ]
-  i=0;
+  private currentSlide = 0;
 
-  getSlide() {
-      return this.slides[this.i];
+  // Liste des images à afficher dans le carrousel
+  images = [
+    '/230213-jeux-video.jpg',
+    'image2.jpg',
+    'image3.jpg'
+  ];
+
+  // Fonction pour passer à la diapositive suivante
+  nextSlide(): void {
+    this.currentSlide = (this.currentSlide + 1) % this.images.length;
+  }
+  
+  // Fonction pour passer à la diapositive précédente
+  prevSlide(): void {
+    this.currentSlide = (this.currentSlide - 1 ) % this.images.length;
   }
 
-  getPrev() {
-      this.i = this.i===0 ? 0 : this.i - 1;
+  // Fonction pour obtenir la classe active pour le slide actuel
+  getSlideClass(index: number): string {
+    return index === this.currentSlide ? 'active' : '';
   }
-//edit here    
-  getNext() {
-      this.i = this.i===this.slides.length ? this.i : this.i + 1;
-      if (this.i == this.slides.length) {
-        this.i = this.i - 1
-      }
-  }
-
 }

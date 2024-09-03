@@ -73,11 +73,23 @@ export class GameService {
       return data;
 
     } catch (error) {
-      console.log('ici le probleme')
+      console.log('erreur getAllGames()')
       console.error('Erreur:', error);
       throw error;
     }
   }
-}
 
+  async getGameById(gameId: string): Promise<any> {
+    try {
+      const response = await fetch(`http://localhost:9090/game/id/${gameId}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching game by ID:', error);
+      throw error;
+    }
+  }
+    }  
 

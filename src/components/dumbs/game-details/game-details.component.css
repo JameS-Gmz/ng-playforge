@@ -1,0 +1,68 @@
+.head-game {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1%;
+}
+
+.head-game h1 {
+    color: white;
+    padding-bottom: 0%;
+    padding-top: 2%;
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+
+.game-description {
+    display: flex;
+    justify-items: start;
+    align-items: start;
+    max-width: 80%;
+    min-height: 30vh;
+    border: transparent 2px solid;
+    background-color: #161C34;
+    border-radius: 0.5vh;
+    margin: 2%;
+    color: rgba(255, 255, 255, 0.749);
+    padding: 1%;
+}
+
+.foot-game {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    padding: 1%;
+}
+
+.game-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #161C34;
+    max-width: 80%;
+    padding: 3%;
+}
+
+.game-input-comment {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #161C34;
+    max-width: 80%;
+    padding: 3%;
+}
+
+.game-commentary {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #161C34;
+    max-width: 80%;
+    padding: 3%;
+}
+

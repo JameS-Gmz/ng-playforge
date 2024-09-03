@@ -34,6 +34,8 @@ nav {
 
 
 
+
+
 @media (max-width: 768px) {
   .nav {
       display: none;
@@ -50,7 +52,6 @@ nav {
     align-items: center;
   }
   
-
   .app-searchbar {
       width: 100%;
   }

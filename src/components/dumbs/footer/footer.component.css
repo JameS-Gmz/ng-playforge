@@ -1,11 +1,16 @@
 .footer{
+  position: absolute;
     justify-content: center;
     text-align: center;
     background-color: rgb(22,28,52);
     width: 100vw;
-
   }
   
+  .mobile-menu{
+    display: none;
+    height: 10vh;
+    position: sticky;
+  }
   .Social-media{
     display: grid;
     grid-template-columns: 5fr 5fr;
@@ -52,12 +57,17 @@
     }
   
     .footer-text {
-      flex-direction: column; /* Empile les éléments verticalement sur les petits écrans */
-    }
+      display: none;}
   
     .playforge-link,
     .Store {
       gap: 2%; /* Augmente l'espace entre les éléments pour plus de clarté */
+      padding: 1%;
+    }
+
+    .mobile-menu{
+      display: block;
+      position: sticky;
     }
   }
   

@@ -1,0 +1,33 @@
+
+.game-list{
+    width: 100vw;
+    padding: 2%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 2%;
+}
+
+
+@media (max-width:1600px){
+    
+.game-list{
+    width: 100vw;
+    padding: 2%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2%;
+}
+
+}
+
+@media (max-width:768px){
+    
+    .game-list{
+        width: 100vw;
+        height: 100%;
+        padding: 5%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    }

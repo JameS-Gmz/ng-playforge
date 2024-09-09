@@ -1,0 +1,4 @@
+<div *ngIf="isLoading">Chargement...</div>
+<div class="game-list" *ngIf="!isLoading">
+  <app-card-game *ngFor="let game of games" [game]="game"></app-card-game>
+</div>

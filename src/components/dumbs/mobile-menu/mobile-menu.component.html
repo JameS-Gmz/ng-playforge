@@ -1,33 +1,17 @@
+
+<input class="menu-icon" type="checkbox" id="menu-icon" name="menu-icon" />
+<label for="menu-icon"></label>
 <nav class="nav">
-    <input id="menu" type="checkbox">
-    <label id="menu-title" for="menu">Menu</label>
-    <ul class="menu">
-        <li>
-            <a routerLink="/">
-               <app-nav-item img="/ion_home.svg"
-                        ></app-nav-item>
-
-            </a>
-        </li>
-        <li>
-            <a routerLink="/library">
-               <app-nav-item
-                        img="/ion_library.svg"></app-nav-item>
-        
-            </a>
-        </li>
-        <li>
-            <a routerLink="/profile">
-               <app-nav-item
-                        img="/ion_profile.svg"></app-nav-item>
-    
-            </a>
-        </li>
-        <li>
-            <a routerLink="/privacy">
-                <app-nav-item img="/ion_privacy.svg"></app-nav-item>
-
-            </a>
-        </li>
+    <ul class="pt-5">
+        <li><app-nav-item text="Home" img="/ion_home.svg"
+                routerLink="/"></app-nav-item></li>
+        <li><app-nav-item text="Profile" img="/ion_profile.svg"
+                routerLink="/profile"></app-nav-item></li>
+                <li><app-nav-item text="Library" img="/ion_library.svg"
+                    routerLink="/library"></app-nav-item></li>
+        <li><app-nav-item text="All Games" img="/ion_network.svg"
+                routerLink="/all-game"></app-nav-item></li>
+        <li><app-nav-item text="Privacy Policy" img="/ion_privacy.svg"
+                routerLink="/privacy"></app-nav-item></li>
     </ul>
 </nav>

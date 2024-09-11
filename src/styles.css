@@ -4,7 +4,8 @@ body {
   justify-items: center;
   align-items: center;
   background-color: rgb(37, 43, 67);
-  width: 90%;
+  width: 100vw;
+  height: 100vh;
 }
 
 * {

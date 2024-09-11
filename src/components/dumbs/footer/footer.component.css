@@ -3,7 +3,10 @@
     justify-content: center;
     text-align: center;
     background-color: rgb(22,28,52);
-    width: 100vw;
+    width: 100%;
+    padding: 1%;
+    border-top: 2px #ffb000 solid;
+    box-shadow: 0px 5px 50px 0px   rgb(0, 0, 0) ;
   }
   
   .mobile-menu{

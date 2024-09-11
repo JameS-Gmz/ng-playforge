@@ -91,5 +91,22 @@ export class GameService {
       throw error;
     }
   }
-    }  
+
+  async getGamesByDate(): Promise<any> {
+    try {
+      const response = await fetch(`http://localhost:9090/game/order/date`);
+      if (!response.ok) {
+        throw new Error('Erreur lors de la récupération des jeux');
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Erreur :', error);
+      throw error;
+    }
+  }
+    } 
+
+
+
 

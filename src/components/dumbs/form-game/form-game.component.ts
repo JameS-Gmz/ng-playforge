@@ -31,6 +31,12 @@ export class FormGameComponent {
         price : this.postGameForm.value.price
       }
     }
+    
+    resetForm() {
+      if (this.postGameForm) {
+        this.postGameForm.resetForm(); // Réinitialiser le formulaire
+      }
+    }
   }
 
   

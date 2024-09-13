@@ -9,7 +9,21 @@
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
         gap: 2%;
     }
-    
+
+h1 {
+        padding-top: 2%;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        text-transform: uppercase;
+    }
+
+    .loading{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1%;
+    }
     
     @media (max-width:1600px){
         

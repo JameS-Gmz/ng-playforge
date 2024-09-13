@@ -16,8 +16,10 @@
 
 .game-description {
     display: flex;
-    justify-items: start;
-    align-items: start;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    min-width: 50vh;
     max-width: 80%;
     min-height: 30vh;
     border: transparent 2px solid;

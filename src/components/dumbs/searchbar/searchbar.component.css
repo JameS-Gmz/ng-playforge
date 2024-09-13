@@ -1,41 +1,87 @@
-.Grid {
-  display: grid;
-  grid-template-columns: 40fr 1fr;
-  justify-items: center;
-  align-items: center;
-}
-
-.search {
+/* Style pour la barre de recherche */
+.searchbar {
   width: 100%;
-  height: 100%;
-  justify-items: center;
-  align-items: center;
-  border: 2px solid transparent;
-  border-radius: 25vh 0vh 0vh 25vh !important;
-  background-color: rgb(186, 186, 186, 30%);
-  color: rgb(254, 254, 254);
-  padding: 1%;
+  top: 0;
+  display: grid;
+  grid-template-columns: 15fr 0.5fr;
+  justify-content: center;
+  gap: 0.15%;
 }
 
-.btnsearch {
-  width: 150%;
-  height: 100%;
-  justify-items: center;
-  align-items: center;
+/* Style pour le champ de recherche */
+.search {
+  color: white;
+  padding: 0.5%;
+  padding-left: 2%;
+  background-color: rgba(186, 186, 186, 0.3);
+  /* Utilisation de rgba pour la transparence */
+  border-color: rgba(186, 186, 186, 0.1);
+  border-radius: 2vh 0vh 0vh 2vh;
+}
+
+/* Style pour le bouton de recherche */
+.search-btn {
+  display: flex;
   background-color: #1a68ff;
-  border: none;
-  border-radius: 0vh 25vh 25vh 0vh;
+  border-color: #1a68ff;
+  border-radius: 0vh 2vh 2vh 0vh;
+  justify-content: center;
+  align-items: center;
+  padding: 10%;
 }
 
-@media (max-width:768px) {
-  .search {
+/* Style pour les messages d'erreur */
+.error {
+  padding: 1%;
+  text-transform: uppercase;
+  color: white;
+}
+
+.menu{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Style pour le conteneur toggle-search */
+.toggle-search {
+  position: absolute;
+  list-style: none;
+  background-color: rgb(22, 28, 52, 100%);
+  width:65%;
+  border:groove rgba(186, 186, 186, 100);
+  border-top: none;
+  border-radius: 0vh 0vh 2vh 2vh;
+  z-index: 1000;
+}
+
+.toggle-search li {
+  padding:1%;
+}
+
+.toggle-search a {
+  width: 100%;
+  text-decoration: none;
+  color: white;
+}
+
+.toggle-search strong :hover{
+  color: #1a68ff;
+}
+
+/* Styles responsives pour les petits écrans */
+@media (max-width: 768px) {
+  img {
+    width: 15px;
+  }
+
+  .searchbar {
+    grid-template-columns: 10fr 1fr;
+  }
+
+  .toggle-search{
+    left: 0;
+    top: 75px;
     width: 100%;
-    font-size: xx-small;
   }
-
-  .btnsearch {
-    width: 120%;
-    right: 25%;
-  }
-
 }

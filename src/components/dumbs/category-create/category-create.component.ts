@@ -59,10 +59,20 @@ export class CategoryCreateComponent {
     return {
       authorStudio : this.categoryCreateForm.value.authorStudio,
       madewith : this.categoryCreateForm.value.madewith,
-      category : this.categoryCreateForm ? this.categoryCreateForm.value : {}}
+      category : {
+        languages: this.categoryCreateForm.value.languages,
+        controller: this.categoryCreateForm.value.controller,
+        status: this.categoryCreateForm.value.status,
+        platforms: this.categoryCreateForm.value.platforms
+      }}
   }
   isValid(): boolean | null {
     return this.categoryCreateForm ? this.categoryCreateForm.valid : null;
   }
 
+  resetForm() {
+    if (this.categoryCreateForm) {
+      this.categoryCreateForm.resetForm(); // Réinitialiser le formulaire
+    }
+  }
 }

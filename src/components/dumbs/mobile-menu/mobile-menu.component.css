@@ -216,7 +216,6 @@ h1{
   width: 100%;
 }
 
-
 .menu-icon:checked ~ .nav  ul li {
   pointer-events: auto;
   visibility: visible;
@@ -226,42 +225,18 @@ h1{
               transform 250ms ease;
 }
 .menu-icon:checked ~ .nav ul li:nth-child(1){
-  transition-delay: 1400ms;
+  transition-delay: 800ms;
 }
 .menu-icon:checked ~ .nav ul li:nth-child(2){
-  transition-delay: 1480ms;
+  transition-delay: 880ms;
 }
 .menu-icon:checked ~ .nav ul li:nth-child(3){
-  transition-delay: 1560ms;
+  transition-delay: 960ms;
 }
 .menu-icon:checked ~ .nav ul li:nth-child(4){
-  transition-delay: 1640ms;
+  transition-delay: 1040ms;
 }
 .menu-icon:checked ~ .nav ul li:nth-child(5){
-  transition-delay: 1720ms;
+  transition-delay: 1120ms;
 }
 
-
-
-.logo {
-  position: absolute;
-  top: 60px;
-  left: 50px;
-  display: block;
-  z-index: 11;
-  transition: all 250ms linear;
-}
-.logo img {
-  height: 26px;
-  width: auto;
-  display: block;
-}
-
-
-
-@media screen and (max-width: 768px) {
-
-
-
-
-}

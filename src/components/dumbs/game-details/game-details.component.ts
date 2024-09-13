@@ -13,14 +13,25 @@ import { RatingComponentComponent } from "../rating-component/rating-component.c
   styleUrl: './game-details.component.css'
 })
 export class GameDetailsComponent implements OnInit{
-  game: any;
+  game: any = {};
 
   constructor(private route: ActivatedRoute, private gameService: GameService) {}
 
-  async ngOnInit(): Promise<any> {
-  const gameId = this.route.snapshot.paramMap.get('id');
-if (gameId) {
-  this.game = await this.gameService.getGameById(gameId)
-} }
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (id) {
+        this.loadGame(id);
+      }
+    });
+  }
+
+  async loadGame(id: string) {
+    try {
+      this.game = await this.gameService.getGameById(id); // Assurez-vous que cette méthode existe et fonctionne
+    } catch (error) {
+      console.log(" 'Erreur lors de la récupération des détails du jeu'");
+    }
+  }
 
 }

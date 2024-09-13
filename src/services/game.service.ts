@@ -15,44 +15,14 @@ export class GameService {
   sendGameData(gameData: any): Promise<any> {
     return fetch(this.apiUrl, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(gameData)
     })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Erreur lors de l\'envoi des données : ' + response.statusText);
-        }
-        return response.json();
-      })
-      .catch(error => {
-        console.error('Erreur:', error);
-        throw error; // Propager l'erreur pour une gestion ultérieure
-      });
-  }
-
-  associateGameWithGenres(gameId: number, genreIds: number[]): Promise<any> {
-    const associations = genreIds.map(genreId => {
-      return { gameId, genreId };
+    .then(response => response.json())
+    .catch(error => {
+      console.error('Erreur:', error);
+      throw error;
     });
-    return fetch(this.apiUrlGameGenres, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(associations)
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Erreur lors de l\'envoi des données : ' + response.statusText);
-        }
-        return response.json();
-      })
-      .catch(error => {
-        console.error('Erreur:', error);
-        throw error; // Propager l'erreur pour une gestion ultérieure
-      });
   }
 
   async getAllGames(): Promise<any> {
@@ -94,7 +64,7 @@ export class GameService {
 
   async getGamesByDate(): Promise<any> {
     try {
-      const response = await fetch(`http://localhost:9090/game/order/date`);
+      const response = await fetch(`http://localhost:9090/game/sequence/date`);
       if (!response.ok) {
         throw new Error('Erreur lors de la récupération des jeux');
       }
@@ -104,6 +74,13 @@ export class GameService {
       console.error('Erreur :', error);
       throw error;
     }
+  }
+  async searchGames(query: string): Promise<any> {
+    const response = await fetch(`http://localhost:9090/game/search?q=${query}`);
+    if (!response.ok) {
+      throw new Error('Erreur lors de la récupération des jeux');
+    }
+    return await response.json();
   }
     } 
 

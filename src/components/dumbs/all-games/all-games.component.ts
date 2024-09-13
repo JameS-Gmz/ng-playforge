@@ -2,11 +2,12 @@ import { Component, ComponentFactoryResolver, OnInit, QueryList, ViewChild, View
 import { RouterLink } from '@angular/router';
 import { CardGameComponent } from "../card-game/card-game.component";
 import { GameService } from '../../../services/game.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-all-games',
   standalone: true,
-  imports: [RouterLink, CardGameComponent],
+  imports: [RouterLink, CardGameComponent,CommonModule],
   templateUrl: './all-games.component.html',
   styleUrl: './all-games.component.css'
 })

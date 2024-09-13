@@ -1,87 +1,47 @@
-import { AfterViewInit, Component, contentChild, EventEmitter, Output, ViewChild } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { FormsModule, NgForm } from '@angular/forms';
-import { InputFileComponent } from "../../dumbs/input-file/input-file.component";
-import { CarouselComponent } from "../carousel/carousel.component";
-import { CategoryCreateComponent } from "../../dumbs/category-create/category-create.component";
-import { FormGameComponent } from "../../dumbs/form-game/form-game.component";
-import { Title } from '@angular/platform-browser';
-import { dateTimestampProvider } from 'rxjs/internal/scheduler/dateTimestampProvider';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { GameService } from '../../../services/game.service';
+import { CategoryCreateComponent } from '../../dumbs/category-create/category-create.component';
+import { FormGameComponent } from '../../dumbs/form-game/form-game.component';
+import { CarouselComponent } from "../carousel/carousel.component";
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [RouterLink, InputFileComponent, CarouselComponent, CategoryCreateComponent, FormGameComponent, FormsModule],
+  imports: [FormsModule, CategoryCreateComponent, FormGameComponent, CarouselComponent],
   templateUrl: './game.component.html',
-  styleUrl: './game.component.css'
+  styleUrls: ['./game.component.css']
 })
 export class GameComponent implements AfterViewInit {
   @ViewChild('postGameForm') postGameForm!: FormGameComponent;
   @ViewChild('categoryCreateForm') categoryCreateForm!: CategoryCreateComponent;
 
   constructor(private gameService: GameService) { }
-
-  ngAfterViewInit() {
-    // Vérifiez si les références sont initialisées
-    // console.log('formGame', this.postGameForm);
-    // console.log('categoryCreate', this.categoryCreateForm);
+  ngAfterViewInit(): void {
+  
   }
-
 
   async onSubmit() {
-
-
     if (this.postGameForm && this.categoryCreateForm) {
-      const postGameFormValid = this.postGameForm.isValid();
-      const categoryCreateValid = this.categoryCreateForm.isValid();
+      const postGameFormValues = this.postGameForm.getFormValues();
+      const categoryCreateFormValues = this.categoryCreateForm.getFormValues();
 
-      if (postGameFormValid && categoryCreateValid) {
-        const { title, description, price } = this.postGameForm.getFormValues();
-        const { authorStudio, madewith, category } = this.categoryCreateForm.getFormValues();
+      const gameData = {
+        ...postGameFormValues,
+        controllerIds: categoryCreateFormValues.category.controller,
+        languagesIds: categoryCreateFormValues.category.languages 
+      };
 
-        console.log('Title:', title);
-        console.log('Description:', description);
-        console.log('Author/Studio:', authorStudio);
-        console.log('Made With:', madewith);
-        console.log('price', price);
-
-
-        const gameData = {
-          title,
-          description,
-          price,
-          authorStudio,
-          madewith
-        }
-
-        try {
-          const createdGame = await this.gameService.sendGameData(gameData)
-          const gameId = createdGame.id;
-
-          console.log('Données envoyées avec succès:', createdGame);
-          // Gérer la réponse ou effectuer une redirection si nécessaire
+      try {
+        const result = await this.gameService.sendGameData(gameData);
+        console.log('Jeu créé avec succès:', result);
         
-          const selectedGenres = category
-
-          if(selectedGenres > 0){
-            await this.gameService.associateGameWithGenres(gameId,selectedGenres);
-            console.log('Catégories associées avec succès.');
-          }
-
-        } catch (error)  {
-          console.error('Erreur lors de l\'envoi des données:', error);
-          // Gérer l'erreur, par exemple en affichant un message à l'utilisateur
-        };
-
-        // Traitez ou envoyez les données ici
-      } else {
-        console.log('Un ou plusieurs formulaires sont invalides');
+        this.postGameForm.resetForm();
+        this.categoryCreateForm.resetForm();
+        
+      } catch (error) {
+        console.error('Erreur lors de la création du jeu:', error);
       }
-    } else {
-      console.error('Les références des formulaires ne sont pas initialisées');
     }
   }
-
-
 }

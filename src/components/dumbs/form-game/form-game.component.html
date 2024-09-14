@@ -1,6 +1,11 @@
 <div class="card">
   <div class="card-image">
-      <app-input-file></app-input-file>
+    <div class="image">
+        <app-input-file text="Upload Image"></app-input-file>
+    </div>
+    <div class="game.exe">
+        <app-input-file text="Upload Game File"></app-input-file>
+    </div>
   </div>
 
   <form #postGameForm="ngForm" class="card-form">

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-input-file',
@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './input-file.component.css'
 })
 export class InputFileComponent {
-
+@Input() text =""
 }

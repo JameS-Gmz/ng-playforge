@@ -10,6 +10,10 @@
 }
 
 .card-image {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
     border-radius: 8px;
     overflow: hidden;
     background-image: url(/chiffres-jeu-video.jpg);
@@ -22,6 +26,8 @@
     height: 20%;
     min-height: 15vh;
 }
+
+
 
 .card-form{
     display: flex;

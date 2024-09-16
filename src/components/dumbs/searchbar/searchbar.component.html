@@ -9,10 +9,12 @@
             alt></button>
 
         </div>
-        <div class="error" *ngIf="errorMessage" class="error">
-            {{ errorMessage }}
+        <div class="error-menu">
+            <div class="error" *ngIf="errorMessage" class="error">
+                {{ errorMessage }}
+            </div>
         </div>
-    
+            
         <div class="menu" *ngIf="games.length > 0">
             <ul class="toggle-search">
                 <li *ngFor="let game of games">

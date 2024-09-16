@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
 export class GameService {
 
   private apiUrl = 'http://localhost:9090/game/new';
-  private apiUrlGameGenres = 'http://localhost:9090/game/associate-genres';
   private apiUrlAllGames = 'http://localhost:9090/game/AllGames'
   constructor() { }
 

@@ -116,3 +116,15 @@ input:nth-of-type(5) {
 input:nth-of-type(5):checked ~ main#carousel {
   --position: 5;
 }
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+  main#carousel {
+    height: 40vh;
+  }
+
+  div.item {
+    width: 90%;
+    height: 70%;
+  }
+}

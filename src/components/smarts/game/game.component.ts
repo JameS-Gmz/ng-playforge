@@ -4,6 +4,7 @@ import { GameService } from '../../../services/game.service';
 import { CategoryCreateComponent } from '../../dumbs/category-create/category-create.component';
 import { FormGameComponent } from '../../dumbs/form-game/form-game.component';
 import { CarouselComponent } from "../carousel/carousel.component";
+import { FileService } from '../../../services/file-service.service';
 
 @Component({
   selector: 'app-game',
@@ -16,7 +17,7 @@ export class GameComponent implements AfterViewInit {
   @ViewChild('postGameForm') postGameForm!: FormGameComponent;
   @ViewChild('categoryCreateForm') categoryCreateForm!: CategoryCreateComponent;
 
-  constructor(private gameService: GameService) { }
+  constructor(private gameService: GameService, private fileService :FileService) { }
   ngAfterViewInit(): void {
   
   }
@@ -36,6 +37,12 @@ export class GameComponent implements AfterViewInit {
         const result = await this.gameService.sendGameData(gameData);
         console.log('Jeu créé avec succès:', result);
         
+         // Si un fichier est sélectionné, upload le fichier
+         if (this.postGameForm.selectedFile) {
+          await this.fileService.uploadFile(this.postGameForm.selectedFile, result.id);
+          console.log('Image uploadée avec succès');
+        }
+
         this.postGameForm.resetForm();
         this.categoryCreateForm.resetForm();
         

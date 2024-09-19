@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class FileService {
 
-  private fileApiUrl = 'http://localhost:9091/upload/file';  // URL de l'API des fichiers
+  private fileApiUrl = 'http://localhost:9091/game/upload/file';  // URL de l'API des fichiers
 
   // Fonction pour uploader un fichier avec l'ID du jeu
   async uploadFile(file: File, gameId: number): Promise<any> {
@@ -16,16 +16,20 @@ export class FileService {
     try {
       const response = await fetch(this.fileApiUrl, {
         method: 'POST',
-        body: formData
+        body: formData,
+        credentials: 'include'
       });
 
-      if (!response.ok) {
-        throw new Error('Erreur lors de l\'upload du fichier');
+         if (!response.ok) {
+        const errorMessage = `Erreur HTTP: ${response.status} - ${response.statusText}`;
+        console.error('Erreur lors de l\'upload du fichier:', errorMessage);
+        throw new Error(errorMessage);
       }
 
-      return await response.json(); // Retourne les détails du fichier uploadé
+      const fileData = await response.json(); // Retourne les détails du fichier uploadé
+      return fileData;
     } catch (error) {
-      console.error('Erreur:', error);
+      console.error('Erreur durant le processus d\'upload', error);
       throw error;
     }
   }

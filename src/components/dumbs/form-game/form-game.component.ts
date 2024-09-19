@@ -18,7 +18,6 @@ export class FormGameComponent {
   form = {
     title: '',
     description: '',
-    // autres champs
   };
 
   isValid(): boolean | null {
@@ -30,7 +29,7 @@ export class FormGameComponent {
     return {
       title: this.postGameForm.value.title,
       description: this.postGameForm.value.description,
-      price: this.postGameForm.value.price
+      price: this.postGameForm.value.price,
     }
   }
 

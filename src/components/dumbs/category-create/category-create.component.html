@@ -11,7 +11,7 @@
 <div class="form-list-input">
   <div class="form-input">
     <label class="input-label" for="author-studio" required>
-      <input type="text" id="author-studio" class="input-field" required  [(ngModel)]="formData.authorStudio" name="authorStudio"
+      <input type="text" id="author-studio" class="input-field"  [(ngModel)]="formData.authorStudio" name="authorStudio"
         placeholder="write here..." >
         Author / Studio
     </label>
@@ -19,7 +19,7 @@
 
   <div class="form-input">
     <label class="input-label" for="madewith" required>
-      <input type="text" id="madewith" class="input-field" required
+      <input type="text" id="madewith" class="input-field"
         placeholder="write here..." title="madewith" [(ngModel)]="formData.madeWith" name="madewith"/>
       <p>Made with</p>
     </label>
@@ -74,7 +74,7 @@
 
     <div class="form-input">
       <label class="input-label" for="last-updated" id="last-updated">
-        <textarea  class="input-field" required
+        <textarea  class="input-field"
           placeholder="Comment the new update..."  [(ngModel)]="formData.lastUpdated" name="lastUpdated"></textarea>
         <p>Last Updated</p>
       </label>

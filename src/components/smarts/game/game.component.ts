@@ -29,10 +29,8 @@ export class GameComponent implements AfterViewInit {
 
       const gameData = {
         ...postGameFormValues,
-        controllerIds: categoryCreateFormValues.category.controller,
-        languagesIds: categoryCreateFormValues.category.languages 
-      };
-
+       ...categoryCreateFormValues
+      }
       try {
         const result = await this.gameService.sendGameData(gameData);
         console.log('Jeu créé avec succès:', result);

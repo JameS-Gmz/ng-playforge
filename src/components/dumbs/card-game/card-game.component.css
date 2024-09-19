@@ -66,6 +66,42 @@ a{
     padding: 1%;
 }
 
+.description textarea {
+
+    text-decoration: none;
+    background-color: transparent;
+    width: 35vh;
+    max-width: 35vh;
+    height: 12.5vh;
+    min-height: 10vh;
+    max-height: 15vh;
+    color: white;
+    padding: 1%;
+    border: 2px solid transparent;
+}
+
+::-webkit-scrollbar {
+    width: 1.5vh; /* largeur de la barre de défilement */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent; /* couleur de fond de la barre */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #ffffff; /* couleur du curseur de la barre */
+    border-radius: 2px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #1a68ff; /* couleur au survol du curseur */
+  }
+
+  ::-webkit-scrollbar-corner{
+    border-top-left-radius: 2vh ;
+    background-color:transparent;
+  }
+
 .authorStudio{
     width: 100%;
     color: #ffb000;

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { DataFetchService } from '../../../services/data-fetch.service';
 import { CommonModule } from '@angular/common';
 
@@ -7,18 +7,21 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './select-components.component.html',
-  styleUrl: './select-components.component.css',
+  styleUrls: ['./select-components.component.css'],
 })
 
-export class SelectComponentsComponent{
+export class SelectComponentsComponent {
 
   @Input() tableName: string = '';  // Nom de la table à interroger
-  data: any[] = [];
+  @Output() selectionChange = new EventEmitter<number>(); // Événement pour émettre les données sélectionnées
 
-  constructor(private dataFetchService : DataFetchService) {}
+  data: any[] = []; // Contient les données récupérées
+  selectedId: any; // Contiendra l'ID sélectionné
+
+  constructor(private dataFetchService: DataFetchService) {}
 
   async ngOnInit(): Promise<void> {
-if (this.tableName) {
+    if (this.tableName) {
       try {
         this.data = await this.dataFetchService.getDataFromTable(this.tableName);
       } catch (error) {
@@ -26,4 +29,10 @@ if (this.tableName) {
       }
     }
   }
+
+  onSelect(event: any) {
+    this.selectedId = event.target.value; // Récupère l'ID sélectionné
+    this.selectionChange.emit(this.selectedId); // Émet l'ID sélectionné au composant parent
+  }
 }
+

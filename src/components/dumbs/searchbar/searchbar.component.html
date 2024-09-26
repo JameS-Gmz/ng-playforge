@@ -19,8 +19,9 @@
             <ul class="toggle-search">
                 <li *ngFor="let game of games">
                     <strong>
-                        <a [routerLink]="['/game/id', game.id]">
-                          <img src="/ion_search.svg"> - {{ game.title }} - {{ game.price | currency}}
+                        <a class="link" [routerLink]="['/game/id', game.id]">
+                            <img  class="imageUrl" [src]="game.imageUrl">
+                            - {{ game.title }} - {{ game.price | currency}}
                         </a>
                     </strong>
                 </li>

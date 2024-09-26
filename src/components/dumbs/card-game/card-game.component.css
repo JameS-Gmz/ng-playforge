@@ -1,126 +1,146 @@
-
 .card-wrapper {
-    position: relative;
-    display: inline-block;
-    padding: 4px;
-    border-radius: 15px; /* Bordures arrondies du conteneur principal */
-  }
+  position: relative;
+  display: inline-block;
+  padding: 4px;
+  border-radius: 15px;
+  /* Bordures arrondies du conteneur principal */
+}
 
-  .card-wrapper::before {
-    content: '';
-    position: absolute;
-    top: 0px; /* Dépassement vers le haut */
-    left: 0px; /* Dépassement vers la gauche */
-    right: 0px; /* Dépassement vers la droite */
-    bottom: 0px; /* Dépassement vers le bas */
-  
-    border-radius: 2vh; /* Bordures arrondies du pseudo-élément */
-    background: linear-gradient(
-      to bottom,
+.card-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0px;
+  /* Dépassement vers le haut */
+  left: 0px;
+  /* Dépassement vers la gauche */
+  right: 0px;
+  /* Dépassement vers la droite */
+  bottom: 0px;
+  /* Dépassement vers le bas */
+
+  border-radius: 2vh;
+  /* Bordures arrondies du pseudo-élément */
+  background: linear-gradient(to bottom,
       #1a68ff,
       #ffb000,
-      #1a68ff
-    ); /* Dégradé de fond */
-    z-index: -1; /* Place la bordure derrière le contenu */
-  }
-
-  .card {
-    background-color: #161C34;
-    border-radius: 15px; /* Bordures arrondies du contenu */
-    position: relative; /* Assurez-vous que le contenu est au-dessus de la bordure */
-    color: white;
-  }
-
-.content-game{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2%;
+      #1a68ff);
+  /* Dégradé de fond */
+  z-index: -1;
+  /* Place la bordure derrière le contenu */
 }
 
-img{
-    width: 100%;
-    border-bottom:4px solid #ffae00e3;
-    border-radius: 1.7vh 1.7vh 0vh 0vh;
-
+.card {
+  width: 100%;
+  background-color: #161C34;
+  border-radius: 15px;
+  /* Bordures arrondies du contenu */
+  position: relative;
+  /* Assurez-vous que le contenu est au-dessus de la bordure */
+  color: white;
 }
 
-a{
-    color: rgba(255, 255, 255, 0.749);
-    text-decoration: none;
+.content-game {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2%;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  border-bottom: 4px solid #ffae00e3;
+  border-radius: 1.7vh 1.7vh 0vh 0vh;
+}
+
+.image {
+  width: 100%;
+  height: 20vh;
+  object-fit: fill;
+  object-position: 100% 0;
+}
+
+a {
+  color: rgba(255, 255, 255, 0.749);
+  text-decoration: none;
 }
 
 .title {
-    width: 100%;
-    background-color:#252B43;
-    border: 2px solid transparent;
-    border-radius: 15px ;
-    color: rgb(255, 255, 255);
-    padding: 1%;
-    text-transform: uppercase;
-    font-size:small;
+  width: 100%;
+  background-color: #252B43;
+  border: 2px solid transparent;
+  border-radius: 15px;
+  color: rgb(255, 255, 255);
+  padding: 1%;
+  text-transform: uppercase;
+  font-size: small;
 }
 
 .description {
-    padding: 1%;
+  padding: 1%;
 }
 
 .description textarea {
 
-    text-decoration: none;
-    background-color: transparent;
-    width: 35vh;
-    max-width: 35vh;
-    height: 12.5vh;
-    min-height: 10vh;
-    max-height: 15vh;
-    color: white;
-    padding: 1%;
-    border: 2px solid transparent;
+  text-decoration: none;
+  background-color: transparent;
+  width: 35vh;
+  min-width: 35vh;
+  max-width: 35vh;
+  height: 12.5vh;
+  min-height: 10vh;
+  max-height: 15vh;
+  color: white;
+  padding: 1%;
+  border: 2px solid transparent;
 }
 
 ::-webkit-scrollbar {
-    width: 1.5vh; /* largeur de la barre de défilement */
-  }
-  
-  ::-webkit-scrollbar-track {
-    background: transparent; /* couleur de fond de la barre */
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: #ffffff; /* couleur du curseur de la barre */
-    border-radius: 2px;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background: #1a68ff; /* couleur au survol du curseur */
-  }
+  width: 1.5vh;
+  /* largeur de la barre de défilement */
+}
 
-  ::-webkit-scrollbar-corner{
-    border-top-left-radius: 2vh ;
-    background-color:transparent;
-  }
+::-webkit-scrollbar-track {
+  background: transparent;
+  /* couleur de fond de la barre */
+}
 
-.authorStudio{
-    width: 100%;
-    color: #ffb000;
-    padding: 1%;
-    text-transform: uppercase;
-    font-size:small;
+::-webkit-scrollbar-thumb {
+  background: #ffffff;
+  /* couleur du curseur de la barre */
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1a68ff;
+  /* couleur au survol du curseur */
+}
+
+::-webkit-scrollbar-corner {
+  border-top-left-radius: 2vh;
+  background-color: transparent;
+}
+
+.authorStudio {
+  width: 100%;
+  color: #ffb000;
+  padding: 1%;
+  text-transform: uppercase;
+  font-size: small;
 }
 
 .price {
-    width: 30%;
-    background-color:#252B43;
-    border: 2px solid transparent;
-    border-radius: 15px ;
-    color: white;
-    padding: 1%;
+  width: 30%;
+  background-color: #252B43;
+  border: 2px solid transparent;
+  border-radius: 15px;
+  color: white;
+  padding: 1%;
 }
 
 @media (max-width : 1600px) {
-    .card-wrapper{
-        margin-bottom: 5% ;
-    }
+  .card-wrapper {
+    margin-bottom: 5%;
+  }
 }

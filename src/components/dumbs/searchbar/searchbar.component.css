@@ -30,6 +30,15 @@
   padding: 10%;
 }
 
+.imageUrl{
+  width: 10%;
+  height: 6.5vh;
+  border: 5px solid transparent;
+  border-radius: 2vh;
+  object-fit: cover;
+  object-position: 100% 0;
+}
+
 /* Style pour les messages d'erreur */
 .error-menu{
   display: flex;
@@ -78,7 +87,18 @@
   color: white;
 }
 
+.link{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+strong{
+  text-transform: capitalize;
+}
+
 .toggle-search strong :hover{
+  text-transform: uppercase;
   color: #1a68ff;
 }
 

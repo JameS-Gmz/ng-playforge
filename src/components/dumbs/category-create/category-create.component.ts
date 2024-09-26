@@ -8,16 +8,16 @@ import { SelectComponentsComponent } from '../../smarts/select-components/select
 @Component({
   selector: 'app-category-create',
   imports: [NavItemComponent, CheckboxTemplateComponent, FormsModule, SelectComponentsComponent],
-  standalone : true,
+  standalone: true,
   templateUrl: './category-create.component.html',
   styleUrl: './category-create.component.css'
 })
 export class CategoryCreateComponent {
   formData = {
-    languages: '',
-    controller: '',
-    status: '',
-    platforms: '',
+    categories: {
+      languages: [],
+      controllers: [],
+    },
     authorStudio: '',
     madeWith: '',
     genres: {
@@ -52,19 +52,43 @@ export class CategoryCreateComponent {
     },
     lastUpdated: '',
   };
-  
+
   @ViewChild('categoryCreateForm') categoryCreateForm!: NgForm;
+  @ViewChild('languagesSelect') languagesSelect!: SelectComponentsComponent;
+  @ViewChild('controllersSelect') controllersSelect!: SelectComponentsComponent;
+
+  selectedControllerId: any; // ID sélectionné depuis le composant SelectComponents
+  selectedStatusId: any; // ID sélectionné depuis le composant SelectComponents
+  selectedPlatformId: any; // ID sélectionné depuis le composant SelectComponents
+  selectedLanguageId: any; // ID sélectionné depuis le composant SelectComponents
+
+  // Méthode appelée lors de la sélection d'un élément dans SelectComponentsComponent
+  onControllersSelected(elementId: number) {
+    this.selectedControllerId = elementId;
+    console.log('ID sélectionné dans Controllers:', this.selectedControllerId);
+  }
+  onStatusesSelected(elementId: number) {
+    this.selectedStatusId = elementId;
+    console.log('ID sélectionné dans Status:', this.selectedStatusId);
+  }
+  onPlatformsSelected(elementId: number) {
+    this.selectedPlatformId = elementId;
+    console.log('ID sélectionné dans Plateforms:', this.selectedPlatformId);
+  }
+  onLanguagesSelected(elementId: number) {
+    this.selectedLanguageId = elementId;
+    console.log('ID sélectionné dans Language:', this.selectedLanguageId);
+  }
 
   getFormValues() {
     return {
-      authorStudio : this.categoryCreateForm.value.authorStudio,
-      madewith : this.categoryCreateForm.value.madewith,
-      category : {
-        languages: this.categoryCreateForm.value.languages,
-        controller: this.categoryCreateForm.value.controller,
-        status: this.categoryCreateForm.value.status,
-        platforms: this.categoryCreateForm.value.platforms
-      }}
+      madeWith: this.formData.madeWith,
+      authorStudio: this.formData.authorStudio,
+      ControllerId: this.selectedControllerId,
+      StatusId: this.selectedStatusId,
+      PlatformId: this.selectedPlatformId,
+      LanguageId: this.selectedLanguageId,
+    };
   }
   isValid(): boolean | null {
     return this.categoryCreateForm ? this.categoryCreateForm.valid : null;

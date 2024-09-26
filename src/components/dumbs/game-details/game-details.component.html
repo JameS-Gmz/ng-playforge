@@ -1,6 +1,6 @@
 <div class="head-game">
     <h1>{{game.title}}</h1>
-    <app-carousel></app-carousel>
+      <app-carousel [images] = images></app-carousel>
     <div class="game-description">
         <p>{{game.description}}</p>
         <p>{{game.price | currency}}</p>

@@ -33,4 +33,30 @@ export class FileService {
       throw error;
     }
   }
+
+  async getImageUrl(gameId: number): Promise<string> {
+    const response = await fetch(`http://localhost:9091/game/image/${gameId}`);
+
+    if (!response.ok) {
+      throw new Error('Erreur lors de la récupération de l\'image');
+    }
+
+    const data = await response.json();
+    return data.fileUrl;  // Retourne l'URL de l'image
+  };
+
+  async getImagesURLS(gameId: number): Promise<any> {
+    const response = await fetch(`http://localhost:9091/game/images/${gameId}`);
+  
+    if (!response.ok) {
+      throw new Error('Erreur lors de la récupération des images');
+    }
+  
+    const data = await response.json();
+    console.log("Données d'image récupérées :", data);  // Ajoutez ceci pour inspecter les données
+  
+    return data.files;  // Assurez-vous que cela retourne le format attendu
+  }
+  
+
 }

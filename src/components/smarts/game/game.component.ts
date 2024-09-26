@@ -17,33 +17,67 @@ export class GameComponent implements AfterViewInit {
   @ViewChild('postGameForm') postGameForm!: FormGameComponent;
   @ViewChild('categoryCreateForm') categoryCreateForm!: CategoryCreateComponent;
 
-  constructor(private gameService: GameService, private fileService :FileService) { }
-  ngAfterViewInit(): void {
-  
-  }
+  images: string[] = [
+    '/Ago-Que-es-un-gamer_2.jpg',
+    '/chiffres-jeu-video.jpg',
+    '/230213-jeux-video.jpg'
+  ];
+
+  constructor(
+    private gameService: GameService,
+    private fileService: FileService,
+  ) {}
+
+  ngAfterViewInit(): void {}
+
+
 
   async onSubmit() {
     if (this.postGameForm && this.categoryCreateForm) {
       const postGameFormValues = this.postGameForm.getFormValues();
       const categoryCreateFormValues = this.categoryCreateForm.getFormValues();
-
+  
       const gameData = {
         ...postGameFormValues,
-       ...categoryCreateFormValues
-      }
+        ...categoryCreateFormValues,
+      };
+  
+    
       try {
+        // Envoyer les données du jeu
         const result = await this.gameService.sendGameData(gameData);
         console.log('Jeu créé avec succès:', result);
-        
-         // Si un fichier est sélectionné, upload le fichier
-         if (this.postGameForm.selectedFile) {
-          await this.fileService.uploadFile(this.postGameForm.selectedFile, result.id);
+
+        const GameId = result.id;
+        const ControllerId = gameData.ControllerId;
+        const PlatformId = gameData.PlatformId;
+        const LanguageId = gameData.LanguageId;
+        const StatusId = gameData.StatusId
+
+
+
+        console.log(GameId)
+        console.log(ControllerId)
+        console.log(PlatformId)
+        console.log(LanguageId)
+        console.log(StatusId)
+      
+
+        // Associer l'élément sélectionné au jeu
+        if (GameId || ControllerId || PlatformId || StatusId || LanguageId) {
+          await this.gameService.associateGameWithCategories(GameId, ControllerId, PlatformId,StatusId, LanguageId);
+          console.log('Élément associé avec succès au jeu');
+        }
+
+        // Si un fichier est sélectionné, upload le fichier
+        if (this.postGameForm.selectedFile) {
+          await this.fileService.uploadFile(this.postGameForm.selectedFile, GameId);
           console.log('Image uploadée avec succès');
         }
 
+        // Réinitialiser les formulaires
         this.postGameForm.resetForm();
         this.categoryCreateForm.resetForm();
-        
       } catch (error) {
         console.error('Erreur lors de la création du jeu:', error);
       }

@@ -1,10 +1,10 @@
 <div class="card-two">
   <form class="card-form" #categoryCreateForm="ngForm">
     <div class="form-section">
-      <app-select-components tableName="Controllers"></app-select-components>
-      <app-select-components tableName="Statuses"></app-select-components>
-      <app-select-components tableName="Platforms"></app-select-components>
-      <app-select-components tableName="Languages"></app-select-components>
+      <app-select-components tableName="Controllers" (selectionChange)="onControllersSelected($event)"></app-select-components>
+      <app-select-components tableName="Statuses" (selectionChange)="onStatusesSelected($event)"></app-select-components>
+      <app-select-components tableName="Platforms" (selectionChange)="onPlatformsSelected($event)"></app-select-components>
+      <app-select-components tableName="Languages" (selectionChange)="onLanguagesSelected($event)"></app-select-components>
 
     </div>
 
@@ -20,7 +20,7 @@
   <div class="form-input">
     <label class="input-label" for="madewith" required>
       <input type="text" id="madewith" class="input-field"
-        placeholder="write here..." title="madewith" [(ngModel)]="formData.madeWith" name="madewith"/>
+        placeholder="write here..." [(ngModel)]="formData.madeWith" name="madewith"/>
       <p>Made with</p>
     </label>
   </div>

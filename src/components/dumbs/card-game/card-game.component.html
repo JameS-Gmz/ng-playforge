@@ -1,13 +1,15 @@
 <div class="card-wrapper">
 <div class="card">
         <a class="nav-link active" [routerLink]="['/game/id', game.id]">
-            <img src="/230213-jeux-video.jpg">
+            <div class="image" *ngIf="imageUrl">
+                <img [src]="imageUrl" alt="Image du jeu">
+            </div>
             <div class="content-game">
                 <div class="title">
                     <h2> {{game.title}}</h2>
                 </div>
                 <div class="description">
-                  <textarea value="   {{game.description}}" readonly></textarea>
+                  <textarea value={{game.description}} readonly></textarea>
                 </div>
                 <div class="authorStudio">
                     <h3>{{game.authorStudio}}</h3>

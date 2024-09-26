@@ -17,11 +17,11 @@ export class GameService {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(gameData)
     })
-    .then(response => response.json())
-    .catch(error => {
-      console.error('Erreur:', error);
-      throw error;
-    });
+      .then(response => response.json())
+      .catch(error => {
+        console.error('Erreur:', error);
+        throw error;
+      });
   }
 
   async getAllGames(): Promise<any> {
@@ -74,6 +74,7 @@ export class GameService {
       throw error;
     }
   }
+
   async searchGames(query: string): Promise<any> {
     const response = await fetch(`http://localhost:9090/game/search?q=${query}`);
     if (!response.ok) {
@@ -81,8 +82,37 @@ export class GameService {
     }
     return await response.json();
   }
-    } 
 
-
-
-
+  async associateGameWithCategories(GameId: any, ControllerId: any, PlatformId: any, LanguageId :any, StatusId :any) {
+    if (!GameId || !ControllerId || !PlatformId || !StatusId || !LanguageId) {
+      throw new Error("Les identifiants du jeu, du contrôleur ou de la plateforme sont manquants.");
+    }
+  
+    try {
+      const response = await fetch(`http://localhost:9090/game/associate-categories`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          GameId,
+          ControllerId,
+          PlatformId,
+          StatusId,
+          LanguageId
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Erreur lors de l\'association des catégories');
+      }
+  
+      const result = await response.json();
+      return result;
+  
+    } catch (error) {
+      console.error('Erreur:', error);
+      throw error;
+    }
+  }
+}

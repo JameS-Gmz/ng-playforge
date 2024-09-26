@@ -1,130 +1,89 @@
-.carousel{
-  display: flex;
-  flex-direction: column;
-  display: grid;
-}
-
-#radio  {
-  width: 20px;
-  height: 20px;
-}
-
-
-main#carousel {
-  grid-row: 1 / 2;
-  grid-column: 1 / 8;
-  width: 100vw;
-  height: 350px;
+/* Styles de base */
+.carousel-container {
+  width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
   justify-content: center;
-  overflow: hidden;
-  transform-style: preserve-3d;
-  perspective: 600px;
-  --items: 5;
-  --middle: 3;
-  --position: 1;
-  pointer-events: none;
+  align-items: center;
 }
 
-div.item {
-  position: absolute;
-  width: 600px;
-  height: 300px;
-  background-color: coral;
-  --r: calc(var(--position) - var(--offset));
-  --abs: max(calc(var(--r) * -1), var(--r));
-  transition: all 0.25s linear;
-  transform: rotateY(calc(-10deg * var(--r)))
-    translateX(calc(-300px * var(--r)));
-  z-index: calc((var(--position) - var(--abs)));
-}
-
-div.item:nth-of-type(1) {
-  --offset: 1;
-  background-image: url(/230213-jeux-video.jpg);
-  background-size: cover;
-  border: 2px solid #ffb000;
+.carousel-slide img {
+  min-width: 1012px;
+  max-width: 1012px;
+  min-height: 512px;
+  max-height:512px;
+  object-fit: cover;
+  object-position: 100% 50;
+  border: 2px solid transparent;
   border-radius: 2vh;
-}
-div.item:nth-of-type(2) {
-  --offset: 2;
-  background-image: url(/Ago-Que-es-un-gamer_2.jpg);
-  background-size: cover;
-  border: 2px solid #1a68ff;
-  border-radius: 2vh;
-}
-div.item:nth-of-type(3) {
-  --offset: 3;
-  background-image: url(/chiffres-jeu-video.jpg);
-  background-size: cover;
-  border: 2px solid #ffb000;
-  border-radius: 2vh;
-}
-div.item:nth-of-type(4) {
-  --offset: 4;
-  background-image: url(/imageGame.png);
-  background-size: cover;
-  border: 2px solid #1a68ff;
-  border-radius: 2vh;
-}
-div.item:nth-of-type(5) {
-  --offset: 5;
-  background-image: url(/SpaceInvaders.jpg) ;
-  background-size: cover;
-  border: 2px solid #ffb000;
-  border-radius: 2vh;
+  image-rendering: auto;
+
 }
 
-input:nth-of-type(1) {
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
-}
-input:nth-of-type(1):checked ~ main#carousel {
-  --position: 1;
- 
+button.prev, button.next {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  position: relative;
 }
 
-input:nth-of-type(2) {
-  grid-column: 3 / 4;
-  grid-row: 2 / 3;
-}
-input:nth-of-type(2):checked ~ main#carousel {
-  --position: 2;
+.arrow {
+  filter: invert(43%) sepia(90%) saturate(2696%) hue-rotate(204deg) brightness(100%) contrast(98%);
 }
 
-input:nth-of-type(3) {
-  grid-column: 4 /5;
-  grid-row: 2 / 3;
-}
-input:nth-of-type(3):checked ~ main#carousel {
-  --position: 3;
+.arrow:hover {
+  filter: invert(77%) sepia(85%) saturate(3486%) hue-rotate(1deg) brightness(101%) contrast(101%);
 }
 
-input:nth-of-type(4) {
-  grid-column: 5 / 6;
-  grid-row: 2 / 3;
-}
-input:nth-of-type(4):checked ~ main#carousel {
-  --position: 4;
-}
-
-input:nth-of-type(5) {
-  grid-column: 6 / 7;
-  grid-row: 2 / 3;
-}
-input:nth-of-type(5):checked ~ main#carousel {
-  --position: 5;
+.carousel-indicator {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #333;
 }
 
-/* Responsive Media Queries */
+/* Responsive pour les écrans de 768px (tablettes) */
 @media (max-width: 768px) {
-  main#carousel {
-    height: 40vh;
+  .carousel-container {
+    padding-top: 5%;
   }
 
-  div.item {
-    width: 90%;
-    height: 70%;
+  .carousel-slide img {
+    min-width: 300px!important;
+    max-width: 300px!important;
+    min-height: 150px!important;
+    max-height: 150px!important;
+  }
+
+  button.prev {
+    left: 5%;
+  }
+
+  button.next {
+    right: 5%;
+  }
+
+  .arrow{
+    width: 2.5em;
+  }
+}
+
+@media (max-width: 1030px){
+  .carousel-slide img {
+    min-width: 800px;
+    max-width: 800px;
+    min-height: 400px;
+    max-height: 400px;
+  }
+
+  .arrow{
+    width: 3em;
   }
 }

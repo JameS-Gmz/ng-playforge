@@ -1,18 +1,15 @@
-  <div class="row-one">
-    <app-carousel></app-carousel>
-  </div>
-  
-  <div class="row">
+ <div class="row-one">
+  <app-carousel [images]="images"></app-carousel>
+</div>
 
+<div class="row">
   <div class="row-two">
     <app-form-game #postGameForm></app-form-game>
-    <button class="action-button" type="submit"(click)="onSubmit()">Add your Game</button>
+    <button class="action-button" type="submit" (click)="onSubmit()">Add your
+      Game</button>
   </div>
-  
 
   <div class="row-three">
     <app-category-create #categoryCreateForm></app-category-create>
   </div>
-  
-
 </div>

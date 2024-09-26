@@ -1,9 +1,9 @@
 <div class="select-container">
     <div class="select">
 
-        <select name="state" >
+        <select name="state" id="selectData" (change)="onSelect($event)" >
             <option [value]="tableName">{{ tableName }}</option>
-            <option *ngFor="let item of data" value="item.id">{{item.name}}</option>
+            <option *ngFor="let item of data" [value]="item.id">{{item.name}}</option>
           </select>
 
     </div>

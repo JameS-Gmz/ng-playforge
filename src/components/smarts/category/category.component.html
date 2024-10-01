@@ -1,0 +1,53 @@
+<div>
+    <h2>Filtrer les jeux</h2>
+  
+    <!-- Filtres de genres -->
+    <label for="genreSelect">Genre :</label>
+    <select id="genreSelect" (change)="onFilterChange('genre', $event)">
+      <option *ngFor="let genre of genres" [value]="genre.id">{{ genre.name }}</option>
+    </select>
+  
+    <!-- Filtres de plateformes -->
+    <label for="platformSelect">Plateforme :</label>
+    <select id="platformSelect" (change)="onFilterChange('platform', $event)">
+      <option *ngFor="let platform of platforms" [value]="platform.id">{{ platform.name }}</option>
+    </select>
+  
+    <!-- Filtres de langues -->
+    <label for="languageSelect">Langue :</label>
+    <select id="languageSelect" (change)="onFilterChange('language', $event)">
+      <option *ngFor="let language of languages" [value]="language.id">{{ language.name }}</option>
+    </select>
+  
+    <!-- Filtres de contrôleurs -->
+    <label for="controllerSelect">Contrôleur :</label>
+    <select id="controllerSelect" (change)="onFilterChange('controller', $event)">
+      <option *ngFor="let controller of controllers" [value]="controller.id">{{ controller.name }}</option>
+    </select>
+  
+    <!-- Filtres de statuts -->
+    <label for="statusSelect">Statut :</label>
+    <select id="statusSelect" (change)="onFilterChange('status', $event)">
+      <option *ngFor="let status of statuses" [value]="status.id">{{ status.name }}</option>
+    </select>
+  
+    <!-- Filtres de tags -->
+    <label for="tagSelect">Tags :</label>
+    <select id="tagSelect" (change)="onFilterChange('tag', $event)">
+      <option *ngFor="let tag of tags" [value]="tag.id">{{ tag.name }}</option>
+    </select>
+  
+    <!-- Liste des jeux filtrés -->
+    <div *ngIf="games.length > 0; else noGames">
+      <h3>Jeux correspondants :</h3>
+      <ul>
+        <li *ngFor="let game of games">{{ game.title }} - {{ game.description }}</li>
+      </ul>
+    </div>
+  
+    <!-- Message s'il n'y a pas de jeux -->
+    <ng-template #noGames>
+      <p>Aucun jeu trouvé pour ces filtres.</p>
+    </ng-template>
+  </div>
+  

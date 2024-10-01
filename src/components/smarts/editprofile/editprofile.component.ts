@@ -22,19 +22,41 @@ export class EditProfileComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit() { // Récupérer les informations de l'utilisateur connecté
+  ngOnInit() {
+    // Récupérer le profil de l'utilisateur connecté
     const token = localStorage.getItem('token');
     if (token) {
       const payload = JSON.parse(atob(token.split('.')[1]));
-      this.user = {
-        username: payload.username,
-        email: payload.email,
-        role: payload.role
-      };
+      this.user.id = payload.userId;
+      this.user.username = payload.username;
+      this.user.email = payload.email;
+      this.user.bio = payload.bio || '';
+      this.user.avatar = payload.avatar || '';
     }
   }
 
-  onSubmit() {
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0]; // Gérer l'upload d'image
+  }
+
+  async onSubmit() {
+    const userData = {
+      id: this.user.id,
+      username: this.user.username,
+      email: this.user.email,
+      bio: this.user.bio,
+      avatar: this.user.avatar // Optionnel si géré côté back-end
+    };
+  
+    try {
+      const response = await this.authService.updateProfile(userData);
+      console.log('Réponse de la mise à jour:', response);
+      alert('Profil mis à jour avec succès !');
+      this.router.navigate(['/profile']);  // Redirection après la mise à jour
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour du profil', error);
+      alert('Erreur lors de la mise à jour du profil.');
+    }
   }
 
   cancel() {

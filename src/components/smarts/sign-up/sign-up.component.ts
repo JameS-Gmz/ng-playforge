@@ -21,6 +21,7 @@ export class SignUpComponent {
   confirmPassword = '';
   birthday = '';
   errorMessage = '';
+  bio = '';
 
   constructor(private authService:AuthService, private router: Router) {}
 
@@ -39,7 +40,8 @@ export class SignUpComponent {
       username: this.username,
       email: this.email,
       password: this.password,
-      birthday: this.birthday
+      birthday: this.birthday,
+      bio :this.bio
     };
   
     try {

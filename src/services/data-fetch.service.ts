@@ -22,7 +22,7 @@ export class DataFetchService {
   }
 
   async getGenres(): Promise<any> {
-    const response = await fetch('http://localhost:9090/genre/all');
+    const response = await fetch('http://localhost:9090/genres/all');
     if (!response.ok) {
       throw new Error('Erreur lors de la récupération des genres');
     }
@@ -30,7 +30,7 @@ export class DataFetchService {
   }
 
   async getTags(): Promise<any> {
-    const response = await fetch('http://localhost:9090/tag/all');
+    const response = await fetch('http://localhost:9090/tags/all');
     if (!response.ok) {
       throw new Error('Erreur lors de la récupération des tags');
     }

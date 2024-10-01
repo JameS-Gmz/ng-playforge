@@ -12,11 +12,11 @@
         <form #editProfileForm="ngForm">
             <!-- Nom d'utilisateur -->
             <label class="input-label" for="username">
-                <input type="text" id="username" name="username" [(ngModel)]="user.username" class="input-field" placeholder={{user.username}} required />
+                <input type="text" id="username" name="username" [(ngModel)]="user.username" class="input-field" placeholder={{user.username}}/>
             </label>
             <!-- Email -->
             <label class="input-label" for="email">
-                <input type="email" id="email" name="email" [(ngModel)]="user.email" class="input-field" placeholder={{user.email}} required />
+                <input type="email" id="email" name="email" [(ngModel)]="user.email" class="input-field" [placeholder]=user.email />
             </label>
             
             <!-- Bio -->
@@ -26,7 +26,7 @@
             
             <!-- Date d'anniversaire -->
             <label class="input-label" for="birthday">
-                <input type="date" id="birthday" name="birthday" [(ngModel)]="user.birthday" class="input-field" required />
+                <input type="date" id="birthday" name="birthday" [(ngModel)]="user.birthday" class="input-field"/>
             </label>
             
             <!-- Boutons d'action -->

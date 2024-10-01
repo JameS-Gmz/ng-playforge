@@ -17,3 +17,7 @@
 
   <button class="action-button" type="submit">S'inscrire</button>
 </form>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>

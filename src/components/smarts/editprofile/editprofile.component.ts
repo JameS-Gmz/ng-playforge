@@ -35,17 +35,6 @@ export class EditProfileComponent {
   }
 
   onSubmit() {
-    const updatedProfile = {
-      username: this.user.username,
-      email: this.user.email,
-      bio: this.user.bio
-    };
-  
-    this.authService.updateProfileText(updatedProfile).then(response => {
-      console.log('Informations de profil mises à jour:', response);
-    }).catch(error => {
-      console.error('Erreur lors de la mise à jour du profil:', error);
-    });
   }
 
   cancel() {

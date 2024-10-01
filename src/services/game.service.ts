@@ -1,117 +1,81 @@
-import { ReturnStatement } from '@angular/compiler';
-import { Injectable, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
 
-  private apiUrl = 'http://localhost:9090/game/new';
-  private apiUrlAllGames = 'http://localhost:9090/game/AllGames'
+  private baseUrl = 'http://localhost:9090/game';
+
   constructor() { }
 
-  sendGameData(gameData: any): Promise<any> {
-    return fetch(this.apiUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(gameData)
-    })
-      .then(response => response.json())
-      .catch(error => {
-        console.error('Erreur:', error);
-        throw error;
-      });
+  // Méthode pour envoyer les données du jeu
+  async sendGameData(gameData: any): Promise<any> {
+    return this.postData(`${this.baseUrl}/new`, gameData);
   }
 
+  // Méthode pour récupérer tous les jeux
   async getAllGames(): Promise<any> {
-    try {
-
-      const response = await fetch(this.apiUrlAllGames, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('Erreur lors de la récupération des jeux : ' + response.statusText);
-      };
-
-      const data = await response.json();
-      return data;
-
-    } catch (error) {
-      console.log('erreur getAllGames()')
-      console.error('Erreur:', error);
-      throw error;
-    }
+    return this.getData(`${this.baseUrl}/AllGames`);
   }
 
+  // Méthode pour récupérer un jeu par ID
   async getGameById(gameId: string): Promise<any> {
+    return this.getData(`${this.baseUrl}/id/${gameId}`);
+  }
+
+  // Méthode pour récupérer les jeux triés par date
+  async getGamesByDate(): Promise<any> {
+    return this.getData(`${this.baseUrl}/sequence/date`);
+  }
+
+  // Méthode pour rechercher des jeux
+  async searchGames(query: string): Promise<any> {
+    return this.getData(`${this.baseUrl}/search?q=${query}`);
+  }
+
+  // Méthode pour associer les catégories à un jeu
+  async associateGameWithCategories(GameId: any, ControllerId: any, PlatformId: any, LanguageId: any, StatusId: any, tagId :any , genreId :any): Promise<any> {
+    if (!GameId || !ControllerId || !PlatformId || !LanguageId || !StatusId) {
+      throw new Error('Les identifiants du jeu, des catégories, ou des plateformes sont manquants.');
+    }
+    
+    const payload = { GameId, ControllerId, PlatformId, LanguageId, StatusId };
+    return this.postData(`${this.baseUrl}/associate-categories`, payload);
+  }
+
+  // Méthode GET générique
+  private async getData(url: string): Promise<any> {
     try {
-      const response = await fetch(`http://localhost:9090/game/id/${gameId}`);
+      const response = await fetch(url);
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error(`Erreur lors de la récupération des données : ${response.statusText}`);
       }
       return await response.json();
     } catch (error) {
-      console.error('Error fetching game by ID:', error);
+      console.error('Erreur lors de la récupération des données:', error);
       throw error;
     }
   }
 
-  async getGamesByDate(): Promise<any> {
+  // Méthode POST générique
+  private async postData(url: string, data: any): Promise<any> {
     try {
-      const response = await fetch(`http://localhost:9090/game/sequence/date`);
-      if (!response.ok) {
-        throw new Error('Erreur lors de la récupération des jeux');
-      }
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Erreur :', error);
-      throw error;
-    }
-  }
-
-  async searchGames(query: string): Promise<any> {
-    const response = await fetch(`http://localhost:9090/game/search?q=${query}`);
-    if (!response.ok) {
-      throw new Error('Erreur lors de la récupération des jeux');
-    }
-    return await response.json();
-  }
-
-  async associateGameWithCategories(GameId: any, ControllerId: any, PlatformId: any, LanguageId :any, StatusId :any) {
-    if (!GameId || !ControllerId || !PlatformId || !StatusId || !LanguageId) {
-      throw new Error("Les identifiants du jeu, du contrôleur ou de la plateforme sont manquants.");
-    }
-  
-    try {
-      const response = await fetch(`http://localhost:9090/game/associate-categories`, {
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          GameId,
-          ControllerId,
-          PlatformId,
-          StatusId,
-          LanguageId
-        }),
+        body: JSON.stringify(data),
       });
-  
+
       if (!response.ok) {
-        throw new Error('Erreur lors de l\'association des catégories');
+        throw new Error(`Erreur lors de l'envoi des données : ${response.statusText}`);
       }
-  
-      const result = await response.json();
-      return result;
-  
+
+      return await response.json();
     } catch (error) {
-      console.error('Erreur:', error);
+      console.error('Erreur lors de l\'envoi des données:', error);
       throw error;
     }
   }

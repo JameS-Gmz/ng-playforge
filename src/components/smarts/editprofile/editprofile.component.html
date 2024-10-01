@@ -1,0 +1,38 @@
+<div class="background">
+
+    <div class="card-edit-profile">
+        <h2>Edit Profile</h2>
+        
+        <!-- Image de profil -->
+        <div class="profile-picture-container">
+            <img src="/230213-jeux-video.jpg" alt="Profile Picture" class="profile-picture">
+        </div>
+        
+        <!-- Formulaire d'édition de profil -->
+        <form #editProfileForm="ngForm">
+            <!-- Nom d'utilisateur -->
+            <label class="input-label" for="username">
+                <input type="text" id="username" name="username" [(ngModel)]="user.username" class="input-field" placeholder={{user.username}} required />
+            </label>
+            <!-- Email -->
+            <label class="input-label" for="email">
+                <input type="email" id="email" name="email" [(ngModel)]="user.email" class="input-field" placeholder={{user.email}} required />
+            </label>
+            
+            <!-- Bio -->
+            <label class="input-label" for="bio">
+                <textarea id="bio" name="bio" [(ngModel)]="user.bio" class="input-field" placeholder="Écrivez votre bio..."></textarea>
+            </label>
+            
+            <!-- Date d'anniversaire -->
+            <label class="input-label" for="birthday">
+                <input type="date" id="birthday" name="birthday" [(ngModel)]="user.birthday" class="input-field" required />
+            </label>
+            
+            <!-- Boutons d'action -->
+            <button type="submit" (click)="onSubmit()" class="action-button">Sauvegarder</button>
+            <button type="button" (click)="cancel()" class="cancel-button">Annuler</button>
+        </form>
+    </div>
+    
+</div>

@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { GameService } from '../../../services/game.service';
-import { CategoryCreateComponent } from '../../dumbs/category-create/category-create.component';
+import { CategoryCreateComponent } from '../category-create/category-create.component';
 import { FormGameComponent } from '../../dumbs/form-game/form-game.component';
 import { CarouselComponent } from "../carousel/carousel.component";
 import { FileService } from '../../../services/file-service.service';
@@ -26,9 +26,9 @@ export class GameComponent implements AfterViewInit {
   constructor(
     private gameService: GameService,
     private fileService: FileService,
-  ) {}
+  ) { }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
 
 
 
@@ -36,13 +36,13 @@ export class GameComponent implements AfterViewInit {
     if (this.postGameForm && this.categoryCreateForm) {
       const postGameFormValues = this.postGameForm.getFormValues();
       const categoryCreateFormValues = this.categoryCreateForm.getFormValues();
-  
+
       const gameData = {
         ...postGameFormValues,
         ...categoryCreateFormValues,
       };
-  
-    
+
+
       try {
         // Envoyer les données du jeu
         const result = await this.gameService.sendGameData(gameData);
@@ -52,20 +52,21 @@ export class GameComponent implements AfterViewInit {
         const ControllerId = gameData.ControllerId;
         const PlatformId = gameData.PlatformId;
         const LanguageId = gameData.LanguageId;
-        const StatusId = gameData.StatusId
+        const StatusId = gameData.StatusId;
+        const tagId = gameData.selectedTags
+        const genreId = gameData.selectedGenres
 
-
-
-        console.log(GameId)
-        console.log(ControllerId)
-        console.log(PlatformId)
-        console.log(LanguageId)
-        console.log(StatusId)
-      
+        console.log('GameId ' + GameId)
+        console.log('ControllerId ' + ControllerId)
+        console.log('PlatformId ' + PlatformId)
+        console.log('LanguageId ' + LanguageId)
+        console.log('StatusId ' + StatusId)
+        console.log('GenresId ' + genreId)   
+        console.log('TagsId ' + tagId)
 
         // Associer l'élément sélectionné au jeu
-        if (GameId || ControllerId || PlatformId || StatusId || LanguageId) {
-          await this.gameService.associateGameWithCategories(GameId, ControllerId, PlatformId,StatusId, LanguageId);
+        if (GameId || ControllerId || PlatformId || StatusId || LanguageId || tagId || genreId) {
+          await this.gameService.associateGameWithCategories(GameId, ControllerId, PlatformId, StatusId, LanguageId,tagId,genreId);
           console.log('Élément associé avec succès au jeu');
         }
 

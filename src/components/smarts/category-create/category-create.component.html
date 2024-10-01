@@ -1,0 +1,61 @@
+<div class="card-two">
+  <form class="card-form" #categoryCreateForm="ngForm">
+    <div class="form-section">
+      <app-select-components tableName="Controllers" (selectionChange)="onControllersSelected($event)"></app-select-components>
+      <app-select-components tableName="Statuses" (selectionChange)="onStatusesSelected($event)"></app-select-components>
+      <app-select-components tableName="Platforms" (selectionChange)="onPlatformsSelected($event)"></app-select-components>
+      <app-select-components tableName="Languages" (selectionChange)="onLanguagesSelected($event)"></app-select-components>
+
+    </div>
+
+<div class="form-list-input">
+  <div class="form-input">
+    <label class="input-label" for="author-studio" required>
+      <input type="text" id="author-studio" class="input-field"  [(ngModel)]="formData.authorStudio" name="authorStudio"
+        placeholder="write here..." >
+        Author / Studio
+    </label>
+  </div>
+
+  <div class="form-input">
+    <label class="input-label" for="madewith" required>
+      <input type="text" id="madewith" class="input-field"
+        placeholder="write here..." [(ngModel)]="formData.madeWith" name="madewith"/>
+      <p>Made with</p>
+    </label>
+  </div>
+</div>
+
+    <fieldset class="genre">
+      <legend>Genre</legend>
+      <div class="genre-column" *ngFor="let genre of genreList">
+        <app-checkbox-template
+          [text]="genre.name" 
+          [ngModelOptions]="{standalone: true}"
+          [(ngModel)]="formData.genres[genre.id]"
+          (checkedChange)="onGenreCheckedChange(genre.id, $event)">
+        </app-checkbox-template>
+      </div>
+    </fieldset>
+
+    <fieldset class="tags">
+      <legend>Tags</legend>
+      <div class="tags-column" *ngFor="let tag of tagList">
+        <app-checkbox-template 
+          [text]="tag.name" 
+          [ngModelOptions]="{standalone: true}"
+          [(ngModel)]="formData.tags[tag.id]"
+          (checkedChange)="onTagCheckedChange(tag.id, $event)">
+        </app-checkbox-template>
+      </div>
+    </fieldset>
+
+    <div class="form-input">
+      <label class="input-label" for="last-updated" id="last-updated">
+        <textarea  class="input-field"
+          placeholder="Comment the new update..."  [(ngModel)]="formData.lastUpdated" name="lastUpdated"></textarea>
+        <p>Last Updated</p>
+      </label>
+    </div>
+  </form>
+</div>

@@ -1,12 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-profile',
-  standalone: true,
-  imports: [],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+  styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
 
+  user: any = {};  // Contiendra les informations de l'utilisateur
+
+  constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.loadUserProfile();
+  }
+
+  // Charger les informations de l'utilisateur (par exemple, depuis le token JWT ou une API)
+  loadUserProfile() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      this.user = {
+        username: payload.username,
+        email: payload.email,
+        role: payload.role
+      };
+    }
+  }
+
+  // Méthode pour se déconnecter
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/auth']);  // Redirection vers la page d'authentification
+  }
+
+  editProfile() {
+   this.router.navigate(['/editprofile'])
+    }
 }

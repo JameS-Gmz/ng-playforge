@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { GameService } from '../../../services/game.service';
 import { CommonModule } from '@angular/common';
-import { CarouselComponent } from "../../smarts/carousel/carousel.component";
-import { RatingComponentComponent } from "../rating-component/rating-component.component";
+import { CarouselComponent } from "../carousel/carousel.component";
+import { RatingComponentComponent } from "../../dumbs/rating-component/rating-component.component";
 import { FileService } from '../../../services/file-service.service';
 
 @Component({

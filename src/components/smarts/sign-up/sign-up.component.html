@@ -1,0 +1,19 @@
+<form (submit)="onSubmit()"  class="card-user">
+  <h2>Inscription</h2>
+  <label class="input-label" for="username">Nom d'utilisateur</label>
+  <input class="input-field" id="username" type="text" [(ngModel)]="username" name="username" required>
+
+  <label class="input-label" for="email">Email</label>
+  <input class="input-field" id="email" type="email" [(ngModel)]="email" name="email" required>
+
+  <label class="input-label" for="password">Mot de passe</label>
+  <input class="input-field" id="password" type="password" [(ngModel)]="password" name="password" required>
+
+  <label class="input-label" for="confirmPassword">Confirmer le mot de passe</label>
+  <input class="input-field" id="confirmPassword" type="password" [(ngModel)]="confirmPassword" name="confirmPassword" required>
+
+  <label class="input-label" for="birthday">Date de naissance</label>
+  <input class="input-field" id="birthday" type="date" [(ngModel)]="birthday" name="birthday">
+
+  <button class="action-button" type="submit">S'inscrire</button>
+</form>

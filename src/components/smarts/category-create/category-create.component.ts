@@ -1,18 +1,27 @@
-import { Component, ViewChild } from '@angular/core';
-import { NavItemComponent } from "../../smarts/nav-item/nav-item.component";
-import { CheckboxTemplateComponent } from "../checkbox-template/checkbox-template.component";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NavItemComponent } from "../nav-item/nav-item.component";
+
 import { FormsModule, NgForm } from '@angular/forms';
-import { SelectComponentsComponent } from '../../smarts/select-components/select-components.component';
+import { SelectComponentsComponent } from '../select-components/select-components.component';
+import { CommonModule } from '@angular/common';
+import { CheckboxTemplateComponent } from '../../dumbs/checkbox-template/checkbox-template.component';
+import { DataFetchService } from '../../../services/data-fetch.service';
 
 
 @Component({
   selector: 'app-category-create',
-  imports: [NavItemComponent, CheckboxTemplateComponent, FormsModule, SelectComponentsComponent],
+  imports: [NavItemComponent, CheckboxTemplateComponent, FormsModule, SelectComponentsComponent, CommonModule],
   standalone: true,
   templateUrl: './category-create.component.html',
   styleUrl: './category-create.component.css'
 })
-export class CategoryCreateComponent {
+export class CategoryCreateComponent implements OnInit {
+
+  constructor(private datafetchService: DataFetchService) { }
+
+  genreList: any[] = [];
+  tagList : any[] = [];
+  
   formData = {
     categories: {
       languages: [],
@@ -20,36 +29,8 @@ export class CategoryCreateComponent {
     },
     authorStudio: '',
     madeWith: '',
-    genres: {
-      fps: false,
-      survival: false,
-      actionadventure: false,
-      roguelike: false,
-      simulation: false,
-      rts: false,
-      rpg: false,
-      rhythm: false,
-      hacknslash: false,
-      reflection: false,
-      beatthemall: false,
-      plateformer: false,
-      tps: false,
-      combat: false,
-      battleroyale: false,
-      mmorpg: false,
-      moba: false,
-      partygames: false,
-      puzzlers: false,
-    },
-    tags: {
-      free: false,
-      onSale: false,
-      fiveEuroOrLess: false,
-      tenEuroOrLess: false,
-      localmultiplayer: false,
-      servermultiplayer: false,
-      networkmultiplayer: false,
-    },
+    genres: {} as { [key: number]: boolean },
+    tags: {} as { [key: number]: boolean },
     lastUpdated: '',
   };
 
@@ -61,6 +42,20 @@ export class CategoryCreateComponent {
   selectedStatusId: any; // ID sélectionné depuis le composant SelectComponents
   selectedPlatformId: any; // ID sélectionné depuis le composant SelectComponents
   selectedLanguageId: any; // ID sélectionné depuis le composant SelectComponents
+
+  ngOnInit(): void {
+    this.datafetchService.getGenres().then((genres) => {
+      this.genreList = genres;  // Charger la liste des genres depuis l'API
+    }).catch(error => {
+      console.error('Erreur lors de la récupération des genres :', error);
+    });
+
+    this.datafetchService.getTags().then((tags) => {
+      this.tagList = tags;  // Charger la liste des tags depuis l'API
+    }).catch(error => {
+      console.error('Erreur lors de la récupération des genres :', error);
+    });
+  }
 
   // Méthode appelée lors de la sélection d'un élément dans SelectComponentsComponent
   onControllersSelected(elementId: number) {
@@ -79,6 +74,15 @@ export class CategoryCreateComponent {
     this.selectedLanguageId = elementId;
     console.log('ID sélectionné dans Language:', this.selectedLanguageId);
   }
+  onGenreCheckedChange(genreId: any, isChecked: boolean) {
+    console.log(`Genre ${genreId} sélectionné : ${isChecked}`);
+    this.formData.genres[genreId] = isChecked;
+  }
+
+  onTagCheckedChange(tagId: any, isChecked: boolean) {
+    console.log(`Tag ${tagId} sélectionné : ${isChecked}`);
+    this.formData.tags[tagId] = isChecked;
+  }
 
   getFormValues() {
     return {
@@ -88,6 +92,8 @@ export class CategoryCreateComponent {
       StatusId: this.selectedStatusId,
       PlatformId: this.selectedPlatformId,
       LanguageId: this.selectedLanguageId,
+      selectedGenres: Object.keys(this.formData.genres).filter(id => this.formData.genres[+id]),
+      selectedTags: Object.keys(this.formData.tags).filter(id => this.formData.tags[+id]),
     };
   }
   isValid(): boolean | null {

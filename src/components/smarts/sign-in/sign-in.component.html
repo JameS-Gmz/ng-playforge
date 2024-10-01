@@ -1,1 +1,12 @@
-<p>sign-in works!</p>
+<form (submit)="onSubmit()" class="card-user">
+  <h2>Connexion</h2>
+  <label class="input-label" for="email">Email
+    <input id="email" class="input-field" type="email" [(ngModel)]="email"
+      name="email" required>
+  </label>
+  <label class="input-label" for="password">Mot de passe
+    <input id="password" class="input-field" type="password"
+      [(ngModel)]="password" name="password" required>
+  </label>
+  <button class="action-button" type="submit">Se connecter</button>
+</form>

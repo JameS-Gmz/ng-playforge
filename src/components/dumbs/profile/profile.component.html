@@ -1,1 +1,20 @@
-<p>profile works!</p>
+<div class="profile-container">
+  <h2>Mon Profil</h2>
+
+  <div class="profile-info">
+      <!-- Image de profil de l'utilisateur -->
+      <img [src]="user.avatar || '/default-avatar.jpg'" alt="Avatar de l'utilisateur" class="profile-avatar">
+
+      <!-- Informations de profil de l'utilisateur -->
+      <p><strong>Nom d'utilisateur:</strong> {{ user.username }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Rôle:</strong> {{ user.role }}</p>
+      <p><strong>Bio:</strong> {{ user.bio || 'Aucune biographie ajoutée' }}</p>
+  </div>
+
+  <!-- Bouton pour se déconnecter -->
+  <button (click)="logout()">Se déconnecter</button>
+
+  <!-- Bouton pour modifier le profil -->
+  <button (click)="editProfile()">Modifier le profil</button>
+</div>

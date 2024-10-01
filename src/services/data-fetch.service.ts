@@ -20,4 +20,21 @@ export class DataFetchService {
       return [];
     }
   }
+
+  async getGenres(): Promise<any> {
+    const response = await fetch('http://localhost:9090/genre/all');
+    if (!response.ok) {
+      throw new Error('Erreur lors de la récupération des genres');
+    }
+    return await response.json();
+  }
+
+  async getTags(): Promise<any> {
+    const response = await fetch('http://localhost:9090/tag/all');
+    if (!response.ok) {
+      throw new Error('Erreur lors de la récupération des tags');
+    }
+    return await response.json();
+  }
 }
+

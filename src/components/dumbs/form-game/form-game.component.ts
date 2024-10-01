@@ -1,7 +1,7 @@
 import { booleanAttribute, Component, ViewChild } from '@angular/core';
-import { InputFileComponent } from "../input-file/input-file.component";
+import { InputFileComponent } from "../../smarts/input-file/input-file.component";
 import { FormBuilder, FormsModule, NgForm } from "@angular/forms";
-import { CategoryCreateComponent } from '../category-create/category-create.component';
+import { CategoryCreateComponent } from '../../smarts/category-create/category-create.component';
 @Component({
   selector: 'app-form-game',
   standalone: true,

@@ -16,5 +16,5 @@ export const routes: Routes = [
     {path: "profile", component:ProfileComponent},
     {path: "game/id/:id", component:GameDetailsComponent},
     {path:"auth",component:AuthComponent},
-    {path: "editprofile", component:EditProfileComponent},
+    {path: "editprofile", component:EditProfileComponent}
 ];

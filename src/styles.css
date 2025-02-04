@@ -3,7 +3,7 @@ body {
   margin: 0% !important;
   justify-items: center;
   align-items: center;
-  background-color: rgb(37, 43, 67);
+  background: #141e30;
   width: 100vw;
   height: 100vh;
   overflow-x: hidden;

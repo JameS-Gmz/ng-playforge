@@ -1,21 +1,34 @@
-.page  {
-    width:100vw;
+/* Structure de la page */
+.page {
+    width: 100vw;
+    min-height: 100vh; /* Hauteur minimum de la fenêtre */
     display: flex;
-    justify-content: center;
-    text-align: center;
     flex-direction: column;
-    margin:0px;
-    padding: 0px;
-}
-.header-app{
-    position:sticky;
-    top: 0px;
-    z-index: 1;
+    justify-content: flex-start; /* On laisse le contenu prendre l'espace restant */
+    position: relative; /* Contexte de positionnement pour le footer */
 }
 
-.router-app{
+/* En-tête fixe */
+.header-app {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+}
+
+/* Contenu principal sous l'en-tête */
+.router-app {
+    z-index: 0;
+    flex: 1; /* Prend toute la hauteur restante */
+    width: 100%;
+   padding: 5%;
+}
+
+/* Pied de page toujours en bas */
+.footer-app {
+    position: absolute; /* Positionner en bas */
+    bottom: 0;
+    width: 100%;
+    padding: 10px 0;
     z-index: 0;
 }
-
-
-

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 
@@ -11,14 +11,14 @@ export class ProfileComponent implements OnInit {
 
   user: any = {};  // Contiendra les informations de l'utilisateur
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor( private cdRef: ChangeDetectorRef,private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     if (this.authService.isAuthenticated()){
+      this.cdRef.detectChanges();
       this.loadUserProfile();
     }else{
       this.router.navigate(['/auth'])
-      alert('Vous devez être connectés !')
     }
   } 
 
@@ -32,6 +32,7 @@ loadUserProfile() {
       username: payload.username,
       email: payload.email,
       role: payload.role,
+      birhtday: payload.birthday,
     };
   }
 }

@@ -17,6 +17,7 @@ export class EditProfileComponent {
     email: '',
     bio: '',
     avatar: '', // Utilisé pour stocker l'image de profil
+    birthday: '' 
   };
   selectedFile: File | null = null; // Pour stocker le fichier sélectionné
 
@@ -32,6 +33,7 @@ export class EditProfileComponent {
       this.user.email = payload.email;
       this.user.bio = payload.bio || '';
       this.user.avatar = payload.avatar || '';
+      this.user.birthday = payload.birthday || '';
     }
   }
 

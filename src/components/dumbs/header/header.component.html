@@ -7,7 +7,7 @@
         
             <li><app-nav-item text="All Games" img="/ion_network.svg"
                     routerLink="/all-game"></app-nav-item></li>
-            <li><app-nav-item text="Upload" img="/ion_upload.svg"
+            <li *ngIf="isLoggedIn && isDeveloper"><app-nav-item text="Upload" img="/ion_upload.svg"
                     routerLink="/game"></app-nav-item></li>
             <li><app-nav-item text="Home" img="/ion_home.svg"
                     routerLink="/"></app-nav-item></li>

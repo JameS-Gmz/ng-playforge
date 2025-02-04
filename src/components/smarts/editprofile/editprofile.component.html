@@ -9,7 +9,7 @@
         </div>
         
         <!-- Formulaire d'édition de profil -->
-        <form #editProfileForm="ngForm">
+        <form class="card-form" #editProfileForm="ngForm">
             <!-- Nom d'utilisateur -->
             <label class="input-label" for="username">
                 <input type="text" id="username" name="username" [(ngModel)]="user.username" class="input-field" placeholder={{user.username}}/>

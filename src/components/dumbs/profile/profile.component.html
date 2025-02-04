@@ -1,23 +1,24 @@
 <div class="profile-container">
-  <h2>Mon Profil</h2>
-
   <div class="profile-info">
-      <!-- Image de profil de l'utilisateur -->
+
+    <!-- Image de profil de l'utilisateur -->
+    <div class="profile-pic">
       <img [src]="user.avatar || '/Ago-Que-es-un-gamer_2 - Copie.jpg'" alt="Avatar de l'utilisateur" class="profile-avatar">
+    </div>
 
       <!-- Informations de profil de l'utilisateur -->
-      <p><strong>Nom d'utilisateur:</strong> {{ user.username }}</p>
+      <h2>{{ user.username }}</h2>
       <p><strong>Email:</strong> {{ user.email }}</p>
       <p><strong>Rôle:</strong> {{ user.role }}</p>
       <p><strong>Bio:</strong> {{ user.bio || 'Aucune biographie ajoutée' }}</p>
-  </div>
-
-  <div class="grid">
-  <!-- Bouton pour se déconnecter -->
-  <button (click)="logout()">Se déconnecter</button>
-
-  <!-- Bouton pour modifier le profil -->
-  <button (click)="editProfile()">Modifier le profil</button>
-</div>
+      <p><strong>Birhtday:</strong>{{user.birthday}}</p>
+      <div class="grid">
+        <!-- Bouton pour se déconnecter -->
+        <button (click)="logout()">Se déconnecter</button>
+        
+        <!-- Bouton pour modifier le profil -->
+        <button (click)="editProfile()">Modifier le profil</button>
+      </div>
+    </div>
 </div>
 

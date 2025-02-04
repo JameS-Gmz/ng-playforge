@@ -1,30 +1,37 @@
-.background{
+/* Contexte de fond */
+.background {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2%;
+    padding: 1%;
 }
+
+/* Carte de modification du profil */
 .card-edit-profile {
     padding: 2%;
-   width: 25%;
-    height: 100%;
+    width: 30%;
     height: auto;
     background-color: #1D2437;
     display: flex;
     flex-direction: column;
     border: 2px solid transparent;
-    border-radius: 2vh;
+    border-radius: 10px;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    background-color: #1d2b3a;
+    gap: 20px; /* Espacement interne entre les éléments */
 }
 
+/* Titre principal dans la carte */
 .card-edit-profile h2 {
     color: white;
+    text-transform: uppercase;
 }
 
+/* Titre des formulaires */
 form h2 {
     padding: 5%;
     color: #fff;
@@ -33,6 +40,7 @@ form h2 {
     font-size: 1.5rem;
 }
 
+/* Labels des champs de formulaire */
 .input-label {
     display: flex;
     flex-direction: column;
@@ -44,13 +52,14 @@ form h2 {
     margin-bottom: 15px;
 }
 
+/* Champs de saisie du formulaire */
 .input-field {
     padding: 2%;
     border: 0;
     background-color: transparent;
     border-bottom: 2px solid #eee;
     color: white;
-    width:100%;
+    width: 100%;
     height: 2.5vh;
     font-size: 1rem;
     transition: border-bottom 0.3s;
@@ -62,18 +71,28 @@ form h2 {
     outline: none;
 }
 
-textarea.input-field {
-    max-height: 10vh;
-    max-width: 50vh;
-    min-width: 40vh;
-    min-height: 5vh;
+.card-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
+/* Style pour les zones de texte */
+.input-label textarea.input-field {
+    min-width: 90%;
+    min-height: 5vh;
+    max-width: 100%;
+    max-height: 30vh;
+}
+
+/* Bouton d'action (sauvegarder) */
 .action-button {
     margin-top: 5%;
     padding: 3%;
     font-size: larger;
-    width: 80%;
+    width: 70%;  /* Raccourcir pour les petites tailles */
     background-color: #1A68FF;
     border-radius: 6px;
     color: white;
@@ -87,11 +106,12 @@ textarea.input-field {
     transform: translateY(-2px);
 }
 
+/* Bouton d'annulation */
 .cancel-button {
     margin-top: 2%;
     padding: 3%;
     font-size: larger;
-    width: 80%;
+    width: 70%; /* Raccourcir pour les petites tailles */
     background-color: #FF5C5C;
     border-radius: 6px;
     color: white;
@@ -105,6 +125,7 @@ textarea.input-field {
     transform: translateY(-2px);
 }
 
+/* Image de profil */
 .profile-picture {
     width: 150px;
     height: 150px;
@@ -118,12 +139,112 @@ textarea.input-field {
     border-color: #fff;
 }
 
+@media (max-width : 1200px) {
+    .card-edit-profile {
+        width: 85%;  /* Rendre la carte plus large sur les petits écrans */
+        height: auto;
+        padding: 5%;
+        margin: 0 auto;
+    }
+
+    .background {
+        padding: 5%;
+    }
+
+    .input-field {
+        font-size: 0.9rem; /* Réduire la taille de texte pour les petits écrans */
+
+    }
+
+
+    /* Boutons plus petits sur téléphone */
+    .action-button, .cancel-button {
+        width: 90%; /* Réduire la largeur des boutons */
+        padding: 12px 0; /* Ajouter du padding vertical */
+    }
+
+    /* Image de profil plus petite */
+    .profile-picture {
+        width: 120px;
+        height: 120px;
+    }
+
+
+    /* Titre des formulaires */
+    form h2 {
+        font-size: 1.2rem;
+    }
+}
+
+/* Media Queries pour les petits écrans */
 @media (max-width : 768px) {
     .card-edit-profile {
-       width: 90%;
-        height: 90%;
-    }
-    .background{
+        width: 85%;  /* Rendre la carte plus large sur les petits écrans */
+        height: auto;
         padding: 5%;
+        margin: 0 auto;
+    }
+
+    .background {
+        padding: 5%;
+    }
+
+    .input-field {
+        font-size: 0.9rem; /* Réduire la taille de texte pour les petits écrans */
+
+    }
+
+
+    /* Boutons plus petits sur téléphone */
+    .action-button, .cancel-button {
+        width: 90%; /* Réduire la largeur des boutons */
+        padding: 12px 0; /* Ajouter du padding vertical */
+    }
+
+    /* Image de profil plus petite */
+    .profile-picture {
+        width: 120px;
+        height: 120px;
+    }
+
+
+    /* Titre des formulaires */
+    form h2 {
+        font-size: 1.2rem;
+    }
+}
+
+/* Pour les très petits écrans (téléphones en portrait) */
+@media (max-width: 480px) {
+    .card-edit-profile {
+        width: 95%; /* Augmenter la largeur pour les petits appareils */
+        padding: 4%;
+        margin: 0 auto;
+    }
+
+    .input-label {
+        padding: 3%; /* Ajuster les marges pour plus de confort */
+    }
+
+    .input-field {
+        font-size: 1rem; /* Garder la taille de texte confortable */
+        padding: 8px;
+    }
+
+    /* Image de profil encore plus petite */
+    .profile-picture {
+        width: 100px;
+        height: 100px;
+    }
+
+    /* Ajustement des boutons pour les écrans très petits */
+    .action-button, .cancel-button {
+        padding: 15px 0;
+        font-size: 1rem;
+        width: 100%;
+    }
+
+    form h2 {
+        font-size: 1.1rem;
     }
 }

@@ -1,45 +1,242 @@
+/* Conteneur principal du profil */
 .profile-container {
-  padding: 5%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;  /* Prendre toute la hauteur de la fenêtre */
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+  height: 80vh;
+  padding: 3%;
+}
+
+/* Titre du profil - centré et stylisé */
+.profile-container h2 {
+  color: #f0f0f0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3rem;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  padding: 0%;
+  margin: 0%;
+  text-transform: uppercase;
+}
+
+/* Image du profil - centré et avec bordure */
+.profile-container img {
+  width: 15vh;
+  height: 15vh;
+  border-radius: 50%;
+  border: 4px solid #1a68ff; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
+  padding: 4px; 
+  transition: transform 0.3s ease-in-out;
+  object-fit: cover; 
+}
+
+
+.profile-container img:hover {
+  transform: scale(1.05); 
+}
+
+/* Conteneur des informations du profil */
+.profile-info {
+  color: #fff;
+  background-color: #1d2b3a;
+  padding: 2%;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* Ombre pour un effet de profondeur */
+  width: 30%;
+  height: 100%;
+  display: grid;
+  gap: 20px; /* Espacement interne entre les éléments */
+}
+
+.profile-info p {
+  text-align: left;
+  line-height: 0.5;
+}
+
+/* Grille pour les informations */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px; /* Espacement entre les éléments de la grille */
+}
+
+/* Boutons */
+button {
+  padding: 0.5%;
+  background-color: #1a68ff; /* Cyan pour le bouton */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #1a68ff; /* Un peu plus foncé au survol */
+  box-shadow: 0px 0px 5px 1px #ffffff;
+  transform: translateY(-2px);
+}
+
+button:active {
+  background-color: #1a68ff; /* Encore plus foncé quand cliqué */
+}
+
+/* Styling pour les champs de texte */
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  background-color: #1d2b3a;
+  color: white;
+  border: 1px solid #1a68ff;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #1a68ff; /* Accentuation de la bordure au focus */
+}
+
+
+/* Pour les écrans petits (mobiles portrait) */
+@media (max-width: 576px) {
+  .profile-container {
+    height: 100vh;
   }
 
-  .profile-container h2{
-    padding: 2%;
-    color: white;
+  .profile-container h2 {
+    font-size: 2rem;
   }
 
   .profile-container img {
-    width: 10vh;
-    height: 10vh;
+    width: 25vh;
+    height: 25vh;
   }
-  
+
   .profile-info {
-    color: white;
-    background-color: rgb(22, 28, 52);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 400px;
-    text-align: left;
-    box-sizing: border-box;
+    padding: 5%;
   }
-  
+
+  .grid {
+    grid-template-columns: 1fr; /* Afficher en une seule colonne */
+  }
+
   button {
-    margin-top: 20px;
+    width: 100%; /* Boutons prennent toute la largeur */
+    padding: 10px 0;
+  }
+
+  input, select, textarea {
+    font-size: 1rem;
+  }
+}
+
+/* Pour les écrans petits (mobiles portrait) */
+@media (max-width: 576px) {
+  .profile-container {
+    height: auto;  /* Changer de 100vh à auto pour éviter un écrasement en hauteur */
+    padding: 5%;
+    width: 100%;
+    min-height: 50vh;
+  }
+
+  .profile-container h2 {
+    font-size: 2rem;
+  }
+
+  .profile-container img {
+    width: 15vh;
+    height: 15vh;
+  }
+
+  .profile-info {
+    width: 90%;
+    padding: 5%;
+  }
+
+  .grid {
+    grid-template-columns: 1fr; /* Afficher en une seule colonne */
+  }
+
+  button {
+    width: 100%; /* Boutons prennent toute la largeur */
+    padding: 10px 0;
+  }
+
+  input, select, textarea {
+    font-size: 1rem;
+  }
+}
+
+
+/* Pour les grands écrans (ordinateurs de bureau) */
+@media (max-width: 993px) {
+  .profile-container {
+    width: 100vw;
+    height: 80vh;
+    padding: 3%;
+  }
+
+  .profile-container h2 {
+    font-size: 3rem;
+  }
+
+  .profile-container img {
+    width: 15vh;
+    height: 15vh;
+  }
+
+  .profile-info {
+    width: 100%;
+    padding: 3%;
+  }
+
+  .grid {
+    grid-template-columns: 1fr 1fr; /* Deux colonnes pour la grille */
+  }
+
+  button {
     padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
   }
-  
-  button:hover {
-    background-color: #0056b3;
+
+  input, select, textarea {
+    font-size: 1rem;
   }
-  
+}
+
+@media (max-width: 1400px) {
+  .profile-container {
+    height: 80vh;
+    padding: 3%;
+  }
+
+  .profile-container h2 {
+    font-size: 3rem;
+  }
+
+  .profile-container img {
+    width: 15vh;
+    height: 15vh;
+  }
+
+  .profile-info {
+    width: 80%;
+    padding: 3%;
+  }
+
+  .grid {
+    grid-template-columns: 1fr 1fr; /* Deux colonnes pour la grille */
+  }
+
+  button {
+    padding: 10px 20px;
+  }
+
+  input, select, textarea {
+    font-size: 1rem;
+  }
+}

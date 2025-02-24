@@ -3,18 +3,25 @@
     width: 100%;
     min-width: 45vh;
     height: 100%;
-    height: 60vh;
+    height: 70vh;
     background-color: #161C34;
     display: flex;
     flex-direction: column;
-    border: 2px solid transparent;
+    border: 2px solid #ffb000;
     border-radius: 2vh;
     justify-content: center;
     align-items: center;
 }
 
+img {
+    width: 50%;
+    height: 50%;
+    padding: 0%;
+    margin: 0%;
+}
+
 form h2 {
-    padding: 5%;
+    padding: 1%;
     color: white;
     text-transform: uppercase;
 }

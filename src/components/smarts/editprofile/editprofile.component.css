@@ -21,7 +21,6 @@
     justify-content: center;
     align-items: center;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-    background-color: #1d2b3a;
     gap: 20px; /* Espacement interne entre les éléments */
 }
 

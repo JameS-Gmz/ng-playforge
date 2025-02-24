@@ -1,37 +1,39 @@
 
 <header class="header">
 
-        
-    <nav>
-            <ul class="nav">
-        
-            <li><app-nav-item text="All Games" img="/ion_network.svg"
-                    routerLink="/all-game"></app-nav-item></li>
-            <li *ngIf="isLoggedIn && isDeveloper"><app-nav-item text="Upload" img="/ion_upload.svg"
-                    routerLink="/game"></app-nav-item></li>
-            <li><app-nav-item text="Home" img="/ion_home.svg"
-                    routerLink="/"></app-nav-item></li>
+        <nav>
+                <ul class="nav">
 
-        </ul>
+                        <li><app-nav-item text="All Games"
+                                        img="/ion_network.svg"
+                                        routerLink="/all-game"></app-nav-item></li>
+                        <li *ngIf="isLoggedIn && isDeveloper"><app-nav-item
+                                        text="Upload" img="/ion_upload.svg"
+                                        routerLink="/game"></app-nav-item></li>
+                        <li><app-nav-item text="Home" img="/ion_home.svg"
+                                        routerLink="/"></app-nav-item></li>
 
-        <div class="app-searchbar">
-            <app-searchbar></app-searchbar>
-        </div>
-        
-        <div class="mobile-menu">
-                <app-mobile-menu></app-mobile-menu>
-            </div>
+                </ul>
 
-        <ul class="nav">
+                <div class="app-searchbar">
+                        <app-searchbar></app-searchbar>
+                </div>
 
-            <li><app-nav-item text="Library" img="/ion_library.svg"
-                    routerLink="/library"></app-nav-item></li>
-            <li><app-nav-item text="Notifications"
-                    img="ion_notification.svg"></app-nav-item></li>
-            <li><app-nav-item text="Profile" img="ion_profile color.svg"
-                [routerLink]="isLoggedIn ? '/profile' : '/auth'"></app-nav-item></li>
+                <div class="mobile-menu">
+                        <app-mobile-menu></app-mobile-menu>
+                </div>
 
-        </ul>
+                <ul class="nav">
 
-    </nav>
+                        <li><app-nav-item text="Library" img="/ion_library.svg"
+                                        routerLink="/library"></app-nav-item></li>
+                        <li><app-nav-item text="Notifications"
+                                        img="ion_notification.svg"></app-nav-item></li>
+                        <li><app-nav-item text="Profile"
+                                        img="ion_profile color.svg"
+                                        [routerLink]="isLoggedIn ? '/profile' : '/auth'"></app-nav-item></li>
+
+                </ul>
+
+        </nav>
 </header>

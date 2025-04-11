@@ -14,11 +14,15 @@ export class CarouselComponent {
 
   // Fonction pour passer à l'image suivante
   nextSlide(): void {
-    this.currentIndex = (this.currentIndex + 1) % this.images.length;
+    if (this.currentIndex < this.images.length - 1) {
+      this.currentIndex++;
+    }
   }
 
-  // Fonction pour revenir à l'image précédente
+  // Fonction pour revenir à l'image précédente 
   prevSlide(): void {
-    this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+    }
   }
 }

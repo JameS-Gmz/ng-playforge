@@ -5,8 +5,13 @@
   justify-items: center;
   align-items: center;
   text-align: center;
-  height: 80vh;
+  min-height: 100vh;
   padding: 3%;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding-bottom: 100px; /* Ajout d'un padding en bas pour éviter le chevauchement avec le footer */
 }
 
 /* Titre du profil - centré et stylisé */
@@ -15,8 +20,8 @@
   font-family: 'Orbitron', sans-serif;
   font-size: 3rem;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-  padding: 0%;
-  margin: 0%;
+  padding: 0;
+  margin: 0;
   text-transform: uppercase;
 }
 
@@ -29,9 +34,10 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
   padding: 4px; 
   transition: transform 0.3s ease-in-out;
-  object-fit: cover; 
+  object-fit: cover;
+  max-width: 200px;
+  max-height: 200px;
 }
-
 
 .profile-container img:hover {
   transform: scale(1.05); 
@@ -40,50 +46,56 @@
 /* Conteneur des informations du profil */
 .profile-info {
   color: #fff;
-  background-color: #1d2b3a;
+  background-color: #1D2437;
   padding: 2%;
   border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* Ombre pour un effet de profondeur */
-  width: 30%;
-  height: 100%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  width: 50%; /* Augmentation de la largeur */
+  min-width: 400px; /* Augmentation de la largeur minimale */
+  max-width: 800px; /* Augmentation de la largeur maximale */
+  height: auto;
   display: grid;
-  gap: 20px; /* Espacement interne entre les éléments */
+  gap: 20px;
+  box-sizing: border-box;
 }
 
 .profile-info p {
   text-align: left;
-  line-height: 0.5;
+  line-height: 1.5;
+  word-break: break-word;
 }
 
 /* Grille pour les informations */
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px; /* Espacement entre les éléments de la grille */
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  width: 100%;
 }
 
 /* Boutons */
-button {
-  padding: 0.5%;
-  background-color: #1a68ff; /* Cyan pour le bouton */
+.action-button {
+  margin-top: 5%;
+  padding: 3%;
+  font-size: larger;
+  width: 70%;
+  background-color: #1A68FF;
+  border-radius: 6px;
   color: white;
-  border: none;
-  border-radius: 8px;
+  border: 0;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: box-shadow 0.3s, transform 0.3s;
+  box-sizing: border-box;
 }
 
-button:hover {
-  background-color: #1a68ff; /* Un peu plus foncé au survol */
-  box-shadow: 0px 0px 5px 1px #ffffff;
+.action-button:hover {
+  box-shadow: 0px 0px 10px 2px #1A68FF;
   transform: translateY(-2px);
 }
 
-button:active {
-  background-color: #1a68ff; /* Encore plus foncé quand cliqué */
-}
-
-/* Styling pour les champs de texte */
 input, select, textarea {
   width: 100%;
   padding: 10px;
@@ -93,150 +105,78 @@ input, select, textarea {
   border-radius: 6px;
   margin-bottom: 20px;
   font-size: 1rem;
+  box-sizing: border-box;
 }
 
 input:focus, select:focus, textarea:focus {
   outline: none;
-  border-color: #1a68ff; /* Accentuation de la bordure au focus */
+  border-color: #1a68ff;
 }
 
+.admin-button {
+  background-color: #28a745;
+}
 
-/* Pour les écrans petits (mobiles portrait) */
-@media (max-width: 576px) {
+.admin-button:hover {
+  background-color: #218838;
+  box-shadow: 0px 0px 10px 2px #28a745;
+}
+
+/* Media Queries */
+@media (max-width: 1200px) {
   .profile-container {
-    height: 100vh;
-  }
-
-  .profile-container h2 {
-    font-size: 2rem;
-  }
-
-  .profile-container img {
-    width: 25vh;
-    height: 25vh;
+    min-height: 100vh;
+    padding: 20px;
+    padding-bottom: 100px;
   }
 
   .profile-info {
-    width: 100%;
-    padding: 5%;
-  }
-
-  .grid {
-    grid-template-columns: 1fr; /* Afficher en une seule colonne */
-  }
-
-  button {
-    width: 100%; /* Boutons prennent toute la largeur */
-    padding: 10px 0;
-  }
-
-  input, select, textarea {
-    font-size: 1rem;
+    width: 60%;
+    min-width: 350px;
   }
 }
 
-/* Pour les écrans petits (mobiles portrait) */
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   .profile-container {
-    height: auto;  /* Changer de 100vh à auto pour éviter un écrasement en hauteur */
-    padding: 5%;
-    width: 100%;
-    min-height: 50vh;
+    padding: 15px;
+    padding-bottom: 100px;
   }
 
   .profile-container h2 {
-    font-size: 2rem;
-  }
-
-  .profile-container img {
-    width: 15vh;
-    height: 15vh;
-  }
-
-  .profile-info {
-    width: 90%;
-    padding: 5%;
-  }
-
-  .grid {
-    grid-template-columns: 1fr; /* Afficher en une seule colonne */
-  }
-
-  button {
-    width: 100%; /* Boutons prennent toute la largeur */
-    padding: 10px 0;
-  }
-
-  input, select, textarea {
-    font-size: 1rem;
-  }
-}
-
-
-/* Pour les grands écrans (ordinateurs de bureau) */
-@media (max-width: 993px) {
-  .profile-container {
-    width: 100vw;
-    height: 80vh;
-    padding: 3%;
-  }
-
-  .profile-container h2 {
-    font-size: 3rem;
-  }
-
-  .profile-container img {
-    width: 15vh;
-    height: 15vh;
-  }
-
-  .profile-info {
-    width: 100%;
-    padding: 3%;
-  }
-
-  .grid {
-    grid-template-columns: 1fr 1fr; /* Deux colonnes pour la grille */
-  }
-
-  button {
-    padding: 10px 20px;
-  }
-
-  input, select, textarea {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 1400px) {
-  .profile-container {
-    height: 80vh;
-    padding: 3%;
-  }
-
-  .profile-container h2 {
-    font-size: 3rem;
-  }
-
-  .profile-container img {
-    width: 15vh;
-    height: 15vh;
+    font-size: 2.5rem;
   }
 
   .profile-info {
     width: 80%;
-    padding: 3%;
+    min-width: 300px;
   }
 
-  .grid {
-    grid-template-columns: 1fr 1fr; /* Deux colonnes pour la grille */
+  .action-button {
+    width: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-container {
+    padding: 10px;
+    padding-bottom: 100px;
   }
 
-  button {
-    padding: 10px 20px;
+  .profile-container h2 {
+    font-size: 2rem;
   }
 
-  input, select, textarea {
-    font-size: 1rem;
+  .profile-info {
+    width: 95%;
+    min-width: 240px;
+  }
+
+  .action-button {
+    width: 90%;
+  }
+
+  .profile-container img {
+    width: 12vh;
+    height: 12vh;
   }
 }

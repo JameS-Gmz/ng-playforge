@@ -1,12 +1,11 @@
 .card {
     display: flex;
     flex-direction: column;
-    background-color: #161C34;
+    background-color: #1D2437;
     width: 100%;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
     padding: 2%;
-
 }
 
 .card-image {

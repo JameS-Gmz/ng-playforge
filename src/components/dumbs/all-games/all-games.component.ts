@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-all-games',
   standalone: true,
-  imports: [RouterLink, CardGameComponent, CommonModule],
+  imports: [ CommonModule],
   templateUrl: './all-games.component.html',
   styleUrls: ['./all-games.component.css']
 })

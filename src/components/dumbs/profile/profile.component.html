@@ -8,16 +8,19 @@
 
       <!-- Informations de profil de l'utilisateur -->
       <h2>{{ user.username }}</h2>
-      <p><strong>Email:</strong> {{ user.email }}</p>
-      <p><strong>Rôle:</strong> {{ user.role }}</p>
-      <p><strong>Bio:</strong> {{ user.bio || 'Aucune biographie ajoutée' }}</p>
-      <p><strong>Birhtday:</strong>{{user.birthday}}</p>
+      <p><strong>Email : </strong> {{ user.email }}</p>
+      <p><strong>Rôle : </strong> {{ user.role }}</p>
+      <p><strong>Bio : </strong> {{ user.bio || 'Aucune biographie ajoutée' }}</p>
+      <p><strong>Birthday : </strong>{{user.birthday}}</p>
       <div class="grid">
-        <!-- Bouton pour se déconnecter -->
-        <button (click)="logout()">Se déconnecter</button>
-        
         <!-- Bouton pour modifier le profil -->
-        <button (click)="editProfile()">Modifier le profil</button>
+        <button class="action-button" (click)="editProfile()">Modifier le profil</button>
+        
+        <!-- Bouton pour accéder au panneau d'administration (visible uniquement pour les admins) -->
+        <button *ngIf="isAdmin" class="action-button admin-button" (click)="goToAdmin()">Panneau d'administration</button>
+        
+        <!-- Bouton pour se déconnecter -->
+        <button class="action-button" (click)="logout()">Se déconnecter</button>
       </div>
     </div>
 </div>

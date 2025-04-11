@@ -1,0 +1,105 @@
+<div class="admin-container">
+  <h1>Panneau d'administration</h1>
+
+  <div class="toggle-buttons">
+    <button class="toggle-button" [class.active]="showUsers" (click)="toggleView('users')">Utilisateurs</button>
+    <button class="toggle-button" [class.active]="showGames" (click)="toggleView('games')">Jeux</button>
+  </div>
+
+  <!-- Users Section -->
+  <div class="admin-column" *ngIf="showUsers">
+    <div class="search-bar">
+      <input type="text" [(ngModel)]="userSearchTerm" (input)="filterUsers()" placeholder="Rechercher un utilisateur...">
+    </div>
+
+    <div *ngIf="isUserLoading" class="loading">Chargement...</div>
+    <div *ngIf="userErrorMessage" class="error">{{ userErrorMessage }}</div>
+
+    <div class="users-list">
+      <div *ngFor="let user of filteredUsers" class="user-card">
+        <div class="user-info">
+          <h3>{{ user.username }}</h3>
+          <p>Email: {{ user.email }}</p>
+          <p>Rôle: {{ user.role || 'Non défini' }}</p>
+        </div>
+        <div class="user-actions">
+          <button class="edit" (click)="editUser(user)">Modifier</button>
+          <button class="delete" (click)="deleteUser(user.id)">Supprimer</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="selectedUser" class="edit-form">
+      <h2>Modifier l'utilisateur</h2>
+      <div class="form-group">
+        <label>Nom d'utilisateur</label>
+        <input type="text" [(ngModel)]="selectedUser.username">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" [(ngModel)]="selectedUser.email">
+      </div>
+      <div class="form-group">
+        <label>Rôle</label>
+        <select [(ngModel)]="selectedUser.RoleId">
+          <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
+        </select>
+      </div>
+      <div class="form-actions">
+        <button class="save" (click)="updateUser()">Enregistrer</button>
+        <button class="cancel" (click)="cancelUserEdit()">Annuler</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Games Section -->
+  <div class="admin-column" *ngIf="showGames">
+    <div class="search-bar">
+      <input type="text" [(ngModel)]="gameSearchTerm" (input)="filterGames()" placeholder="Rechercher un jeu...">
+    </div>
+
+    <div *ngIf="isGameLoading" class="loading">Chargement...</div>
+    <div *ngIf="gameErrorMessage" class="error">{{ gameErrorMessage }}</div>
+
+    <div class="games-list">
+      <div *ngFor="let game of filteredGames" class="game-card">
+        <div class="game-info">
+          <h3>{{ game.title }}</h3>
+          <p>Prix: {{ game.price }}€</p>
+          <p>Studio: {{ game.authorStudio }}</p>
+          <p>Status: {{ game.status?.name || 'Non défini' }}</p>
+        </div>
+        <div class="game-actions">
+          <button class="edit" (click)="editGame(game)">Modifier</button>
+          <button class="delete" (click)="deleteGame(game.id)">Supprimer</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="selectedGame" class="edit-form">
+      <h2>Modifier le jeu</h2>
+      <div class="form-group">
+        <label>Titre</label>
+        <input type="text" [(ngModel)]="selectedGame.title">
+      </div>
+      <div class="form-group">
+        <label>Prix</label>
+        <input type="number" [(ngModel)]="selectedGame.price">
+      </div>
+      <div class="form-group">
+        <label>Studio</label>
+        <input type="text" [(ngModel)]="selectedGame.authorStudio">
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        <select [(ngModel)]="selectedGame.StatusId">
+          <option *ngFor="let status of statuses" [value]="status.id">{{ status.name }}</option>
+        </select>
+      </div>
+      <div class="form-actions">
+        <button class="save" (click)="updateGame()">Enregistrer</button>
+        <button class="cancel" (click)="cancelGameEdit()">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>

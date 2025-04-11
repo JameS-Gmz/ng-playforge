@@ -7,6 +7,8 @@ import { ProfileComponent } from '../components/dumbs/profile/profile.component'
 import { GameDetailsComponent } from '../components/smarts/game-details/game-details.component';
 import { AuthComponent } from '../components/dumbs/auth/auth.component';
 import { EditProfileComponent } from '../components/smarts/editprofile/editprofile.component';
+import { AdminComponent } from '../components/smarts/admin/admin.component';
+
 
 export const routes: Routes = [
     {path: "", component:HomeComponent},
@@ -16,5 +18,6 @@ export const routes: Routes = [
     {path: "profile", component:ProfileComponent},
     {path: "game/id/:id", component:GameDetailsComponent},
     {path:"auth",component:AuthComponent},
-    {path: "editprofile", component:EditProfileComponent}
-];
+    {path: "editprofile", component:EditProfileComponent},
+    {path: "admin", component:AdminComponent},
+]

@@ -1,29 +1,38 @@
-.card-user{
+.card-user {
     padding: 5%;
-    width: 100%;
     width: 45vh;
-    height: 100%;
     height: 60vh;
-    background-color: #161C34;
+    background-color: #1D2437;
     display: flex;
     flex-direction: column;
     border: 2px solid #ffb000;
     border-radius: 2vh;
     justify-content: center;
     align-items: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.error-message {
+    color: #ff4444;
+    font-size: 1.2vh;
+    margin-top: 1vh;
+    text-align: center;
 }
 
 img {
     width: 50%;
     height: 50%;
-    padding: 0%;
-    margin: 0%;
+    padding: 0;
+    margin: 0;
+    object-fit: contain;
 }
 
 form h2 {
     padding: 1%;
-    color: white;
+    color: #f0f0f0;
     text-transform: uppercase;
+    font-family: 'Orbitron', sans-serif;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .input-label {
@@ -31,7 +40,6 @@ form h2 {
     flex-direction: column;
     color: #ffffff;
     width: 100%;
-    display: flex;
     justify-content: center;
     align-items: center;
     padding: 2%;
@@ -45,25 +53,55 @@ form h2 {
     color: white;
     width: 80%;
     height: 2.5vh;
+    transition: border-color 0.3s ease;
 }
 
-.input-field:hover{
+.input-field:focus {
+    outline: none;
+    border-bottom: 2px solid #1A68FF;
+}
 
+.input-field:hover {
     border-bottom: 2px solid #1A68FF;
 }
 
 .action-button {
     margin-top: 5%;
     padding: 3%;
-	font-size:LARGER;
+    font-size: larger;
     width: 80%;
     background-color: #1A68FF;
     border-radius: 6px;
-    color:white;
+    color: white;
     border: 0;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.action-button:hover{
-    box-shadow: 0px 0px 5px 1px #1A68FF;
+.action-button:hover {
+    box-shadow: 0px 0px 10px 2px #1A68FF;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .card-user {
+        width: 80%;
+        height: auto;
+        min-height: 50vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-user {
+        width: 90%;
+        padding: 3%;
+    }
+    
+    .input-field {
+        width: 90%;
+    }
+    
+    .action-button {
+        width: 90%;
+    }
 }

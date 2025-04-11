@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -9,11 +10,12 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css'],
   standalone :true,
-  imports : [FormsModule]
+  imports : [FormsModule,CommonModule]
 })
 export class SignInComponent {
   email = '';
   password = '';
+  errorMessage: string | undefined;
   
 
   constructor(private authService: AuthService, private router: Router) {}
@@ -21,7 +23,7 @@ export class SignInComponent {
 
   async onSubmit() {
     if (!this.email || !this.password) {
-      alert('Veuillez entrer un email et un mot de passe');
+      this.errorMessage = 'Veuillez entrer un email et un mot de passe';
       return;
     }
 
@@ -35,7 +37,7 @@ export class SignInComponent {
     this.router.navigate(['/profile']);  // Redirection après connexion
     } catch (error) {
       console.error('Erreur lors de la connexion', error);
-      alert('Adresse mail ou mot de passe incorrect')
+      this.errorMessage = 'Adresse mail ou mot de passe incorrect';
     }
   }
 }

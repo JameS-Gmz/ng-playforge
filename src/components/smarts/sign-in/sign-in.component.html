@@ -3,11 +3,18 @@
   <h2>Connexion</h2>
   <label class="input-label" for="email">Email
     <input id="email" class="input-field" type="email" [(ngModel)]="email"
-      name="email" required>
+      name="email" required #emailInput="ngModel">
+    <div class="error-message" *ngIf="emailInput.invalid && emailInput.touched">
+      L'email est requis
+    </div>
   </label>
   <label class="input-label" for="password">Mot de passe
     <input id="password" class="input-field" type="password"
-      [(ngModel)]="password" name="password" required>
+      [(ngModel)]="password" name="password" required #passwordInput="ngModel">
+    <div class="error-message" *ngIf="passwordInput.invalid && passwordInput.touched">
+      Le mot de passe est requis
+    </div>
   </label>
   <button class="action-button" type="submit">Se connecter</button>
+  <div class="error-message" *ngIf="errorMessage"> {{errorMessage}} </div>
 </form>

@@ -14,6 +14,7 @@ export class AuthService {
 
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   role$ = this.roleSubject.asObservable();
+  token$: any;
 
   constructor() {  
     const token = localStorage.getItem('token');
@@ -60,66 +61,99 @@ export class AuthService {
   }
 
   async signIn(userData: any): Promise<any> {
-    try  { const response = await fetch('http://localhost:9090/user/signin', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    });
+    try {
+      const response = await fetch('http://localhost:9090/user/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Erreur lors de la connexion');
-    }
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Erreur lors de la connexion');
+      }
 
-    const data = await response.json();
-    const token = data.token;
+      const data = await response.json();
+      const token = data.token;
 
-    if (token) {
-      localStorage.setItem('token', token);
-      localStorage.setItem('role', data.role);  // Stocker le token JWT dans le localStorage
-    }
+      if (token) {
+        // Décoder le token pour vérifier son contenu
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        console.log('Contenu du token après connexion:', payload);
+        
+        // Vérifier si la date est présente dans le token
+        if (payload.birthday) {
+          console.log('Date d\'anniversaire dans le token:', payload.birthday);
+        } else {
+          console.log('Aucune date d\'anniversaire dans le token');
+        }
 
-    this.isLoggedInSubject.next(true);
-    this.roleSubject.next(data.role);
+        localStorage.setItem('token', token);
+        localStorage.setItem('role', data.role);
+      }
 
-    return data;
-  } catch (error) {
+      this.isLoggedInSubject.next(true);
+      this.roleSubject.next(data.role);
+
+      return data;
+    } catch (error) {
       console.error('Erreur lors de la connexion:', error);
       throw error;
     }
-}
-
-async updateProfile(userData: any): Promise<any> {
-  const token = localStorage.getItem('token'); 
-  const userId = userData.id;
-
-  if (!userId) {
-    throw new Error('Utilisateur non authentifié');
   }
 
-  try {
-    const response = await fetch(`http://localhost:9090/user/profile/${userId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,  
-      },
-      body: JSON.stringify(userData), 
-    });
-
-    if (!response.ok) {
-      throw new Error('Erreur lors de la mise à jour du profil');
+  async updateProfile(userData: any): Promise<any> {
+    const token = localStorage.getItem('token'); 
+    const userId = userData.id;
+    console.log('User data:', userData);
+    console.log('User token:', token);
+    if (!token) {
+      throw new Error('Token non disponible. Veuillez vous connecter.');
+    }
+    if (!userId) {
+      throw new Error('Utilisateur non authentifié');
     }
 
-    const data = await response.json(); 
-    return data;
-  } catch (error) {
-    console.error('Erreur lors de la mise à jour du profil:', error);
-    throw error;
+    try {
+      // Convertir la date en format ISO si elle existe
+      const formattedUserData = {
+        ...userData,
+        birthday: userData.birthday ? new Date(userData.birthday).toISOString() : null
+      };
+
+      const response = await fetch(`http://localhost:9090/user/profile/${userId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`, 
+        },
+        body: JSON.stringify(formattedUserData), 
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Erreur lors de la mise à jour du profil');
+      }
+
+      const data = await response.json(); 
+
+      // Met à jour le token dans le localStorage avec les nouvelles données
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+        // Vérifier que la date est bien dans le nouveau token
+        const payload = JSON.parse(atob(data.token.split('.')[1]));
+        console.log('Nouveau token payload:', payload);
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour du profil:', error);
+      throw error;
+    }
   }
-}
+
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
@@ -131,6 +165,40 @@ async updateProfile(userData: any): Promise<any> {
     return !!localStorage.getItem('token');
   }
 
+  // Ajout d'une méthode pour vérifier le contenu du token
+  checkTokenContent() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      console.log('Contenu actuel du token:', payload);
+      return payload;
+    }
+    return null;
+  }
 
+  isAdmin(): boolean {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.role === 'admin'
+    }
+    return false;
+  }
 
+  isSuperAdmin(): boolean {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.role === 'superadmin';
+    }
+    return false;
+  }
+
+  checkTokenExpiration() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.exp;
+    } 
+  }
 }

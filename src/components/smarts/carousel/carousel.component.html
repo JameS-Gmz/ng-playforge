@@ -1,19 +1,34 @@
 <div class="carousel-container">
-
   <div class="row">
-    <button class="prev" (click)="prevSlide()"><img class="arrow"
-        src="/ion_left-arrow.svg" alt></button>
+    <button class="prev" (click)="prevSlide()" [disabled]="currentIndex === 0">
+      <img class="arrow" src="/ion_left-arrow.svg" alt="Previous">
+    </button>
 
     <div class="carousel-slide">
       <picture>
-        <img [src]="images[currentIndex]" alt="Image {{ currentIndex + 1 }}">
+        <img 
+          [src]="images[currentIndex]" 
+          [alt]="'Image ' + (currentIndex + 1)"
+          loading="lazy"
+          (swipeleft)="nextSlide()"
+          (swiperight)="prevSlide()">
       </picture>
     </div>
 
+    <button class="next" (click)="nextSlide()" [disabled]="currentIndex === images.length - 1">
+      <img class="arrow" src="/ion_right-arrow.svg" alt="Next">
+    </button>
+  </div>
 
-  <button class="next" (click)="nextSlide()"><img class="arrow"
-      src="/ion_right-arrow.svg" alt></button>
-    </div>
+  <div class="carousel-dots">
+    <span 
+      *ngFor="let image of images; let i = index" 
+      class="dot"
+      [class.active]="i === currentIndex"
+      (click)="currentIndex = i">
+    </span>
+  </div>
+
   <div class="carousel-indicator">
     {{ currentIndex + 1 }} / {{ images.length }}
   </div>

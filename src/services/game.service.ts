@@ -154,11 +154,13 @@ export class GameService {
     return this.postData(`${this.baseUrl}/game/filter`, filters);
   }
 
+  deleteGame(gameId: string): Promise<any> {
+    return this.postData(`${this.baseUrl}/game/delete/${gameId}`, {});
+  }
 
-
-
-
-
+  updateGame(gameId: string, gameData: any): Promise<any> {
+    return this.postData(`${this.baseUrl}/game/update/${gameId}`, gameData);
+  }
 
 }
 

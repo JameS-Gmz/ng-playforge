@@ -5,6 +5,13 @@
 
 }
 
+h2 {
+  color: white;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
 .admin-container h1 {
   color: white;
 }

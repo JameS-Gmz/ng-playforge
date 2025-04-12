@@ -80,14 +80,19 @@ export class AdminComponent implements OnInit {
 
   private async loadRoles() {
     try {
+      console.log('Loading roles...');
       const response = await this.userService.getRoles();
+      console.log('Roles response:', JSON.stringify(response, null, 2));
       this.roles = response || [];
-      console.log('Roles data:', this.roles);
+      console.log('Roles after assignment:', JSON.stringify(this.roles, null, 2));
+      
       if (!this.isSuperAdmin) {
         this.roles = this.roles.filter(role => role.name !== 'superadmin');
       }
+      console.log('Final roles:', JSON.stringify(this.roles, null, 2));
     } catch (error) {
       console.error('Error loading roles:', error);
+      this.userErrorMessage = 'Error loading roles: ' + (error instanceof Error ? error.message : 'Unknown error');
     }
   }
 
@@ -182,7 +187,16 @@ export class AdminComponent implements OnInit {
   }
 
   editUser(user: any) {
-    this.selectedUser = { ...user };
+    console.log('Editing user:', user);
+    console.log('User role:', user.role);
+    console.log('User RoleId:', user.RoleId);
+    
+    this.selectedUser = { 
+      ...user,
+      RoleId: user.role?.id || user.RoleId
+    };
+    
+    console.log('Selected user after edit:', this.selectedUser);
   }
 
   editGame(game: any) {
@@ -194,13 +208,65 @@ export class AdminComponent implements OnInit {
 
     this.isUserLoading = true;
     try {
-      await this.userService.updateUser(this.selectedUser);
+      console.log('Selected User:', JSON.stringify(this.selectedUser, null, 2));
+      console.log('Selected User RoleId:', this.selectedUser.RoleId);
+      console.log('Available Roles:', JSON.stringify(this.roles, null, 2));
+      
+      // Convertir RoleId en nombre pour la comparaison
+      const roleId = Number(this.selectedUser.RoleId);
+      console.log('Converted RoleId:', roleId);
+      
+      // Trouver le rôle sélectionné par son ID
+      const selectedRole = this.roles.find(role => role.id === roleId);
+      
+      console.log('Selected Role:', selectedRole);
+      
+      if (!selectedRole) {
+        this.userErrorMessage = 'Rôle invalide - Veuillez sélectionner un rôle valide';
+        return;
+      }
+
+      // Assigner le rôle en fonction du type de rôle
+      switch (selectedRole.name.toLowerCase()) {
+        case 'user':
+          console.log('Assigning user role...');
+          await this.userService.assignUserRole(Number(this.selectedUser.id));
+          break;
+        case 'developer':
+          console.log('Assigning developer role...');
+          await this.userService.assignDeveloperRole(this.selectedUser.id);
+          break;
+        case 'admin':
+          console.log('Assigning admin role...');
+          await this.userService.assignAdminRole(this.selectedUser.id);
+          break;
+        case 'superadmin':
+          if (!this.isSuperAdmin) {
+            this.userErrorMessage = 'Vous n\'avez pas les droits pour assigner le rôle superadmin';
+            return;
+          }
+          console.log('Assigning superadmin role...');
+          await this.userService.assignSuperAdminRole(this.selectedUser.id);
+          break;
+        default:
+          console.log('Role name not matched:', selectedRole.name);
+          this.userErrorMessage = 'Rôle non supporté: ' + selectedRole.name;
+          return;
+      }
+      
+      // Mettre à jour les autres informations de l'utilisateur
+      await this.userService.updateUser({
+        id: this.selectedUser.id,
+        username: this.selectedUser.username,
+        email: this.selectedUser.email
+      });
+
       this.selectedUser = null;
       await this.loadUsers();
       this.userErrorMessage = null;
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error updating user:', error);
-      this.userErrorMessage = 'Error updating user';
+      this.userErrorMessage = 'Error updating user: ' + (error instanceof Error ? error.message : 'Unknown error');
     } finally {
       this.isUserLoading = false;
     }

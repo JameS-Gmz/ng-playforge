@@ -28,13 +28,25 @@ export class UserService {
 
   private getHeaders(): Headers {
     const token = localStorage.getItem('token');
+    console.log('Current token:', token);
+    
     if (!token) {
+      console.error('No token found in localStorage');
       throw new Error('No token found');
     }
-    return new Headers({
+
+    const headers = new Headers({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
+
+    // Convert headers to a plain object for logging
+    const headersObj: { [key: string]: string } = {};
+    headers.forEach((value, key) => {
+      headersObj[key] = value;
+    });
+    console.log('Request headers:', headersObj);
+    return headers;
   }
 
   async getAllUsers(): Promise<User[]> {
@@ -139,17 +151,110 @@ export class UserService {
 
   async getRoles(): Promise<Role[]> {
     try {
+      console.log('Fetching roles from API...');
       const response = await fetch(`http://localhost:9090/role/all`, {
         headers: this.getHeaders()
       });
+      
+      console.log('Roles API response status:', response.status);
       
       if (!response.ok) {
         throw new Error(`Failed to fetch roles: ${response.statusText}`);
       }
       
-      return response.json();
+      const roles = await response.json();
+      console.log('Roles API response data:', roles);
+      return roles;
     } catch (error) {
       console.error('Error fetching roles:', error);
+      throw error;
+    }
+  }
+
+  async assignUserRole(userId: number): Promise<void> {
+    try {
+      console.log('Assigning user role - userId:', userId);
+      const headers = this.getHeaders();
+      const response = await fetch(`${this.apiUrl}/assign-user/${userId}`, {
+        method: 'POST',
+        headers: headers
+      });
+
+      console.log('Response status:', response.status);
+      const responseData = await response.json();
+      console.log('Response data:', responseData);
+
+      if (!response.ok) {
+        throw new Error(`Failed to assign role: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error('Error assigning user role:', error);
+      throw error;
+    }
+  }
+
+  async assignDeveloperRole(userId: string): Promise<void> {
+    try {
+      console.log('Assigning developer role - userId:', userId);
+      const headers = this.getHeaders();
+      const response = await fetch(`${this.apiUrl}/assign-developer/${userId}`, {
+        method: 'POST',
+        headers: headers
+      });
+
+      console.log('Response status:', response.status);
+      const responseData = await response.json();
+      console.log('Response data:', responseData);
+
+      if (!response.ok) {
+        throw new Error(`Failed to assign role: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error('Error assigning developer role:', error);
+      throw error;
+    }
+  }
+
+  async assignAdminRole(userId: string): Promise<void> {
+    try {
+      console.log('Assigning admin role - userId:', userId);
+      const headers = this.getHeaders();
+      const response = await fetch(`${this.apiUrl}/assign-admin/${userId}`, {
+        method: 'POST',
+        headers: headers
+      });
+
+      console.log('Response status:', response.status);
+      const responseData = await response.json();
+      console.log('Response data:', responseData);
+
+      if (!response.ok) {
+        throw new Error(`Failed to assign role: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error('Error assigning admin role:', error);
+      throw error;
+    }
+  }
+
+  async assignSuperAdminRole(userId: string): Promise<void> {
+    try {
+      console.log('Assigning superadmin role - userId:', userId);
+      const headers = this.getHeaders();
+      const response = await fetch(`${this.apiUrl}/assign-superadmin/${userId}`, {
+        method: 'POST',
+        headers: headers
+      });
+
+      console.log('Response status:', response.status);
+      const responseData = await response.json();
+      console.log('Response data:', responseData);
+
+      if (!response.ok) {
+        throw new Error(`Failed to assign role: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error('Error assigning superadmin role:', error);
       throw error;
     }
   }

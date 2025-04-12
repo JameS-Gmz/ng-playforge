@@ -74,7 +74,23 @@ export class GameService {
 
   // Méthode pour récupérer tous les jeux
   async getAllGames(): Promise<any> {
-    return this.getData(`${this.baseUrl}/game/AllGames`);
+    const token = localStorage.getItem('token');
+    
+    if (!token) {
+      throw new Error('Token non disponible. Veuillez vous connecter.');
+    }
+
+    const response = await fetch(`${this.baseUrl}/game/AllGames`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Erreur lors de la récupération des jeux');
+    }
+
+    return await response.json();
   }
 
   // Méthode pour récupérer un jeu par ID
@@ -134,7 +150,7 @@ export class GameService {
 
   // Récupérer les statuts
   async getStatuses(): Promise<any> {
-    const response = await fetch(`${this.baseUrl}/statuses`);
+    const response = await fetch(`${this.baseUrl}/statuses/all`);
     if (!response.ok) {
       throw new Error('Erreur lors de la récupération des statuts');
     }
@@ -158,8 +174,28 @@ export class GameService {
     return this.postData(`${this.baseUrl}/game/delete/${gameId}`, {});
   }
 
-  updateGame(gameId: string, gameData: any): Promise<any> {
-    return this.postData(`${this.baseUrl}/game/update/${gameId}`, gameData);
+  async updateGame(gameId: string, gameData: any): Promise<any> {
+    const token = localStorage.getItem('token');
+    
+    if (!token) {
+      throw new Error('Token non disponible. Veuillez vous connecter.');
+    }
+
+    const response = await fetch(`${this.baseUrl}/game/update/${gameId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(gameData),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Erreur lors de la mise à jour du jeu');
+    }
+
+    return await response.json();
   }
 
 }

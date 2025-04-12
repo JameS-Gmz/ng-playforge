@@ -2,9 +2,10 @@
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
+
 }
 
-.admin-container h1{
+.admin-container h1 {
   color: white;
 }
 
@@ -18,23 +19,24 @@
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
-  background-color: #f0f0f0;
+  background-color: #2A3245;
+  color: #E0E0E0;
   cursor: pointer;
   font-size: 16px;
   transition: all 0.3s ease;
 }
 
 .toggle-button.active {
-  background-color: #007bff;
+  background-color: #4A90E2;
   color: white;
 }
 
 .toggle-button:hover {
-  background-color: #e0e0e0;
+  background-color: #3A4255;
 }
 
 .toggle-button.active:hover {
-  background-color: #0056b3;
+  background-color: #3A7BC8;
 }
 
 .admin-sections {
@@ -44,10 +46,10 @@
 
 .admin-column {
   flex: 1;
-  background-color: white;
+  background-color: #2A3245;
   border-radius: 8px;
   padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .search-bar {
@@ -57,9 +59,11 @@
 .search-bar input {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #3A4255;
   border-radius: 5px;
   font-size: 16px;
+  background-color: #1D2437;
+  color: #E0E0E0;
 }
 
 /* Users Section */
@@ -69,10 +73,11 @@
 }
 
 .user-card {
-  background-color: #f8f9fa;
+  background-color: #2A3245;
   border-radius: 8px;
   padding: 15px;
   margin-bottom: 15px;
+  border: 1px solid #3A4255;
 }
 
 .user-info {
@@ -81,13 +86,13 @@
 
 .user-info h3 {
   margin: 0;
-  color: #333;
+  color: #E0E0E0;
   font-size: 1.1rem;
 }
 
 .user-info p {
   margin: 0.25rem 0;
-  color: #666;
+  color: #A0A0A0;
   font-size: 0.9rem;
 }
 
@@ -105,56 +110,56 @@
 }
 
 .edit {
-  background-color: #28a745;
+  background-color: #4CAF50;
   color: white;
 }
 
 .delete {
-  background-color: #dc3545;
+  background-color: #F44336;
   color: white;
 }
 
 .edit:hover {
-  background-color: #218838;
+  background-color: #45A049;
 }
 
 .delete:hover {
-  background-color: #c82333;
+  background-color: #D32F2F;
 }
 
 /* Games Section */
 .games-list {
   display: grid;
   gap: 1rem;
-  max-height: 600px; /* Hauteur fixe pour 5 jeux */
-  overflow-y: auto; /* Ajoute une barre de défilement verticale */
-  padding-right: 10px; /* Espace pour la barre de défilement */
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 10px;
 }
 
-/* Style de la barre de défilement */
 .games-list::-webkit-scrollbar {
   width: 8px;
 }
 
 .games-list::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #1D2437;
   border-radius: 4px;
 }
 
 .games-list::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #3A4255;
   border-radius: 4px;
 }
 
 .games-list::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #4A5255;
 }
 
 .game-card {
-  background-color: #f8f9fa;
+  background-color: #2A3245;
   border-radius: 8px;
   padding: 15px;
   margin-bottom: 15px;
+  border: 1px solid #3A4255;
 }
 
 .game-info {
@@ -163,13 +168,13 @@
 
 .game-info h3 {
   margin: 0;
-  color: #333;
+  color: #E0E0E0;
   font-size: 1.1rem;
 }
 
 .game-info p {
   margin: 0.25rem 0;
-  color: #666;
+  color: #A0A0A0;
   font-size: 0.9rem;
 }
 
@@ -178,39 +183,14 @@
   gap: 10px;
 }
 
-.edit, .delete {
-  padding: 8px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.edit {
-  background-color: #28a745;
-  color: white;
-}
-
-.delete {
-  background-color: #dc3545;
-  color: white;
-}
-
-.edit:hover {
-  background-color: #218838;
-}
-
-.delete:hover {
-  background-color: #c82333;
-}
-
 /* Common Form Styles */
 .edit-form {
-  background-color: white;
+  background-color: #2A3245;
   border-radius: 8px;
   padding: 20px;
   margin-top: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: 1px solid #3A4255;
 }
 
 .form-group {
@@ -221,6 +201,7 @@
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
+  color: #E0E0E0;
 }
 
 .form-group input,
@@ -228,8 +209,10 @@
 .form-group select {
   width: 100%;
   padding: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid #3A4255;
   border-radius: 5px;
+  background-color: #1D2437;
+  color: #E0E0E0;
 }
 
 .form-actions {
@@ -247,36 +230,37 @@
 }
 
 .save {
-  background-color: #28a745;
+  background-color: #4CAF50;
   color: white;
 }
 
 .cancel {
-  background-color: #6c757d;
+  background-color: #607D8B;
   color: white;
 }
 
 .save:hover {
-  background-color: #218838;
+  background-color: #45A049;
 }
 
 .cancel:hover {
-  background-color: #5a6268;
+  background-color: #546E7A;
 }
 
 .loading {
   text-align: center;
   padding: 20px;
-  color: #666;
+  color: #A0A0A0;
 }
 
 .error {
   text-align: center;
   padding: 20px;
-  color: #dc3545;
-  background-color: #f8d7da;
+  color: #F44336;
+  background-color: #2A3245;
   border-radius: 5px;
   margin-bottom: 20px;
+  border: 1px solid #3A4255;
 }
 
 @media (max-width: 768px) {

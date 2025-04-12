@@ -69,7 +69,6 @@ export class AdminComponent implements OnInit {
       const response = await this.userService.getAllUsers();
       this.users = response || [];
       this.filteredUsers = [...this.users];
-      console.log('Users data structure:', JSON.stringify(this.users[0], null, 2));
       this.userErrorMessage = null;
     } catch (error) {
       console.error('Error loading users:', error);
@@ -98,7 +97,7 @@ export class AdminComponent implements OnInit {
       const response = await this.gameService.getAllGames();
       this.games = response || [];
       this.filteredGames = [...this.games];
-      console.log('Games data:', this.games);
+      console.log('Games data structure:', JSON.stringify(this.games[0], null, 2));
       this.gameErrorMessage = null;
     } catch (error) {
       console.error('Error loading games:', error);
@@ -212,7 +211,13 @@ export class AdminComponent implements OnInit {
 
     this.isGameLoading = true;
     try {
-      await this.gameService.updateGame(this.selectedGame, this.selectedGame.id);
+      // Convertir le prix en nombre
+      const gameData = {
+        ...this.selectedGame,
+        price: Number(this.selectedGame.price)
+      };
+
+      await this.gameService.updateGame(this.selectedGame.id, gameData);
       this.selectedGame = null;
       await this.loadGames();
       this.gameErrorMessage = null;
@@ -232,5 +237,10 @@ export class AdminComponent implements OnInit {
   cancelGameEdit() {
     this.selectedGame = null;
     this.gameErrorMessage = null;
+  }
+
+  getStatusName(statusId: number): string {
+    const status = this.statuses.find(s => s.id === statusId);
+    return status ? status.name : '';
   }
 }

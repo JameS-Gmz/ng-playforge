@@ -67,7 +67,7 @@
           <h3>{{ game.title }}</h3>
           <p>Prix: {{ game.price }}€</p>
           <p>Studio: {{ game.authorStudio }}</p>
-          <p>Status: {{ game.status?.name || 'Non défini' }}</p>
+          <p>Status: {{ getStatusName(game.StatusId) || 'Non défini' }}</p>
         </div>
         <div class="game-actions">
           <button class="edit" (click)="editGame(game)">Modifier</button>

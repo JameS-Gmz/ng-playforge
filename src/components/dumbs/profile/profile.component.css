@@ -1,4 +1,4 @@
-/* Conteneur principal du profil */
+/* Profile Container */
 .profile-container {
   display: grid;
   grid-template-columns: 1fr;
@@ -6,54 +6,50 @@
   align-items: center;
   text-align: center;
   min-height: 100vh;
-  padding: 3%;
+  padding: 3% 3% 100px 3%;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   box-sizing: border-box;
-  padding-bottom: 100px; /* Ajout d'un padding en bas pour éviter le chevauchement avec le footer */
 }
 
-/* Titre du profil - centré et stylisé */
 .profile-container h2 {
-  color: #f0f0f0;
+  color: #E0E0E0;
   font-family: 'Orbitron', sans-serif;
   font-size: 3rem;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-  padding: 0;
   margin: 0;
   text-transform: uppercase;
 }
 
-/* Image du profil - centré et avec bordure */
+/* Profile Image */
 .profile-container img {
   width: 15vh;
   height: 15vh;
-  border-radius: 50%;
-  border: 4px solid #1a68ff; 
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
-  padding: 4px; 
-  transition: transform 0.3s ease-in-out;
-  object-fit: cover;
   max-width: 200px;
   max-height: 200px;
+  border-radius: 50%;
+  border: 4px solid #1A68FF;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  padding: 4px;
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out;
 }
 
 .profile-container img:hover {
-  transform: scale(1.05); 
+  transform: scale(1.05);
 }
 
-/* Conteneur des informations du profil */
+/* Profile Info Section */
 .profile-info {
-  color: #fff;
-  background-color: #1D2437;
+  width: 50%;
+  min-width: 400px;
+  max-width: 800px;
   padding: 2%;
+  background-color: #2A3245;
   border-radius: 10px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-  width: 50%; /* Augmentation de la largeur */
-  min-width: 400px; /* Augmentation de la largeur minimale */
-  max-width: 800px; /* Augmentation de la largeur maximale */
-  height: auto;
+  color: #E0E0E0;
   display: grid;
   gap: 20px;
   box-sizing: border-box;
@@ -65,43 +61,24 @@
   word-break: break-word;
 }
 
-/* Grille pour les informations */
+/* Grid Layout */
 .grid {
   display: grid;
-  justify-items: center;
-  align-items: center;
-  text-align: center;
   grid-template-columns: 1fr;
   gap: 20px;
   width: 100%;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
 }
 
-/* Boutons */
-.action-button {
-  margin-top: 5%;
-  padding: 3%;
-  font-size: larger;
-  width: 70%;
-  background-color: #1A68FF;
-  border-radius: 6px;
-  color: white;
-  border: 0;
-  cursor: pointer;
-  transition: box-shadow 0.3s, transform 0.3s;
-  box-sizing: border-box;
-}
-
-.action-button:hover {
-  box-shadow: 0px 0px 10px 2px #1A68FF;
-  transform: translateY(-2px);
-}
-
+/* Form Elements */
 input, select, textarea {
   width: 100%;
   padding: 10px;
-  background-color: #1d2b3a;
-  color: white;
-  border: 1px solid #1a68ff;
+  background-color: #1D2437;
+  color: #E0E0E0;
+  border: 1px solid #1A68FF;
   border-radius: 6px;
   margin-bottom: 20px;
   font-size: 1rem;
@@ -110,7 +87,36 @@ input, select, textarea {
 
 input:focus, select:focus, textarea:focus {
   outline: none;
-  border-color: #1a68ff;
+  border-color: #1A68FF;
+}
+
+/* Buttons */
+.action-button {
+  width: 70%;
+  padding: 3%;
+  margin-top: 5%;
+  background-color: #1A68FF;
+  color: #E0E0E0;
+  border: none;
+  border-radius: 6px;
+  font-size: larger;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.action-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 10px 2px #1A68FF;
+}
+
+.action-button.logout {
+  background-color: #FF5C5C;
+}
+
+.action-button.logout:hover {
+  background-color: #FF5C5C;
+  box-shadow: 0 0 10px 2px #FF5C5C;
 }
 
 .admin-button {
@@ -118,16 +124,14 @@ input:focus, select:focus, textarea:focus {
 }
 
 .admin-button:hover {
-  background-color: #218838;
-  box-shadow: 0px 0px 10px 2px #28a745;
+  background-color: #28a745;
+  box-shadow: 0 0 10px 2px #28a745;
 }
 
-/* Media Queries */
+/* Responsive Design */
 @media (max-width: 1200px) {
   .profile-container {
-    min-height: 100vh;
-    padding: 20px;
-    padding-bottom: 100px;
+    padding: 20px 20px 100px 20px;
   }
 
   .profile-info {
@@ -138,8 +142,7 @@ input:focus, select:focus, textarea:focus {
 
 @media (max-width: 768px) {
   .profile-container {
-    padding: 15px;
-    padding-bottom: 100px;
+    padding: 15px 15px 100px 15px;
   }
 
   .profile-container h2 {
@@ -158,8 +161,7 @@ input:focus, select:focus, textarea:focus {
 
 @media (max-width: 480px) {
   .profile-container {
-    padding: 10px;
-    padding-bottom: 100px;
+    padding: 10px 10px 100px 10px;
   }
 
   .profile-container h2 {

@@ -21,6 +21,7 @@ export class AdminComponent implements OnInit {
   userErrorMessage: string | null = null;
   isUserLoading: boolean = false;
   isSuperAdmin: boolean = false;
+  isAdmin: boolean = false;
   roles: any[] = [];
 
   games: any[] = [];
@@ -47,6 +48,7 @@ export class AdminComponent implements OnInit {
       return;
     }
     this.isSuperAdmin = this.authService.isSuperAdmin();
+    this.isAdmin = this.authService.isAdmin();
     await this.loadUsers();
     await this.loadRoles();
     await this.loadGames();
@@ -67,7 +69,10 @@ export class AdminComponent implements OnInit {
     this.isUserLoading = true;
     try {
       const response = await this.userService.getAllUsers();
-      this.users = response || [];
+      // Filter out superadmin users if not superadmin
+      this.users = (response || []).filter(user => 
+        this.isSuperAdmin || user.role?.id !== 4
+      );
       this.filteredUsers = [...this.users];
       this.userErrorMessage = null;
     } catch (error) {
@@ -80,16 +85,12 @@ export class AdminComponent implements OnInit {
 
   private async loadRoles() {
     try {
-      console.log('Loading roles...');
       const response = await this.userService.getRoles();
-      console.log('Roles response:', JSON.stringify(response, null, 2));
       this.roles = response || [];
-      console.log('Roles after assignment:', JSON.stringify(this.roles, null, 2));
       
       if (!this.isSuperAdmin) {
         this.roles = this.roles.filter(role => role.name !== 'superadmin');
       }
-      console.log('Final roles:', JSON.stringify(this.roles, null, 2));
     } catch (error) {
       console.error('Error loading roles:', error);
       this.userErrorMessage = 'Error loading roles: ' + (error instanceof Error ? error.message : 'Unknown error');
@@ -102,7 +103,6 @@ export class AdminComponent implements OnInit {
       const response = await this.gameService.getAllGames();
       this.games = response || [];
       this.filteredGames = [...this.games];
-      console.log('Games data structure:', JSON.stringify(this.games[0], null, 2));
       this.gameErrorMessage = null;
     } catch (error) {
       console.error('Error loading games:', error);
@@ -116,7 +116,6 @@ export class AdminComponent implements OnInit {
     try {
       const response = await this.gameService.getStatuses();
       this.statuses = response || [];
-      console.log('Statuses data:', this.statuses);
     } catch (error) {
       console.error('Error loading statuses:', error);
     }
@@ -157,6 +156,13 @@ export class AdminComponent implements OnInit {
 
     this.isUserLoading = true;
     try {
+      const userToDelete = await this.userService.getUserById(userId);
+      
+      if (userToDelete.RoleId === 4 && !this.isSuperAdmin) {
+        this.userErrorMessage = 'Vous n\'avez pas les droits pour supprimer un super-administrateur';
+        return;
+      }
+
       await this.userService.deleteUser(userId);
       await this.loadUsers();
       this.userErrorMessage = null;
@@ -186,17 +192,23 @@ export class AdminComponent implements OnInit {
     }
   }
 
+  private checkSuperAdminPermissions(user: any): boolean {
+    if (user.role?.id === 4 && !this.isSuperAdmin) {
+      this.userErrorMessage = 'Vous n\'avez pas les droits pour modifier un super-administrateur';
+      return false;
+    }
+    return true;
+  }
+
   editUser(user: any) {
-    console.log('Editing user:', user);
-    console.log('User role:', user.role);
-    console.log('User RoleId:', user.RoleId);
+    if (!this.checkSuperAdminPermissions(user)) {
+      return;
+    }
     
     this.selectedUser = { 
       ...user,
       RoleId: user.role?.id || user.RoleId
     };
-    
-    console.log('Selected user after edit:', this.selectedUser);
   }
 
   editGame(game: any) {
@@ -208,53 +220,44 @@ export class AdminComponent implements OnInit {
 
     this.isUserLoading = true;
     try {
-      console.log('Selected User:', JSON.stringify(this.selectedUser, null, 2));
-      console.log('Selected User RoleId:', this.selectedUser.RoleId);
-      console.log('Available Roles:', JSON.stringify(this.roles, null, 2));
+      const userToModify = await this.userService.getUserById(this.selectedUser.id);
       
-      // Convertir RoleId en nombre pour la comparaison
+      const isAdmin = this.authService.isAdmin();
+      const isSuperAdmin = this.authService.isSuperAdmin();
+      
+      if (!isAdmin && !isSuperAdmin) {
+        this.userErrorMessage = 'Vous n\'avez pas les droits pour modifier les utilisateurs';
+        return;
+      }
+      
       const roleId = Number(this.selectedUser.RoleId);
-      console.log('Converted RoleId:', roleId);
-      
-      // Trouver le rôle sélectionné par son ID
       const selectedRole = this.roles.find(role => role.id === roleId);
-      
-      console.log('Selected Role:', selectedRole);
       
       if (!selectedRole) {
         this.userErrorMessage = 'Rôle invalide - Veuillez sélectionner un rôle valide';
         return;
       }
 
-      // Assigner le rôle en fonction du type de rôle
-      switch (selectedRole.name.toLowerCase()) {
+      const selectedRoleName = selectedRole.name.toLowerCase();
+
+      switch (selectedRoleName) {
         case 'user':
-          console.log('Assigning user role...');
           await this.userService.assignUserRole(Number(this.selectedUser.id));
           break;
         case 'developer':
-          console.log('Assigning developer role...');
           await this.userService.assignDeveloperRole(this.selectedUser.id);
           break;
         case 'admin':
-          console.log('Assigning admin role...');
           await this.userService.assignAdminRole(this.selectedUser.id);
           break;
         case 'superadmin':
-          if (!this.isSuperAdmin) {
-            this.userErrorMessage = 'Vous n\'avez pas les droits pour assigner le rôle superadmin';
-            return;
-          }
-          console.log('Assigning superadmin role...');
           await this.userService.assignSuperAdminRole(this.selectedUser.id);
           break;
         default:
-          console.log('Role name not matched:', selectedRole.name);
           this.userErrorMessage = 'Rôle non supporté: ' + selectedRole.name;
           return;
       }
       
-      // Mettre à jour les autres informations de l'utilisateur
       await this.userService.updateUser({
         id: this.selectedUser.id,
         username: this.selectedUser.username,
@@ -277,7 +280,6 @@ export class AdminComponent implements OnInit {
 
     this.isGameLoading = true;
     try {
-      // Convertir le prix en nombre
       const gameData = {
         ...this.selectedGame,
         price: Number(this.selectedGame.price)

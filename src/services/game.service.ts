@@ -74,22 +74,10 @@ export class GameService {
 
   // Méthode pour récupérer tous les jeux
   async getAllGames(): Promise<any> {
-    const token = localStorage.getItem('token');
-    
-    if (!token) {
-      throw new Error('Token non disponible. Veuillez vous connecter.');
-    }
-
-    const response = await fetch(`${this.baseUrl}/game/AllGames`, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      }
-    });
-
+    const response = await fetch(`${this.baseUrl}/game/AllGames`);
     if (!response.ok) {
       throw new Error('Erreur lors de la récupération des jeux');
     }
-
     return await response.json();
   }
 

@@ -1,50 +1,83 @@
-.games-container{
-    display: none;
-    }
-    
-    .card-game{
-        width: 100vw;
-        padding: 2%;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-        gap: 2%;
-    }
+.games-container {
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.games-container > div {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    justify-items: center;
+}
 
 h1 {
-        padding-top: 2%;
-        color: white;
-        display: flex;
-        flex-direction: column;
-        text-transform: uppercase;
+    grid-column: 1 / -1;
+    color: #E0E0E0;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    font-weight: 500;
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 2px solid #2C3E50;
+}
+
+.loading {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #E0E0E0;
+    font-size: 1.2rem;
+    padding: 40px;
+}
+
+/* Animation pour le chargement */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .games-container,
+    .games-container > div {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .games-container,
+    .games-container > div {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 10px;
     }
 
-    .loading{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 1%;
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
     }
-    
-    @media (max-width:1600px){
-        
-    .card-game{
-        width: 100vw;
-        padding: 2%;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 2%;
+}
+
+@media (max-width: 480px) {
+    .games-container,
+    .games-container > div {
+        grid-template-columns: 1fr;
+        gap: 15px;
     }
-    
+
+    h1 {
+        font-size: 1.3rem;
     }
-    
-    @media (max-width:768px){
-        
-        .card-game{
-            width: 100vw;
-            height: 100%;
-            padding: 5%;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        }
+}

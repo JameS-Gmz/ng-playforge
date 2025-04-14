@@ -1,33 +1,94 @@
-
-.game-list{
-    width: 100%;
-    padding: 2%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    gap: 2%;
+.games-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-
-@media (max-width:1600px){
-    
-.game-list{
-    width: 100vw;
-    padding: 2%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 2%;
+.games-section {
+  margin-bottom: 40px;
 }
 
+.games-section h2 {
+  color: #E0E0E0;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: 500;
 }
 
-@media (max-width:768px){
-    
-    .game-list{
-        width: 100vw;
-        height: 100%;
-        padding: 5%;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    }
+.game-list {
+  width: 100%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.game-list h2 {
+  grid-column: 1 / -1;
+  color: #E0E0E0;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #2C3E50;
+}
+
+.loading {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #E0E0E0;
+  font-size: 1.2rem;
+  padding: 40px;
+}
+
+/* Animation pour le chargement */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .game-list {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .games-container {
+    padding: 10px;
+  }
+  
+  .game-list {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  .games-section h2 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-list {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .game-list h2 {
+    font-size: 1.2rem;
+  }
+}

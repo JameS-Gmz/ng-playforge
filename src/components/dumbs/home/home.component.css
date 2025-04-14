@@ -6,3 +6,32 @@
     color: white;
     font-weight: bold;
 }
+
+.games-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.games-section {
+  margin-bottom: 40px;
+}
+
+.games-section h2 {
+  color: #E0E0E0;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .games-container {
+    padding: 10px;
+  }
+  
+  .games-section h2 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+}

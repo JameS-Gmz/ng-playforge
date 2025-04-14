@@ -75,16 +75,23 @@ h2 {
 
 /* Users Section */
 .users-list {
-  display: grid;
-  gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
 }
 
-.user-card {
-  background-color: #2A3245;
+.user-card, .game-card {
+  background: #1D2437;
   border-radius: 8px;
   padding: 15px;
-  margin-bottom: 15px;
-  border: 1px solid #3A4255;
+  margin: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .user-info {
@@ -136,11 +143,11 @@ h2 {
 
 /* Games Section */
 .games-list {
-  display: grid;
-  gap: 1rem;
-  max-height: 600px;
-  overflow-y: auto;
-  padding-right: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
 }
 
 .games-list::-webkit-scrollbar {
@@ -159,14 +166,6 @@ h2 {
 
 .games-list::-webkit-scrollbar-thumb:hover {
   background: #4A5255;
-}
-
-.game-card {
-  background-color: #2A3245;
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 15px;
-  border: 1px solid #3A4255;
 }
 
 .game-info {

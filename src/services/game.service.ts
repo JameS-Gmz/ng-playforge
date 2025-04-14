@@ -198,5 +198,10 @@ export class GameService {
     return await response.json();
   }
 
+  // Méthode pour récupérer les jeux triés par date de mise à jour
+  async getGamesByUpdateDate(): Promise<any> {
+    return this.getData(`${this.baseUrl}/game/last-updated`);
+  }
+
 }
 

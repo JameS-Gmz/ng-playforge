@@ -1,4 +1,6 @@
 <div *ngIf="isLoading">Chargement...</div>
+
 <div class="game-list" *ngIf="!isLoading">
+  <h2>{{ listType === 'recent' ? 'Last Game Added' : 'Last Game Updated' }}</h2>
   <app-card-game *ngFor="let game of games" [game]="game"></app-card-game>
 </div>

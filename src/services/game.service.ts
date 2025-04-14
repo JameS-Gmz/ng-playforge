@@ -1,6 +1,6 @@
-import { HttpHeaders } from '@angular/common/http';
+
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +21,7 @@ export class GameService {
       throw error;
     }
   }
+
   // Méthode POST générique
   private async postData(url: string, data: any): Promise<any> {
     try {
@@ -159,7 +160,18 @@ export class GameService {
   }
 
   deleteGame(gameId: string): Promise<any> {
-    return this.postData(`${this.baseUrl}/game/delete/${gameId}`, {});
+    return fetch(`${this.baseUrl}/game/delete/${gameId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error('Erreur lors de la suppression du jeu');
+      }
+      return response.json();
+    });
   }
 
   async updateGame(gameId: string, gameData: any): Promise<any> {

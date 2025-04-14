@@ -7,7 +7,7 @@ import { GameDateListComponent } from "../../smarts/game-date-list/game-date-lis
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [GamesListComponent, GameComponent, GameDateListComponent],
+  imports: [GameDateListComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

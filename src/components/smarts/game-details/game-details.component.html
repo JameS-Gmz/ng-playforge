@@ -1,6 +1,6 @@
 <div class="head-game">
     <h1>{{game.title}}</h1>
-      <app-carousel [images] = images></app-carousel>
+    <app-carousel [images]="images"></app-carousel>
     <div class="game-description">
         <p>{{game.description}}</p>
         <p>{{game.price | currency}}</p>
@@ -11,18 +11,18 @@
 <div class="foot-game">
     <div class="game-details">
         <div class="container">
-            <div class="item">Updated <span class="info">Info</span></div>
-            <div class="item">Status <span class="info">Info</span></div>
-            <div class="item">Platforms <span class="info">Info</span></div>
-            <div class="item">Rating <span class="info">Info</span></div>
-            <div class="item">Author <span class="info">Info</span></div>
-            <div class="item">Genre <span class="info">Info</span></div>
-            <div class="item">Made with <span class="info">Info</span></div>
-            <div class="item">Tags <span class="info">Info</span></div>
-            <div class="item">Average session <span class="info">Info</span></div>
-            <div class="item">Language <span class="info">Info</span></div>
-            <div class="item">Inputs <span class="info">Info</span></div>
-          </div>
+            <div class="item">Updated <span class="info">{{game.updatedAt | date:'mediumDate'}}</span></div>
+            <div class="item">Status <span class="info">{{status || 'Not specified'}}</span></div>
+            <div class="item">Platforms <span class="info">{{platforms?.length ? platforms.join(', ') : 'Not specified'}}</span></div>
+            <div class="item">Rating <span class="info">{{game.rating || 'Not rated'}}</span></div>
+            <div class="item">Author <span class="info">{{game.authorStudio}}</span></div>
+            <div class="item">Genre <span class="info">{{genres?.length ? genres.join(', ') : 'Not specified'}}</span></div>
+            <div class="item">Made with <span class="info">{{game.madewith}}</span></div>
+            <div class="item">Tags <span class="info">{{tags?.length ? tags.join(', ') : 'Not specified'}}</span></div>
+            <div class="item">Average session <span class="info">{{averageSession || 'Not specified'}}</span></div>
+            <div class="item">Language <span class="info">{{language || 'Not specified'}}</span></div>
+            <div class="item">Inputs <span class="info">{{controllers?.length ? controllers.join(' ') : 'Not specified'}}</span></div>
+        </div>
     </div>
     <div class="game-input-comment">
         <div class="rating-stars">

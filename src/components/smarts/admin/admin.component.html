@@ -21,13 +21,12 @@
           <h3>{{ user.username }}</h3>
           <p>Email: {{ user.email }}</p>
           <p>Rôle: {{ user.role|| 'Non défini' }}</p>
-    
         </div>
-        <div class="user-actions"  *ngIf="isSuperAdmin || (isAdmin && user.role !== 'superadmin')">
+        <div class="user-actions" *ngIf="isSuperAdmin || (isAdmin && user.role !== 'superadmin')">
           <input type="button" class="edit" (click)="editUser(user)" value="Modifier">
           <input type="button" class="delete" (click)="deleteUser(user.id)" value="Supprimer">
         </div>
-        
+      </div>
     </div>
 
     <div *ngIf="selectedUser" class="edit-form">

@@ -57,8 +57,8 @@ export class AdminComponent implements OnInit {
 
   toggleView(view: 'users' | 'games') {
     if (view === 'users') {
-      this.showUsers = true;
       this.showGames = false;
+      this.showUsers = true;
     } else {
       this.showUsers = false;
       this.showGames = true;

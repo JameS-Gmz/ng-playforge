@@ -1,8 +1,8 @@
 .games-container {
   width: 100%;
+  height: max-content;
   margin: 0 auto;
   padding: 20px;
-  box-sizing: border-box;
 }
 
 .games-section {
@@ -11,7 +11,6 @@
 
 .games-section h2 {
   color: #E0E0E0;
-  margin-bottom: 20px;
   font-size: 1.5rem;
   font-weight: 500;
 }
@@ -20,9 +19,10 @@
   width: 100%;
   padding: 20px;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
   animation: fadeIn 0.5s ease-in-out;
+  justify-items: center;
 }
 
 .game-list h2 {
@@ -59,8 +59,7 @@
 /* Responsive Design */
 @media (max-width: 1200px) {
   .game-list {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     padding: 15px;
   }
 }
@@ -71,8 +70,7 @@
   }
   
   .game-list {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     padding: 10px;
   }
   
@@ -85,10 +83,5 @@
 @media (max-width: 480px) {
   .game-list {
     grid-template-columns: 1fr;
-    gap: 15px;
-  }
-
-  .game-list h2 {
-    font-size: 1.2rem;
   }
 }

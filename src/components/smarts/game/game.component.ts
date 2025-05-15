@@ -91,6 +91,7 @@ export class GameComponent implements AfterViewInit {
 
   private validateForm(postGameFormValues: any, categoryCreateFormValues: any): FormErrors {
     const errors: FormErrors = {};
+    console.log('Début de la validation du formulaire');
 
     // Validation des champs du jeu
     if (!postGameFormValues.title?.trim()) {
@@ -119,67 +120,92 @@ export class GameComponent implements AfterViewInit {
     } else if (postGameFormValues.description.length > 1500) {
       errors.description = 'La description ne doit pas dépasser 1500 caractères';
     }
+
     // Validation des catégories
-    errors.categories = {};
+    const categoryErrors: any = {};
+    console.log('Validation des catégories:', {
+      ControllerId: categoryCreateFormValues.ControllerId,
+      PlatformId: categoryCreateFormValues.PlatformId,
+      StatusId: categoryCreateFormValues.StatusId,
+      LanguageId: categoryCreateFormValues.LanguageId,
+      selectedTags: categoryCreateFormValues.selectedTags,
+      selectedGenres: categoryCreateFormValues.selectedGenres
+    });
 
     // Validation du contrôleur
     if (!categoryCreateFormValues.ControllerId) {
-      errors.categories.controller = 'Le contrôleur est obligatoire';
+      categoryErrors.controller = 'Le contrôleur est obligatoire';
     } else if (typeof categoryCreateFormValues.ControllerId !== 'number') {
-      errors.categories.controller = 'Le contrôleur sélectionné est invalide';
+      categoryErrors.controller = 'Le contrôleur sélectionné est invalide';
     }
 
     // Validation de la plateforme
     if (!categoryCreateFormValues.PlatformId) {
-      errors.categories.platform = 'La plateforme est obligatoire';
+      categoryErrors.platform = 'La plateforme est obligatoire';
     } else if (typeof categoryCreateFormValues.PlatformId !== 'number') {
-      errors.categories.platform = 'La plateforme sélectionnée est invalide';
+      categoryErrors.platform = 'La plateforme sélectionnée est invalide';
     }
 
     // Validation du statut
     if (!categoryCreateFormValues.StatusId) {
-      errors.categories.status = 'Le statut est obligatoire';
+      categoryErrors.status = 'Le statut est obligatoire';
     } else if (typeof categoryCreateFormValues.StatusId !== 'number') {
-      errors.categories.status = 'Le statut sélectionné est invalide';
+      categoryErrors.status = 'Le statut sélectionné est invalide';
     }
 
     // Validation de la langue
     if (!categoryCreateFormValues.LanguageId) {
-      errors.categories.language = 'La langue est obligatoire';
+      categoryErrors.language = 'La langue est obligatoire';
     } else if (typeof categoryCreateFormValues.LanguageId !== 'number') {
-      errors.categories.language = 'La langue sélectionnée est invalide';
+      categoryErrors.language = 'La langue sélectionnée est invalide';
     }
 
     // Validation des tags
     if (!categoryCreateFormValues.selectedTags?.length) {
-      errors.categories.tags = 'Au moins un tag est obligatoire';
+      categoryErrors.tags = 'Au moins un tag est obligatoire';
     } else if (!Array.isArray(categoryCreateFormValues.selectedTags)) {
-      errors.categories.tags = 'Le format des tags sélectionnés est invalide';
+      categoryErrors.tags = 'Le format des tags sélectionnés est invalide';
     } else if (categoryCreateFormValues.selectedTags.length > 3) {
-      errors.categories.tags = 'Vous ne pouvez pas sélectionner plus de 3 tags';
+      categoryErrors.tags = 'Vous ne pouvez pas sélectionner plus de 3 tags';
     }
 
     // Validation des genres
     if (!categoryCreateFormValues.selectedGenres?.length) {
-      errors.categories.genres = 'Au moins un genre est obligatoire';
+      categoryErrors.genres = 'Au moins un genre est obligatoire';
     } else if (!Array.isArray(categoryCreateFormValues.selectedGenres)) {
-      errors.categories.genres = 'Le format des genres sélectionnés est invalide';
+      categoryErrors.genres = 'Le format des genres sélectionnés est invalide';
     } else if (categoryCreateFormValues.selectedGenres.length > 5) {
-      errors.categories.genres = 'Vous ne pouvez pas sélectionner plus de 5 genres';
+      categoryErrors.genres = 'Vous ne pouvez pas sélectionner plus de 5 genres';
     }
 
-    return Object.keys(errors).length > 0 ? errors : {};
+    // N'ajouter les erreurs de catégories que s'il y en a
+    if (Object.keys(categoryErrors).length > 0) {
+      errors.categories = categoryErrors;
+    }
+
+    console.log('Erreurs de validation trouvées:', errors);
+    return errors;
   }
 
   async onSubmit() {
+    console.log('Début de la soumission du formulaire');
+    
     if (!this.postGameForm || !this.categoryCreateForm) {
+      console.error('Formulaires non initialisés:', {
+        postGameForm: !!this.postGameForm,
+        categoryCreateForm: !!this.categoryCreateForm
+      });
       this.showError({ general: 'Erreur: Formulaire non initialisé' });
       return;
     }
 
     const postGameFormValues = this.postGameForm.getFormValues();
     const categoryCreateFormValues = this.categoryCreateForm.getFormValues();
+    console.log('Valeurs du formulaire de jeu:', postGameFormValues);
+    console.log('Valeurs du formulaire de catégories:', categoryCreateFormValues);
+
     const userId = this.getUserIdFromToken();
+    console.log('UserID récupéré:', userId);
 
     if (!userId) {
       this.showError({ general: 'Erreur: Vous devez être connecté pour créer un jeu' });
@@ -189,6 +215,7 @@ export class GameComponent implements AfterViewInit {
     // Validation du formulaire
     const errors = this.validateForm(postGameFormValues, categoryCreateFormValues);
     if (Object.keys(errors).length > 0) {
+      console.log('Erreurs de validation:', errors);
       this.showError(errors);
       return;
     }
@@ -198,9 +225,11 @@ export class GameComponent implements AfterViewInit {
       ...categoryCreateFormValues,
       UserId: userId
     };
+    console.log('Données complètes du jeu à envoyer:', gameData);
 
     try {
       // Envoyer les données du jeu
+      console.log('Tentative d\'envoi des données du jeu...');
       const result = await this.gameService.sendGameData(gameData);
       console.log('Jeu créé avec succès:', result);
 
@@ -212,8 +241,19 @@ export class GameComponent implements AfterViewInit {
       const TagId = gameData.selectedTags;
       const GenreId = gameData.selectedGenres;
 
+      console.log('Données pour l\'association des catégories:', {
+        GameId,
+        ControllerId,
+        PlatformId,
+        StatusId,
+        LanguageId,
+        TagId,
+        GenreId
+      });
+
       // Associer l'élément sélectionné au jeu
       if (GameId) {
+        console.log('Tentative d\'association des catégories...');
         await this.gameService.associateGameWithCategories(
           GameId,
           ControllerId,
@@ -226,6 +266,7 @@ export class GameComponent implements AfterViewInit {
 
         // Si un fichier est sélectionné, upload le fichier
         if (this.postGameForm.selectedFile) {
+          console.log('Tentative d\'upload du fichier...');
           await this.fileService.uploadFile(this.postGameForm.selectedFile, GameId);
         }
 
@@ -236,7 +277,7 @@ export class GameComponent implements AfterViewInit {
         this.categoryCreateForm.resetForm();
       }
     } catch (error: any) {
-      console.error('Erreur lors de la création du jeu:', error);
+      console.error('Erreur détaillée lors de la création du jeu:', error);
       this.showError({ 
         general: error.message || 'Erreur lors de la création du jeu'
       });

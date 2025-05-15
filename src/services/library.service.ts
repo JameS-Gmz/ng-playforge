@@ -24,14 +24,22 @@ export class LibraryService {
       throw new Error('Utilisateur non connecté');
     }
 
-    console.log('Token:', token);
-    console.log('URL:', `${this.apiUrl}/library/games`);
-
-    return this.http.get(`${this.apiUrl}/library/games`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    }).toPromise();
+    try {
+      console.log('Récupération des jeux de la bibliothèque...');
+      console.log('Token utilisé:', token);
+      
+      const response = await this.http.get(`${this.apiUrl}/library/allgames`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }).toPromise();
+      
+      console.log('Réponse de la bibliothèque:', response);
+      return response;
+    } catch (error) {
+      console.error('Error getting library games:', error);
+      throw error;
+    }
   }
 
   async addGameToLibrary(gameId: number) {
@@ -40,14 +48,22 @@ export class LibraryService {
       throw new Error('Utilisateur non connecté');
     }
 
-    console.log('Token:', token);
-    console.log('URL:', `${this.apiUrl}/library/games/${gameId}`);
-
-    return this.http.post(`${this.apiUrl}/library/games/${gameId}`, {}, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    }).toPromise();
+    try {
+      console.log('Tentative d\'ajout du jeu à la bibliothèque:', gameId);
+      console.log('Token utilisé:', token);
+      
+      const response = await this.http.post(`${this.apiUrl}/library/games/${gameId}`, {}, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }).toPromise();
+      
+      console.log('Réponse de l\'ajout:', response);
+      return response;
+    } catch (error) {
+      console.error('Error adding game to library:', error);
+      throw error;
+    }
   }
 
   async removeGameFromLibrary(gameId: number) {

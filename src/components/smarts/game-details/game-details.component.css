@@ -45,6 +45,7 @@
 }
 
 .game-details .container {
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
@@ -54,14 +55,31 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
-    background-color: #2A325A;
-    border-radius: 5px;
+    padding: 12px 15px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+    background-color: rgba(29, 36, 55, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.game-details .item:hover {
+    transform: translateY(-2px);
+    color: #ffffff;
 }
 
 .game-details .info {
-    color: #FFB000;
+    color: #ffffff;
     font-weight: 500;
+    padding: 6px 12px;
+    background-color: rgba(26, 102, 255, 0.616);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.game-details .item:hover .info {
+    background-color: rgba(26, 104, 255, 0.15);
+    color: #1557d6;
 }
 
 .comment-section {
@@ -104,7 +122,7 @@
 .library-button {
     background-color: #2A325A;
     color: #E0E0E0;
-    border: 2px solid #FFB000;
+    border: 2px solid transparent;
     padding: 10px 20px;
     border-radius: 5px;
     font-weight: 500;
@@ -124,8 +142,8 @@
 }
 
 .library-button.in-library {
-    background-color: #FFB000;
-    color: #1D2437;
+    background-color: #F44336;
+    color: white;
 }
 
 .library-button:disabled {

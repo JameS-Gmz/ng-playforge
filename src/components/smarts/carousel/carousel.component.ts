@@ -16,6 +16,7 @@ export class CarouselComponent {
     '/230213-jeux-video.jpg'
   ];
   currentIndex: number = 0;
+  defaultImage: string = 'https://placehold.co/800x400/1D2437/FFFFFF?text=Image+non+disponible';
 
   // Fonction pour passer à l'image suivante
   nextSlide(): void {
@@ -33,6 +34,12 @@ export class CarouselComponent {
     } else {
       this.currentIndex = this.images.length - 1; // Aller à la dernière image si on est au début
     }
+  }
+
+  // Gérer les erreurs de chargement d'image
+  handleImageError(event: any): void {
+    console.log('Erreur de chargement de l\'image:', event);
+    event.target.src = this.defaultImage;
   }
 
   // Démarrer le défilement automatique

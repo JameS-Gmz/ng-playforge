@@ -29,6 +29,8 @@ export class GameDetailsComponent implements OnInit {
   status: string = '';
   language: string = '';
   averageSession: string = '';
+  madeWith: string = '';
+  rating: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -79,6 +81,7 @@ export class GameDetailsComponent implements OnInit {
       // Récupérer les détails du jeu
       this.game = await this.gameService.getGameById(id);
       console.log('Game details:', this.game);
+      console.log('Made with:', this.game.madeWith);
   
       // Récupérer les images associées au jeu
       const imageData = await this.fileService.getImagesURLS(this.game.id);
@@ -158,10 +161,25 @@ export class GameDetailsComponent implements OnInit {
         status: this.status,
         language: this.language,
         averageSession: this.averageSession
+        
       });
   
     } catch (error) {
       console.error("Erreur lors de la récupération des détails du jeu:", error);
     }
+  }
+
+  getGenresNames(): string {
+    if (!this.game.genres || !Array.isArray(this.game.genres)) {
+      return 'Non spécifié';
+    }
+    return this.game.genres.map((genre: any) => genre.name).join(' / ');
+  }
+
+  getTagsNames(): string {
+    if (!this.game.tags || !Array.isArray(this.game.tags)) {
+      return 'Non spécifié';
+    }
+    return this.game.tags.map((tag: any) => tag.name).join(' / ');
   }
 }

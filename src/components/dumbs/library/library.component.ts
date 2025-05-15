@@ -60,30 +60,37 @@ export class LibraryComponent implements OnInit, OnDestroy {
         clearInterval(this.redirectTimer);
       }
       
+      console.log('Chargement des jeux de la bibliothèque...');
       const libraryGames = await this.libraryService.getLibraryGames();
+      console.log('Jeux reçus:', libraryGames);
+      
       if (!libraryGames) {
         throw new Error('Aucun jeu trouvé dans la bibliothèque');
       }
 
       this.games = await Promise.all((libraryGames as any[]).map(async (game: any) => {
-        let imageUrl;
+        let imageUrl = '230213-jeux-video.jpg'; // Image par défaut
         try {
+          console.log('Chargement des images pour le jeu:', game.id);
           const imageData = await this.fileService.getImagesURLS(game.id);
-          imageUrl = imageData[0]?.url || 'assets/images/default-game.jpg';
+          if (imageData && imageData.length > 0 && imageData[0]?.url) {
+            imageUrl = imageData[0].url;
+          }
         } catch (error) {
-          console.error('Erreur lors de la récupération de l\'image:', error);
-          imageUrl = 'assets/images/default-game.jpg';
+          console.error('Erreur lors du chargement de l\'image:', error);
+          // L'image par défaut sera utilisée
         }
-
         return {
           ...game,
           imageUrl
         };
       }));
+
+      console.log('Jeux avec images:', this.games);
     } catch (error: any) {
-      console.error('Erreur lors du chargement de la bibliothèque:', error);
-      this.error = error.message || 'Erreur lors du chargement de votre bibliothèque';
-      this.startRedirectTimer();
+      console.error('Erreur lors du chargement des jeux:', error);
+      this.error = error.message || 'Une erreur est survenue lors du chargement des jeux';
+      this.games = [];
     } finally {
       this.loading = false;
     }

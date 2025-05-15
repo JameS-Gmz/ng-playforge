@@ -10,6 +10,7 @@
         [alt]="'Image ' + (currentIndex + 1)"
         width="800"
         height="400"
+        (error)="handleImageError($event)"
         (swipeleft)="nextSlide()"
         (swiperight)="prevSlide()">
     </div>

@@ -54,6 +54,9 @@ export class GameService {
     if (!token) {
       throw new Error('Token non disponible. Veuillez vous connecter.');
     }
+
+    console.log('Données du jeu à envoyer:', gameData);
+    console.log('Token utilisé:', token.substring(0, 20) + '...');
   
     const response = await fetch(`${this.baseUrl}/game/new`, {
       method: 'POST',
@@ -66,10 +69,13 @@ export class GameService {
   
     if (!response.ok) {
       const error = await response.json();
+      console.error('Erreur détaillée du serveur:', error);
       throw new Error(error.message || 'Erreur lors de l\'envoi des données du jeu');
     }
   
-    return await response.json();  // Retourner la réponse JSON
+    const result = await response.json();
+    console.log('Réponse du serveur:', result);
+    return result;
   }
 
   // Méthode pour récupérer tous les jeux
@@ -112,8 +118,17 @@ export class GameService {
       GenreId: Array.isArray(GenreId) ? GenreId : GenreId?.split(',').map((id: string) => parseInt(id))
     };
 
-    console.log('Payload envoyé au serveur:', payload);
-    return this.postData(`${this.baseUrl}/game/associate-categories`, payload);
+    console.log('Payload pour l\'association des catégories:', payload);
+    console.log('URL de l\'endpoint:', `${this.baseUrl}/game/associate-categories`);
+
+    try {
+      const result = await this.postData(`${this.baseUrl}/game/associate-categories`, payload);
+      console.log('Réponse de l\'association des catégories:', result);
+      return result;
+    } catch (error) {
+      console.error('Erreur lors de l\'association des catégories:', error);
+      throw error;
+    }
   }
 
   async getControllers(): Promise<any>{
@@ -294,5 +309,26 @@ export class GameService {
     }
   }
 
+  async getGameLibrary(userId: number): Promise<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('Token non disponible. Veuillez vous connecter.');
+    } 
+
+    const response = await fetch(`${this.baseUrl}/library/games/${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Erreur lors de la récupération de la bibliothèque');
+    }
+
+    return await response.json();
+  }
 }
 

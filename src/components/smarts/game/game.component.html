@@ -2,11 +2,50 @@
   <app-carousel [images]="images"></app-carousel>
 </div>
 
+<div class="message-container">
+  <div *ngIf="hasErrors" class="error-container">
+    <div *ngIf="formErrors.general" class="error-message general-error">
+      {{ formErrors.general }}
+    </div>
+    <div *ngIf="formErrors.title" class="error-message field-error">
+      <strong>Titre :</strong> {{ formErrors.title }}
+    </div>
+    <div *ngIf="formErrors.price" class="error-message field-error">
+      <strong>Prix :</strong> {{ formErrors.price }}
+    </div>
+    <div *ngIf="formErrors.description" class="error-message field-error">
+      <strong>Description :</strong> {{ formErrors.description }}
+    </div>
+    <div *ngIf="formErrors.categories" class="error-message categories-error">
+      <div *ngIf="formErrors.categories.controller">
+        <strong>Contrôleur :</strong> {{ formErrors.categories.controller }}
+      </div>
+      <div *ngIf="formErrors.categories.platform">
+        <strong>Plateforme :</strong> {{ formErrors.categories.platform }}
+      </div>
+      <div *ngIf="formErrors.categories.status">
+        <strong>Statut :</strong> {{ formErrors.categories.status }}
+      </div>
+      <div *ngIf="formErrors.categories.language">
+        <strong>Langue :</strong> {{ formErrors.categories.language }}
+      </div>
+      <div *ngIf="formErrors.categories.tags">
+        <strong>Tags :</strong> {{ formErrors.categories.tags }}
+      </div>
+      <div *ngIf="formErrors.categories.genres">
+        <strong>Genres :</strong> {{ formErrors.categories.genres }}
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isSuccess" class="success-message">
+    {{ successMessage }}
+  </div>
+</div>
+
 <div class="row">
   <div class="row-two">
     <app-form-game #postGameForm></app-form-game>
-    <button class="action-button" type="submit" (click)="onSubmit()">Add your
-      Game</button>
+    <button class="action-button" type="submit" (click)="onSubmit()">Add your Game</button>
   </div>
 
   <div class="row-three">

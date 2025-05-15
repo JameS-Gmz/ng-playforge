@@ -1,1 +1,38 @@
-<app-play-in-browser></app-play-in-browser>
+<div class="library-container">
+  <h1>Ma Bibliothèque</h1>
+
+  <div *ngIf="loading" class="loading">
+    <div class="loading-spinner"></div>
+    <p>Chargement de votre bibliothèque...</p>
+  </div>
+
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+    <p *ngIf="timeLeft > 0">Redirection vers la page de connexion dans {{ timeLeft }} secondes...</p>
+    <button (click)="loadLibraryGames()" class="retry-button">Réessayer</button>
+    <button (click)="goToAuth()" class="login-link">Se connecter maintenant</button>
+  </div>
+
+  <div *ngIf="!loading && !error" class="games-grid">
+    <div *ngIf="games.length === 0" class="empty-library">
+      <p>Votre bibliothèque est vide</p>
+      <p>Ajoutez des jeux à votre bibliothèque pour les retrouver ici</p>
+      <a routerLink="/all-games" class="browse-games">Parcourir les jeux</a>
+    </div>
+
+    <div *ngFor="let game of games" class="game-card">
+      <div class="game-image">
+        <img [src]="game.imageUrl" [alt]="game.title">
+      </div>
+      <div class="game-info">
+        <h2>{{ game.title }}</h2>
+        <p class="price">{{ game.price | currency }}</p>
+        <p class="description">{{ game.description | slice:0:150 }}...</p>
+        <div class="game-actions">
+          <a [routerLink]="['/game/id', game.id]" class="btn-play">Jouer</a>
+          <button (click)="removeFromLibrary(game.id)" class="btn-remove">Retirer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

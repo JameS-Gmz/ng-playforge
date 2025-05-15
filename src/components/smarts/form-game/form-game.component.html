@@ -1,0 +1,34 @@
+<div class="card">
+  <div class="card-image" [style.background-image]="previewImageUrl ? 'url(' + previewImageUrl + ')' : ''" [style.background-size]="'cover'" [style.background-position]="'center'">
+    <div class="image">
+        <app-input-file (fileSelected)="onFileSelected($event)" text="Upload Image"></app-input-file>
+    </div>
+  </div>
+
+  <form #postGameForm="ngForm" class="card-form">
+      <div class="input">
+          <label class="input-label" for="title">
+              Title
+              <input type="text" class="input-field" id="title" name="title" placeholder="Write the title here..." required ngModel/>
+          </label>
+      </div>
+
+      <div class="input">
+          <label class="input-label" for="description">
+              Description
+              <textarea id="description" class="input-field" name="description" placeholder="Write the description here..." required ngModel></textarea>
+          </label>
+      </div>
+
+      <div class="input">
+          <label class="input-label" for="price">
+              Price
+              <input type="number" id="price" class="input-field" name="price" placeholder="Write the price here..." required ngModel>
+          </label>
+      </div>
+
+      <div class="card-info">
+          <p>To publish your Game, you are agreeing to our <a href="#">Terms and Conditions</a></p>
+      </div>
+  </form>
+</div>

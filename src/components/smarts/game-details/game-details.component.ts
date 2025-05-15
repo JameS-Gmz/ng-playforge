@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { CarouselComponent } from "../carousel/carousel.component";
 import { RatingComponentComponent } from "../../dumbs/rating-component/rating-component.component";
 import { FileService } from '../../../services/file-service.service';
+import { LibraryService } from '../../../services/library.service';
 
 @Component({
   selector: 'app-game-details',
@@ -17,6 +18,8 @@ export class GameDetailsComponent implements OnInit {
   game: any = {};
   images: string[] = [];
   gameId!: string;
+  isInLibrary: boolean = false;
+  loading: boolean = false;
   
   // Propriétés pour les détails du jeu
   platforms: string[] = [];
@@ -30,16 +33,45 @@ export class GameDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private gameService: GameService,
-    private fileService: FileService
+    private fileService: FileService,
+    private libraryService: LibraryService
   ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       if (id) {
+        this.gameId = id;
         this.loadGame(id);
+        this.checkIfInLibrary();
       }
     });
+  }
+
+  async checkIfInLibrary() {
+    try {
+      this.isInLibrary = await this.libraryService.isGameInLibrary(Number(this.gameId));
+    } catch (error) {
+      console.error('Erreur lors de la vérification de la bibliothèque:', error);
+    }
+  }
+
+  async toggleLibrary() {
+    if (this.loading) return;
+    
+    this.loading = true;
+    try {
+      if (this.isInLibrary) {
+        await this.libraryService.removeGameFromLibrary(Number(this.gameId));
+      } else {
+        await this.libraryService.addGameToLibrary(Number(this.gameId));
+      }
+      this.isInLibrary = !this.isInLibrary;
+    } catch (error) {
+      console.error('Erreur lors de l\'ajout d\'un jeu à la bibliothèque:', error);
+    } finally {
+      this.loading = false;
+    }
   }
 
   async loadGame(id: string) {

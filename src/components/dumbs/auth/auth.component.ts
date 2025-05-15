@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { SignUpComponent } from "../../smarts/sign-up/sign-up.component";
 import { SignInComponent } from "../../smarts/sign-in/sign-in.component";
 
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [CommonModule, RouterLink, SignUpComponent, SignInComponent],
+  imports: [CommonModule, RouterModule, SignUpComponent, SignInComponent, RouterLink],
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css']
 })

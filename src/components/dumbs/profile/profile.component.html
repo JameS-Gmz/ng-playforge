@@ -19,6 +19,9 @@
         <!-- Bouton pour accéder au panneau d'administration (visible uniquement pour les admins) -->
         <button *ngIf="isAdmin" class="action-button admin-button" (click)="goToAdmin()">Panneau d'administration</button>
         
+        <!-- Bouton pour accéder au panneau développeur (visible uniquement pour les développeurs) -->
+        <button *ngIf="isDeveloper" class="action-button developer-button" (click)="goToDeveloper()">Panneau développeur</button>
+        
         <!-- Bouton pour se déconnecter -->
         <button class="action-button logout" (click)="logout()">Se déconnecter</button>
       </div>

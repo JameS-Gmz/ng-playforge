@@ -1,0 +1,216 @@
+.input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  
+}
+
+.input-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(29, 36, 55, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 0;
+}
+
+.input-image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 150px;
+  max-height: 150px;
+  background-color: rgba(29, 36, 55, 0.7);
+  border: 2px dashed #1A68FF;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  z-index: 1;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.input-image::before {
+  content: '📸';
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.input-image::after {
+  content: 'cliquez ou glissez pour déposer votre image';
+  color: #ffffff;
+  font-size: 1rem;
+  text-align: center;
+  
+  pointer-events: none;
+}
+
+.input-image:hover {
+  background-color: rgba(42, 50, 69, 0.8);
+  border-color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.input-image.drag-over {
+  background-color: rgba(42, 50, 69, 0.9);
+  border-color: #ffffff;
+  transform: scale(1.02);
+}
+
+.input-image input[type="file"] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Style pour l'aperçu de l'image */
+.preview-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(29, 36, 55, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.preview-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Overlay pour l'image sélectionnée */
+.file-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(29, 36, 55, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.preview-container:hover .file-overlay {
+  opacity: 1;
+}
+
+.file-name {
+  color: white;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  max-width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.change-file {
+  background-color: #ffb000;
+  color: #1D2437;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.change-file:hover {
+  background-color: #ffc233;
+  transform: translateY(-2px);
+}
+
+/* Animation de pulsation pour l'état de glisser-déposer */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    border-color: #ffffff;
+  }
+  50% {
+    transform: scale(1.02);
+    border-color: #ffb000;
+  }
+  100% {
+    transform: scale(1);
+    border-color: #ffffff;
+  }
+}
+
+.input-image.drag-over {
+  animation: pulse 1.5s infinite;
+}
+
+/* Style responsive */
+@media (max-width: 768px) {
+  .input-container {
+    padding: 10px;
+  }
+
+  .input-image {
+    width: 90%;
+    min-height: 200px;
+  }
+
+  .input-image::before {
+    font-size: 2rem;
+  }
+
+  .input-image::after {
+    font-size: 0.9rem;
+  }
+
+  .file-name {
+    font-size: 0.8rem;
+  }
+
+  .change-file {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Style pour les messages d'erreur */
+.error-message {
+  color: #ff4444;
+  font-size: 0.9rem;
+  margin-top: 8px;
+  text-align: center;
+  background-color: rgba(255, 68, 68, 0.1);
+  padding: 8px;
+  border-radius: 6px;
+  width: 100%;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}

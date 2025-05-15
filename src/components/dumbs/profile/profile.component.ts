@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   user: any = {};  // Contiendra les informations de l'utilisateur
   private tokenSubscription: Subscription | undefined;
   isAdmin: boolean = false;
+  isDeveloper: boolean = false;
 
   constructor(private cdRef: ChangeDetectorRef, private authService: AuthService, private router: Router) {
     // S'abonner aux changements de token
@@ -54,7 +55,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
         avatar: payload.avatar
       };
       this.isAdmin = payload.role === 'admin' || payload.role === 'superadmin';
+      this.isDeveloper = payload.role === 'developer';
       console.log('isAdmin value:', this.isAdmin);
+      console.log('isDeveloper value:', this.isDeveloper);
       
       this.cdRef.detectChanges();
     }
@@ -72,6 +75,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   goToAdmin() {
     this.router.navigate(['/admin']);
+  }
+
+  goToDeveloper() {
+    this.router.navigate(['/developer']);
   }
 
   checkTokenExpiration() {

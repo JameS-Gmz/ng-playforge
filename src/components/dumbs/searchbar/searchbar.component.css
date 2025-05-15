@@ -1,120 +1,201 @@
 /* Style pour la barre de recherche */
 .searchbar {
   width: 100%;
-  top: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.search-container {
   display: grid;
-  grid-template-columns: 15fr 0.5fr;
-  justify-content: center;
-  gap: 0.15%;
+  grid-template-columns: 1fr auto;
+  width: 100%;
 }
 
 /* Style pour le champ de recherche */
 .search {
   color: white;
-  padding: 0.5%;
-  padding-left: 2%;
-  background-color: rgba(186, 186, 186, 0.3);
-  /* Utilisation de rgba pour la transparence */
-  border-color: rgba(186, 186, 186, 0.1);
-  border-radius: 2vh 0vh 0vh 2vh;
+  padding: 12px 20px;
+  background-color: rgba(29, 36, 55, 0.8);
+  border: 2px solid #3A4255;
+  border-radius: 2em 0em 0em 2em;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.search:focus {
+  outline: none;
+  border-color: #1a68FF;
+}
+
+.search::placeholder {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 /* Style pour le bouton de recherche */
 .search-btn {
+  background-color: #1a68FF;
+  border: none;
+  border-radius: 0em 2em 2em 0em;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
   display: flex;
-  background-color: #1a68ff;
-  border-color: #1a68ff;
-  border-radius: 0vh 2vh 2vh 0vh;
+  align-items: center;
   justify-content: center;
-  align-items: center;
-  padding: 10%;
 }
 
-.imageUrl{
-  width: 10%;
-  height: 6.5vh;
-  border: 5px solid transparent;
-  border-radius: 2vh;
-  object-fit: cover;
-  object-position: 100% 0;
+.search-btn:hover {
+  background-color: #ffc233;
 }
 
-/* Style pour les messages d'erreur */
-.error-menu{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.search-btn img {
+  width: 20px;
+  height: 20px;
 }
 
-.error {
+/* Style pour les résultats de recherche */
+.search-results-container {
   position: absolute;
-  padding: 1%;
-  text-transform: uppercase;
-  color: white;
-  background-color: rgb(22, 28, 52, 100%);
-  width:30%;
-  border:groove rgba(186, 186, 186, 100);
-  border-top: none;
-  border-radius: 0vh 0vh 2vh 2vh;
+  top: 100%;
+  left: 0;
+  right: 0;
   z-index: 1000;
+  background-color: #1D2437;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 5px;
 }
 
-.menu{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Style pour le conteneur toggle-search */
 .toggle-search {
-  position: absolute;
   list-style: none;
-  background-color: rgb(22, 28, 52, 100%);
-  width:65%;
-  border:groove rgba(186, 186, 186, 100);
-  border-top: none;
-  border-radius: 0vh 0vh 2vh 2vh;
-  z-index: 1000;
+  padding: 0;
+  margin: 0;
+  max-height: 400px;
+  overflow-y: auto;
 }
 
 .toggle-search li {
-  padding:1%;
+  padding: 0;
+  border-bottom: 1px solid #3A4255;
 }
 
-.toggle-search a {
-  width: 100%;
+.toggle-search li:last-child {
+  border-bottom: none;
+}
+
+.link {
+  display: block;
   text-decoration: none;
   color: white;
+  padding: 15px;
+  transition: background-color 0.3s ease;
 }
 
-.link{
+.link:hover {
+  background-color: #2A3245;
+}
+
+.game-preview {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.imageUrl {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.game-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.game-info strong {
+  font-size: 16px;
+  color: #ffb000;
+}
+
+.price {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.description {
+  color: #A0A0A0;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Style pour le spinner de chargement */
+.loading-spinner {
+  padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-strong{
-  text-transform: capitalize;
+.spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid #3A4255;
+  border-top-color: #ffb000;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 }
 
-.toggle-search strong :hover{
-  text-transform: uppercase;
-  color: #1a68ff;
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-/* Styles responsives pour les petits écrans */
+/* Style pour les messages d'erreur */
+.error-menu {
+  padding: 15px;
+}
+
+.error {
+  color: #dc3545;
+  text-align: center;
+  padding: 10px;
+  background-color: rgba(220, 53, 69, 0.1);
+  border-radius: 4px;
+}
+
+/* Styles responsives */
 @media (max-width: 768px) {
-  img {
-    width: 15px;
+  .search {
+    padding: 10px 15px;
+    font-size: 12px;
   }
 
-  .searchbar {
-    grid-template-columns: 10fr 1fr;
+  .search-btn {
+    padding: 10px;
   }
 
-  .toggle-search{
-    left: 0;
-    top: 75px;
+  .search-btn img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .game-preview {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .imageUrl {
+    width: 100%;
+    height: 120px;
+  }
+
+  .game-info {
     width: 100%;
   }
 }

@@ -1,29 +1,43 @@
 <div class="searchbar">
+  <div class="search-container">
     <input
-        class="search"
-        type="text"
-        [(ngModel)]="searchQuery"
-        placeholder="Rechercher des jeux..."
-        (input)="onInput()" />
-    <button class="search-btn" (click)="reset()"><img src="/ion_cross.svg"
-            alt></button>
+      class="search"
+      type="text"
+      [(ngModel)]="searchQuery"
+      placeholder="Rechercher des jeux..."
+      (input)="onInput()"
+      [disabled]="isLoading" />
+    <button class="search-btn" (click)="reset()">
+      <img src="/ion_cross.svg" alt="Effacer">
+    </button>
+  </div>
 
-        </div>
-        <div class="error-menu">
-            <div class="error" *ngIf="errorMessage" class="error">
-                {{ errorMessage }}
+  <div class="search-results-container" *ngIf="showResults">
+    <div class="loading-spinner" *ngIf="isLoading">
+      <div class="spinner"></div>
+    </div>
+
+    <div class="error-menu" *ngIf="errorMessage && !isLoading">
+      <div class="error">
+        {{ errorMessage }}
+      </div>
+    </div>
+        
+    <div class="menu" *ngIf="games.length > 0 && !isLoading">
+      <ul class="toggle-search">
+        <li *ngFor="let game of games">
+          <a class="link" [routerLink]="['/game/id', game.id]" (click)="closeResults()">
+            <div class="game-preview">
+              <img class="imageUrl" [src]="game.imageUrl" [alt]="game.title">
+              <div class="game-info">
+                <strong>{{ game.title }}</strong>
+                <span class="price">{{ game.price | currency }}</span>
+                <p class="description">{{ game.description | slice:0:100 }}...</p>
+              </div>
             </div>
-        </div>
-            
-        <div class="menu" *ngIf="games.length > 0">
-            <ul class="toggle-search">
-                <li *ngFor="let game of games">
-                    <strong>
-                        <a class="link" [routerLink]="['/game/id', game.id]">
-                            <img  class="imageUrl" [src]="game.imageUrl">
-                            - {{ game.title }} - {{ game.price | currency}}
-                        </a>
-                    </strong>
-                </li>
-            </ul>
-        </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

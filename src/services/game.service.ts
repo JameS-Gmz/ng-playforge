@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 
 
@@ -98,12 +97,22 @@ export class GameService {
   }
 
   // Méthode pour associer les catégories à un jeu
-  async associateGameWithCategories(GameId: any, ControllerId: any, PlatformId: any, LanguageId: any, StatusId: any, tagId :any , genreId :any): Promise<any> {
-    if (!GameId || !ControllerId || !PlatformId || !LanguageId || !StatusId) {
-      throw new Error('Les identifiants du jeu, des catégories, ou des plateformes sont manquants.');
+  async associateGameWithCategories(GameId: any, ControllerId: any, PlatformId: any, StatusId: any, LanguageId: any, TagId: any, GenreId: any): Promise<any> {
+    if (!GameId) {
+      throw new Error('L\'identifiant du jeu est manquant.');
     }
     
-    const payload = { GameId, ControllerId, PlatformId, LanguageId, StatusId };
+    const payload = { 
+      GameId, 
+      ControllerId, 
+      PlatformId, 
+      StatusId, 
+      LanguageId,
+      TagId: Array.isArray(TagId) ? TagId : TagId?.split(',').map((id: string) => parseInt(id)),
+      GenreId: Array.isArray(GenreId) ? GenreId : GenreId?.split(',').map((id: string) => parseInt(id))
+    };
+
+    console.log('Payload envoyé au serveur:', payload);
     return this.postData(`${this.baseUrl}/game/associate-categories`, payload);
   }
 
@@ -201,6 +210,88 @@ export class GameService {
   // Méthode pour récupérer les jeux triés par date de mise à jour
   async getGamesByUpdateDate(): Promise<any> {
     return this.getData(`${this.baseUrl}/game/last-updated`);
+  }
+
+  // Méthode pour récupérer les jeux par UserId
+  async getGamesByUserId(userId: number): Promise<any[]> {
+    try {
+      const token = localStorage.getItem('token');
+      
+      if (!token) {
+        throw new Error('Token non disponible. Veuillez vous connecter.');
+      }
+
+      console.log('Fetching games for user ID:', userId);
+      console.log('Using token:', token.substring(0, 10) + '...'); // Log partiel du token pour la sécurité
+
+      const url = `${this.baseUrl}/game/by-user/${userId}`;
+      console.log('Request URL:', url);
+
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        let errorData;
+        try {
+          errorData = await response.json();
+          console.error('Error response data:', errorData);
+        } catch (e) {
+          console.error('Could not parse error response:', e);
+          errorData = { message: 'Erreur inconnue du serveur' };
+        }
+        throw new Error(errorData.message || `Erreur HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const games = await response.json();
+      console.log('Received games data:', games);
+
+      if (!Array.isArray(games)) {
+        console.error('Invalid response format:', games);
+        throw new Error('La réponse n\'est pas un tableau de jeux');
+      }
+
+      return games;
+    } catch (error) {
+      console.error('Erreur détaillée lors de la récupération des jeux:', error);
+      throw error;
+    }
+  }
+
+  // Méthode pour ajouter un jeu à la bibliothèque d'un utilisateur
+  async addGameToLibrary(GameId: number, UserId: number): Promise<any> {
+    const token = localStorage.getItem('token');
+    
+    if (!token) {
+      throw new Error('Token non disponible. Veuillez vous connecter.');
+    }
+
+    const payload = { GameId, UserId };
+    
+    try {
+      const response = await fetch(`${this.baseUrl}/library/add`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Erreur lors de l\'ajout du jeu à la bibliothèque');
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Erreur lors de l\'ajout à la bibliothèque:', error);
+      throw error;
+    }
   }
 
 }

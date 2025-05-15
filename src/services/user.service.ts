@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { async, BehaviorSubject } from 'rxjs';
 
 interface Role {
   id: number;
@@ -257,6 +257,29 @@ export class UserService {
       console.error('Error assigning superadmin role:', error);
       throw error;
     }
+  }
+
+  async getCurrentDeveloperId(): Promise<number> {
+    const token = localStorage.getItem('token');
+    
+    if (!token) {
+      throw new Error('Token non disponible. Veuillez vous connecter.');
+    }
+
+    const response = await fetch(`${this.apiUrl}/current-developer-id`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Erreur lors de la récupération de l\'ID du développeur');
+    }
+
+    return await response.json();
   }
 }
 

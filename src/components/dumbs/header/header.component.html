@@ -1,4 +1,3 @@
-
 <header class="header">
 
         <nav>
@@ -6,7 +5,7 @@
 
                         <li><app-nav-item text="All Games"
                                         img="/ion_network.svg"
-                                        routerLink="/all-game"></app-nav-item></li>
+                                        routerLink="/all-games"></app-nav-item></li>
                         <li *ngIf="isLoggedIn && isDeveloper"><app-nav-item
                                         text="Upload" img="/ion_upload.svg"
                                         routerLink="/game"></app-nav-item></li>
@@ -27,8 +26,12 @@
 
                         <li><app-nav-item text="Library" img="/ion_library.svg"
                                         routerLink="/library"></app-nav-item></li>
-                        <li><app-nav-item text="Notifications"
-                                        img="ion_notification.svg"></app-nav-item></li>
+                        <li>
+                            <div class="notification-nav-item">
+                                <app-nav-item text="Notifications" img="ion_notification.svg"></app-nav-item>
+                                <app-notification></app-notification>
+                            </div>
+                        </li>
                         <li><app-nav-item text="Profile"
                                         img="ion_profile color.svg"
                                         [routerLink]="isLoggedIn ? '/profile' : '/auth'"></app-nav-item></li>

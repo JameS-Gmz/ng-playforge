@@ -1,3 +1,26 @@
-<div class="input-image">
-  <input type="file" id="file-upload" (change)="onFileSelected($event)" />
+<div class="input-image" 
+  [class.drag-over]="isDragOver"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+  (drop)="onDrop($event)">
+  
+  <input 
+    type="file" 
+    id="file-upload" 
+    (change)="onFileSelected($event)"
+    accept="image/jpeg,image/png,image/gif,image/webp">
+
+  <ng-container *ngIf="selectedFile && previewUrl">
+    <div class="preview-container">
+      <img [src]="previewUrl" [alt]="selectedFile.name">
+      <div class="file-overlay">
+        <span class="file-name">{{ selectedFile.name }}</span>
+        <button class="change-file" (click)="triggerFileInput($event)">Changer l'image</button>
+      </div>
+    </div>
+  </ng-container>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
 </div>

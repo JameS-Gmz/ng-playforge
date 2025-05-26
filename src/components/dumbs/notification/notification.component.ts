@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, HostListener, ElementRef } from '@angular
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Subscription, interval } from 'rxjs';
-import { NotificationService, Notification } from '../../../services/notification.service';
+import { NotificationService, Notification, NotificationType } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-notification',
@@ -13,8 +13,10 @@ import { NotificationService, Notification } from '../../../services/notificatio
 })
 export class NotificationComponent implements OnInit, OnDestroy {
   notifications: Notification[] = [];
+  filteredNotifications: Notification[] = [];
   unreadCount: number = 0;
   isOpen: boolean = false;
+  currentFilter: NotificationType | 'all' = 'all';
   private notificationSubscription: Subscription | null = null;
   private checkIntervalSubscription: Subscription | null = null;
 
@@ -29,6 +31,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.notificationSubscription = this.notificationService.getNotifications().subscribe(notifications => {
       this.notifications = notifications;
       this.updateUnreadCount();
+      this.applyFilter();
     });
 
     // Vérifier les nouveaux jeux toutes les 2 minutes (120000 ms)
@@ -55,11 +58,13 @@ export class NotificationComponent implements OnInit, OnDestroy {
     const isDropdownContent = target.closest('.notifications-dropdown');
     const isMarkAllRead = target.closest('.mark-all-read');
     const isNotificationItem = target.closest('.notification-item');
+    const isFilterButton = target.closest('.notification-filters button');
+    const isDeleteButton = target.closest('.delete-notification');
 
     event.preventDefault();
     event.stopPropagation();
 
-    if (!isDropdownContent || isMarkAllRead || isNotificationItem) {
+    if (!isDropdownContent || isMarkAllRead || isNotificationItem || isFilterButton || isDeleteButton) {
       this.toggleNotifications();
     }
   }
@@ -77,6 +82,19 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   toggleNotifications(): void {
     this.isOpen = !this.isOpen;
+  }
+
+  setFilter(filter: NotificationType | 'all'): void {
+    this.currentFilter = filter;
+    this.applyFilter();
+  }
+
+  private applyFilter(): void {
+    if (this.currentFilter === 'all') {
+      this.filteredNotifications = this.notifications;
+    } else {
+      this.filteredNotifications = this.notifications.filter(n => n.type === this.currentFilter);
+    }
   }
 
   markAllAsRead(event: Event): void {
@@ -97,11 +115,27 @@ export class NotificationComponent implements OnInit, OnDestroy {
     }
   }
 
+  deleteNotification(notificationId: number, event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.notificationService.deleteNotification(notificationId);
+  }
+
   markAsRead(notificationId: number): void {
     this.notificationService.markAsRead(notificationId);
   }
 
   private updateUnreadCount(): void {
     this.unreadCount = this.notifications.filter(n => !n.isRead).length;
+  }
+
+  getNotificationTypeLabel(type: NotificationType): string {
+    const labels = {
+      'game': 'Jeu',
+      'system': 'Système',
+      'achievement': 'Succès',
+      'warning': 'Alerte'
+    };
+    return labels[type] || type;
   }
 }

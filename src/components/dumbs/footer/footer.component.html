@@ -1,37 +1,57 @@
-<footer class="footer">
+<div class="footer-toggle" (click)="toggleFooter()">
+    <span class="toggle-icon" [class.expanded]="isExpanded">▼</span>
+</div>
 
-    <h3 class="playforge-link">Copyright
-        &copy; Your Website 2023</h3>
-
-
-    <div class="Social-media">
-
-        <div class="playforge-link">
-            <p>Follow us on</p>
-
-            <app-nav-item img="facebook.svg"></app-nav-item>
-            <app-nav-item img="twitter.svg"></app-nav-item>
-            <app-nav-item img="instagram.svg"></app-nav-item>
-            <app-nav-item img="discord.svg"></app-nav-item>
+<footer class="footer" [class.expanded]="isExpanded">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>PlayForge</h3>
+            <p>Votre plateforme de jeux préférée</p>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><img src="/facebook.svg" alt="Facebook"></a>
+                <a href="#" aria-label="Twitter"><img src="/twitter.svg" alt="Twitter"></a>
+                <a href="#" aria-label="Instagram"><img src="/instagram.svg" alt="Instagram"></a>
+                <a href="#" aria-label="Discord"><img src="/discord.svg" alt="Discord"></a>
+            </div>
         </div>
 
-        <div
-            class="Store">
-            <p>Some games are available on</p>
-
-            <app-nav-item img="playstore.svg"></app-nav-item>
-            <app-nav-item img="AppStore.svg"></app-nav-item>
-
+        <div class="footer-section">
+            <h4>Navigation</h4>
+            <ul>
+                <li><a routerLink="/">Accueil</a></li>
+                <li><a routerLink="/all-games">Jeux</a></li>
+            </ul>
         </div>
 
+        <div class="footer-section">
+            <h4>Support</h4>
+            <ul>
+                <li><a href="#">Centre d'aide</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h4>Légal</h4>
+            <ul>
+                <li><a href="#">Conditions d'utilisation</a></li>
+                <li><a href="#">Politique de confidentialité</a></li>
+                <li><a href="#">Cookies</a></li>
+                <li><a href="#">Mentions légales</a></li>
+            </ul>
+        </div>
     </div>
 
-    <div class="footer-text">
-        <a href routerLink="/">HOME |</a>
-        <a href>About</a>
-        <a href>Privacy</a>
-        <a href>Cookie |</a>
-        <a href>LOG IN</a>
-        <a href>SIGN UP</a>
+    <div class="footer-bottom">
+        <div class="store-links">
+            <p>Disponible sur</p>
+            <div class="store-buttons">
+                <a href="#" aria-label="Google Play"><img src="/playstore.svg" alt="Google Play"></a>
+                <a href="#" aria-label="App Store"><img src="/AppStore.svg" alt="App Store"></a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 PlayForge. Tous droits réservés.</p>
+        </div>
     </div>
 </footer>

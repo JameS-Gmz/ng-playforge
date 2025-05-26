@@ -4,8 +4,7 @@
     min-height: 100vh; /* Hauteur minimum de la fenêtre */
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* On laisse le contenu prendre l'espace restant */
-    position: relative; /* Contexte de positionnement pour le footer */
+    background: #141e30;
 }
 
 /* En-tête fixe */
@@ -18,17 +17,14 @@
 
 /* Contenu principal sous l'en-tête */
 .router-app {
-    z-index: 0;
-    flex: 1; /* Prend toute la hauteur restante */
+    flex: 1;
     width: 100%;
-   padding: 5%;
+    padding: 5%;
+    margin-bottom: 2rem;
 }
 
 /* Pied de page toujours en bas */
 .footer-app {
-    position: absolute; /* Positionner en bas */
-    bottom: 0;
     width: 100%;
-    padding: 10px 0;
-    z-index: 0;
+    margin-top: auto;
 }

@@ -215,6 +215,15 @@ export class AuthService {
     return false;
   }
 
+  isDeveloper(): boolean {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.role === 'developer';
+    }
+    return false;
+  }
+
   checkTokenExpiration(): boolean {
     const token = localStorage.getItem('token');
     if (!token) {

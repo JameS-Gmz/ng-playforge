@@ -22,29 +22,51 @@
     <div class="game-details">
         <div class="container">
             <!-- Informations principales -->
-            <div class="item">Auteur :<span class="info">{{game.authorStudio}}</span></div>
-            <div class="item">Note :<span class="info">{{game.rating || 'Non noté'}}</span></div>
-            <div class="item">Statut :<span class="info">{{game.status.name || 'Non spécifié'}}</span></div>
-            <div class="item">Langue :<span class="info">{{game.language.name || 'Non spécifiée'}}</span></div>
+            <div class="item" data-label="Auteur">
+                <span class="info">{{game.authorStudio}}</span>
+            </div>
+            <div class="item" data-label="Note">
+                <span class="info">{{game.rating || 'Non noté'}}</span>
+            </div>
+            <div class="item" data-label="Statut">
+                <span class="info">{{game.status.name || 'Non spécifié'}}</span>
+            </div>
+            <div class="item" data-label="Langue">
+                <span class="info">{{game.language.name || 'Non spécifiée'}}</span>
+            </div>
             
             <!-- Catégories -->
-            <div class="item">Genres :<span class="info multiple">
-                <span *ngFor="let genre of game.genres">{{genre.name}}</span>
-            </span></div>
-            <div class="item">Tags :<span class="info multiple">
-                <span *ngFor="let tag of game.tags">{{tag.name}}</span>
-            </span></div>
-            <div class="item">Plateformes :<span class="info multiple">
-                <span *ngFor="let platform of game.platforms">{{platform.name}}</span>
-            </span></div>
-            <div class="item">Contrôles :<span class="info multiple">
-                <span *ngFor="let controller of game.controllers">{{controller.name}}</span>
-            </span></div>
+            <div class="item" data-label="Genres">
+                <span class="info multiple">
+                    <span *ngFor="let genre of game.genres">{{genre.name}}</span>
+                </span>
+            </div>
+            <div class="item" data-label="Tags">
+                <span class="info multiple">
+                    <span *ngFor="let tag of game.tags">{{tag.name}}</span>
+                </span>
+            </div>
+            <div class="item" data-label="Plateformes">
+                <span class="info multiple">
+                    <span *ngFor="let platform of game.platforms">{{platform.name}}</span>
+                </span>
+            </div>
+            <div class="item" data-label="Contrôles">
+                <span class="info multiple">
+                    <span *ngFor="let controller of game.controllers">{{controller.name}}</span>
+                </span>
+            </div>
             
             <!-- Informations techniques -->
-            <div class="item">Créé avec :<span class="info">{{ game.madewith !== null ? game.madewith : 'Non spécifié' }}</span></div>
-            <div class="item">Session moyenne :<span class="info">{{averageSession || 'Non spécifiée'}}</span></div>
-            <div class="item">Dernière mise à jour :<span class="info">{{game.updatedAt | date:'mediumDate'}}</span></div>
+            <div class="item" data-label="Créé avec">
+                <span class="info">{{ game.madewith !== null ? game.madewith : 'Non spécifié' }}</span>
+            </div>
+            <div class="item" data-label="Session moyenne">
+                <span class="info">{{averageSession || 'Non spécifiée'}}</span>
+            </div>
+            <div class="item" data-label="Dernière mise à jour">
+                <span class="info">{{game.updatedAt | date:'mediumDate'}}</span>
+            </div>
         </div>
     </div>
     <div class="game-input-comment">

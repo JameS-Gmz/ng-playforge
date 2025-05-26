@@ -64,8 +64,9 @@ export class LibraryComponent implements OnInit, OnDestroy {
       const libraryGames = await this.libraryService.getLibraryGames();
       console.log('Jeux reçus:', libraryGames);
       
-      if (!libraryGames) {
-        throw new Error('Aucun jeu trouvé dans la bibliothèque');
+      if (!libraryGames || !Array.isArray(libraryGames) || libraryGames.length === 0) {
+        this.games = [];
+        return;
       }
 
       this.games = await Promise.all((libraryGames as any[]).map(async (game: any) => {
@@ -89,8 +90,15 @@ export class LibraryComponent implements OnInit, OnDestroy {
       console.log('Jeux avec images:', this.games);
     } catch (error: any) {
       console.error('Erreur lors du chargement des jeux:', error);
-      this.error = error.message || 'Une erreur est survenue lors du chargement des jeux';
-      this.games = [];
+      // Ne pas déclencher le timer si la bibliothèque est simplement vide
+      if (error.message === 'Aucun jeu trouvé dans votre bibliothèque') {
+        this.error = null;
+        this.games = [];
+      } else {
+        this.error = error.message || 'Une erreur est survenue lors du chargement des jeux';
+        this.games = [];
+        this.startRedirectTimer();
+      }
     } finally {
       this.loading = false;
     }

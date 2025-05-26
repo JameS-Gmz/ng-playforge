@@ -36,8 +36,13 @@ export class LibraryService {
       
       console.log('Réponse de la bibliothèque:', response);
       return response;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error getting library games:', error);
+      // Si c'est une erreur 404 (bibliothèque vide), retourner un tableau vide
+      if (error.status === 404) {
+        return [];
+      }
+      // Pour les autres erreurs (401, 403, 500, etc.), propager l'erreur
       throw error;
     }
   }

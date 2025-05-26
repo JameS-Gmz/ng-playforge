@@ -124,8 +124,8 @@ export class GameComponent implements AfterViewInit {
     // Validation des catégories
     const categoryErrors: any = {};
     console.log('Validation des catégories:', {
-      ControllerId: categoryCreateFormValues.ControllerId,
-      PlatformId: categoryCreateFormValues.PlatformId,
+      ControllerIds: categoryCreateFormValues.ControllerIds,
+      PlatformIds: categoryCreateFormValues.PlatformIds,
       StatusId: categoryCreateFormValues.StatusId,
       LanguageId: categoryCreateFormValues.LanguageId,
       selectedTags: categoryCreateFormValues.selectedTags,
@@ -133,17 +133,17 @@ export class GameComponent implements AfterViewInit {
     });
 
     // Validation du contrôleur
-    if (!categoryCreateFormValues.ControllerId) {
-      categoryErrors.controller = 'Le contrôleur est obligatoire';
-    } else if (typeof categoryCreateFormValues.ControllerId !== 'number') {
-      categoryErrors.controller = 'Le contrôleur sélectionné est invalide';
+    if (!categoryCreateFormValues.ControllerIds?.length) {
+      categoryErrors.controller = 'Au moins un contrôleur est obligatoire';
+    } else if (!Array.isArray(categoryCreateFormValues.ControllerIds)) {
+      categoryErrors.controller = 'Le format des contrôleurs sélectionnés est invalide';
     }
 
     // Validation de la plateforme
-    if (!categoryCreateFormValues.PlatformId) {
-      categoryErrors.platform = 'La plateforme est obligatoire';
-    } else if (typeof categoryCreateFormValues.PlatformId !== 'number') {
-      categoryErrors.platform = 'La plateforme sélectionnée est invalide';
+    if (!categoryCreateFormValues.PlatformIds?.length) {
+      categoryErrors.platform = 'Au moins une plateforme est obligatoire';
+    } else if (!Array.isArray(categoryCreateFormValues.PlatformIds)) {
+      categoryErrors.platform = 'Le format des plateformes sélectionnées est invalide';
     }
 
     // Validation du statut
@@ -234,8 +234,8 @@ export class GameComponent implements AfterViewInit {
       console.log('Jeu créé avec succès:', result);
 
       const GameId = result.id;
-      const ControllerId = gameData.ControllerId;
-      const PlatformId = gameData.PlatformId;
+      const ControllerIds = gameData.ControllerIds;
+      const PlatformIds = gameData.PlatformIds;
       const StatusId = gameData.StatusId;
       const LanguageId = gameData.LanguageId;
       const TagId = gameData.selectedTags;
@@ -243,8 +243,8 @@ export class GameComponent implements AfterViewInit {
 
       console.log('Données pour l\'association des catégories:', {
         GameId,
-        ControllerId,
-        PlatformId,
+        ControllerIds,
+        PlatformIds,
         StatusId,
         LanguageId,
         TagId,
@@ -256,8 +256,8 @@ export class GameComponent implements AfterViewInit {
         console.log('Tentative d\'association des catégories...');
         await this.gameService.associateGameWithCategories(
           GameId,
-          ControllerId,
-          PlatformId,
+          ControllerIds,
+          PlatformIds,
           StatusId,
           LanguageId,
           TagId,

@@ -36,41 +36,48 @@ export class CategoryCreateComponent implements OnInit {
   @ViewChild('categoryCreateForm') categoryCreateForm!: NgForm;
   @ViewChild('languagesSelect') languagesSelect!: SelectComponentsComponent;
   @ViewChild('controllersSelect') controllersSelect!: SelectComponentsComponent;
+  @ViewChild('platformsSelect') platformsSelect!: SelectComponentsComponent;
 
-  selectedControllerId: number | null = null; // ID sélectionné depuis le composant SelectComponents
-  selectedStatusId: number | null = null; // ID sélectionné depuis le composant SelectComponents
-  selectedPlatformId: number | null = null; // ID sélectionné depuis le composant SelectComponents
-  selectedLanguageId: number | null = null; // ID sélectionné depuis le composant SelectComponents
+  selectedControllerId: number | null = null;
+  selectedStatusId: number | null = null;
+  selectedPlatformId: number | null = null;
+  selectedLanguageId: number | null = null;
+  selectedControllerIds: number[] = [];
+  selectedPlatformIds: number[] = [];
 
   ngOnInit(): void {
     this.datafetchService.getGenres().then((genres) => {
-      this.genreList = genres;  // Charger la liste des genres depuis l'API
+      this.genreList = genres;
     }).catch(error => {
       console.error('Erreur lors de la récupération des genres :', error);
     });
 
     this.datafetchService.getTags().then((tags) => {
-      this.tagList = tags;  // Charger la liste des tags depuis l'API
+      this.tagList = tags;
     }).catch(error => {
       console.error('Erreur lors de la récupération des genres :', error);
     });
   }
 
   // Méthode appelée lors de la sélection d'un élément dans SelectComponentsComponent
-  onControllersSelected(elementId: number) {
-    this.selectedControllerId = Number(elementId);
-    console.log('ID sélectionné dans Controllers:', this.selectedControllerId);
+  onControllersSelected(selectedItems: any[]) {
+    if (selectedItems && selectedItems.length > 0) {
+      this.selectedControllerIds = selectedItems.map(item => item.id);
+      console.log('IDs sélectionnés dans Controllers:', this.selectedControllerIds);
+    }
   }
   onStatusesSelected(elementId: number) {
-    this.selectedStatusId = Number(elementId);
+    this.selectedStatusId = elementId;
     console.log('ID sélectionné dans Status:', this.selectedStatusId);
   }
-  onPlatformsSelected(elementId: number) {
-    this.selectedPlatformId = Number(elementId);
-    console.log('ID sélectionné dans Plateforms:', this.selectedPlatformId);
+  onPlatformsSelected(selectedItems: any[]) {
+    if (selectedItems && selectedItems.length > 0) {
+      this.selectedPlatformIds = selectedItems.map(item => item.id);
+      console.log('IDs sélectionnés dans Platforms:', this.selectedPlatformIds);
+    }
   }
   onLanguagesSelected(elementId: number) {
-    this.selectedLanguageId = Number(elementId);
+    this.selectedLanguageId = elementId;
     console.log('ID sélectionné dans Language:', this.selectedLanguageId);
   }
   onGenreCheckedChange(genreId: any, isChecked: boolean) {
@@ -95,9 +102,9 @@ export class CategoryCreateComponent implements OnInit {
     return {
       madeWith: this.formData.madeWith,
       authorStudio: this.formData.authorStudio,
-      ControllerId: this.selectedControllerId,
+      ControllerIds: this.selectedControllerIds,
       StatusId: this.selectedStatusId,
-      PlatformId: this.selectedPlatformId,
+      PlatformIds: this.selectedPlatformIds,
       LanguageId: this.selectedLanguageId,
       selectedGenres,
       selectedTags

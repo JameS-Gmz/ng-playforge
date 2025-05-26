@@ -1,40 +1,140 @@
-select {
-	/* Reset Select */
-	border: 0;
-	box-shadow: none;
-	/* Personalize */
-	flex: 1;
-	color: #ffffff;
-	background-color: #252B43;
-	background-image: none;
-	cursor: pointer;
-	font-size: large;
-	padding: 1vh;
-}
-
-select::-ms-expand {
-	display: none;
+.select-container {
+	width: 100%;
 }
 
 .select {
 	position: relative;
 	display: flex;
-	width: 95%;
+	flex-direction: column;
+	width: 100%;
 	min-width: 15em;
-	border-radius: .25em;
+	border-radius: 8px;
 	overflow: hidden;
+	background-color: #1D2437;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	transition: all 0.3s ease;
+}
+
+select {
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	border: 0;
+	outline: none;
+	flex: 1;
+	color: #E0E0E0;
+	background-color: transparent;
+	cursor: pointer;
+	font-size: 1rem;
+	padding: 12px 15px;
+	width: 100%;
+}
+
+select:hover {
+	scale: 1.02;
+}
+
+/* Styles de la scrollbar */
+select::-webkit-scrollbar {
+	width: 8px;
+}
+
+select::-webkit-scrollbar-track {
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 4px;
+}
+
+select::-webkit-scrollbar-thumb {
+	background: rgba(26, 104, 255, 0.3);
+	border-radius: 4px;
+}
+
+select::-webkit-scrollbar-thumb:hover {
+	background: rgba(26, 104, 255, 0.5);
+}
+
+select option {
+	background-color: #1D2437;
+	color: #E0E0E0;
+	padding: 12px;
+}
+
+select option:disabled {
+	color: #666;
+	background-color: #1D2437;
+	cursor: not-allowed;
 }
 
 .select::after {
 	content: '\25BC';
 	position: absolute;
-	top: 0;
-	right: 0;
-	padding: 1em;	
-	background-color: #1a68ff;
+	top: 50%;
+	right: 15px;
+	transform: translateY(-50%);
+	color: #1A68FF;
+	font-size: 0.8em;
 	pointer-events: none;
 }
 
-.select:hover::after {
-	color: #ffb000;
+
+/* Styles pour la sélection multiple */
+select[multiple] {
+	height: auto;
+	min-height: 150px;
+	padding: 0;
+}
+
+select[multiple] option {
+	padding: 10px 15px;
+	margin: 2px 0;
+	border-radius: 4px;
+}
+
+select[multiple] option:checked {
+	background: rgba(26, 104, 255, 0.2);
+	color: #ffffff;
+	border-left: 3px solid #1A68FF;
+}
+
+select[multiple] option:hover {
+	background-color: rgba(26, 104, 255, 0.1);
+}
+
+/* Masquer la flèche pour les plateformes et contrôleurs */
+.select-container:has(select[multiple]) .select::after {
+	display: none;
+}
+
+.selection-note {
+	font-size: 0.8rem;
+	color: #FFB000;
+	padding: 8px 15px;
+	background-color: rgba(255, 255, 255, 0.05);
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.selection-note span {
+	color: #ffffff;
+	
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+	.select {
+		min-width: 100%;
+	}
+	
+	select {
+		font-size: 0.9rem;
+		padding: 10px 12px;
+	}
+
+	select[multiple] {
+		min-height: 120px;
+	}
+
+	.selection-note {
+		font-size: 0.75rem;
+		padding: 6px 12px;
+	}
 }

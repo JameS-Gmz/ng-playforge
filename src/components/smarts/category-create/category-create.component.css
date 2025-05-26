@@ -16,11 +16,8 @@
 .form-section {
 	display: flex;
 	flex-direction: column;
-	gap: 15px;
-	background-color: #1D2437;
+	gap: 10px;
 	border-radius: 8px;
-	padding: 15px;
-	border: 2px solid #3A4255;
   }
 
 .form-list-input {

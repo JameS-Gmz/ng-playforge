@@ -2,6 +2,7 @@
 
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,18 +11,37 @@ export class AuthService {
 
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   private roleSubject = new BehaviorSubject<string | null>(null);
-
+  private tokenCheckInterval: any;
 
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   role$ = this.roleSubject.asObservable();
   token$: any;
 
-  constructor() {  
+  constructor(private router: Router) {  
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
 
     this.isLoggedInSubject.next(!!token);
     this.roleSubject.next(role);
+
+    // Démarrer la vérification périodique du token
+    this.startTokenCheck();
+  }
+
+  private startTokenCheck() {
+    // Vérifier le token toutes les minutes
+    this.tokenCheckInterval = setInterval(() => {
+      if (!this.checkTokenExpiration()) {
+        this.logout();
+        this.router.navigate(['/auth']);
+      }
+    }, 60000); // 60000 ms = 1 minute
+  }
+
+  private stopTokenCheck() {
+    if (this.tokenCheckInterval) {
+      clearInterval(this.tokenCheckInterval);
+    }
   }
 
   async signUp(userData: any): Promise<any> {
@@ -159,6 +179,7 @@ export class AuthService {
     localStorage.removeItem('role');
     this.isLoggedInSubject.next(false);
     this.roleSubject.next(null);
+    this.stopTokenCheck();
   }
 
   isAuthenticated(): boolean {
@@ -194,11 +215,26 @@ export class AuthService {
     return false;
   }
 
-  checkTokenExpiration() {
+  checkTokenExpiration(): boolean {
     const token = localStorage.getItem('token');
-    if (token) {
+    if (!token) {
+      return false;
+    }
+
+    try {
       const payload = JSON.parse(atob(token.split('.')[1]));
-      return payload.exp;
-    } 
+      const expirationTime = payload.exp * 1000; // Convert to milliseconds
+      const currentTime = Date.now();
+      
+      if (currentTime > expirationTime) {
+        this.logout();
+        return false;
+      }
+      return true;
+    } catch (error) {
+      console.error('Erreur lors de la vérification du token:', error);
+      this.logout();
+      return false;
+    }
   }
 }

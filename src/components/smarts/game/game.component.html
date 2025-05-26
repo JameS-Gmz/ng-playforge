@@ -43,12 +43,12 @@
 </div>
 
 <div class="row">
+  <div class="row-three">
+    <app-category-create #categoryCreateForm></app-category-create>
+  </div>
+
   <div class="row-two">
     <app-form-game #postGameForm></app-form-game>
     <button class="action-button" type="submit" (click)=  "onSubmit()">Add your Game</button>
-  </div>
-
-  <div class="row-three">
-    <app-category-create #categoryCreateForm></app-category-create>
   </div>
 </div>

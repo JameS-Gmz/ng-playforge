@@ -4,8 +4,9 @@
     <div class="game-description">
         <p>{{game.description}}</p>
         <p>{{game.price | currency}}</p>
-        <p>{{game.authorStudio}}</p>
-        <button 
+        <div class="game-author">
+            <p>{{game.authorStudio}}</p>
+            <button 
             class="library-button" 
             [class.in-library]="isInLibrary"
             [disabled]="loading"
@@ -13,6 +14,7 @@
             {{isInLibrary ? 'Retirer de la bibliothèque' : 'Ajouter à la bibliothèque'}}
             <span *ngIf="loading" class="loading-spinner"></span>
         </button>
+    </div>
     </div>
 </div>
 

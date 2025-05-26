@@ -1,10 +1,14 @@
 <div class="select-container">
     <div class="select">
-
-        <select name="state" id="selectData" (change)="onSelect($event)" >
-            <option [value]="tableName">{{ tableName }}</option>
+        <select 
+            name="state" 
+            id="selectData" 
+            (change)="onSelect($event)"
+            [multiple]="multiple"
+            [size]="multiple ? 4 : 1">
+            <option [value]="tableName" [selected]="!multiple" disabled>{{ tableName }}</option>
             <option *ngFor="let item of data" [value]="item.id">{{item.name}}</option>
-          </select>
-
+        </select>
+        <div *ngIf="multiple" class="selection-note">Appuyez sur Ctrl pour <span>sélectionner</span> ou <span>déselectionner</span> plusieurs éléments</div>
     </div>
 </div>

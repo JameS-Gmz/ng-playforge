@@ -65,21 +65,47 @@
 
 .game-details .item:hover {
     transform: translateY(-2px);
-    color: #ffffff;
 }
 
 .game-details .info {
     color: #ffffff;
     font-weight: 500;
     padding: 6px 12px;
-    background-color: rgba(26, 102, 255, 0.616);
-    border-radius: 6px;
+    background-color: rgba(26, 104, 255, 0.15);
+    border-radius: 15px;
     transition: all 0.3s ease;
+    border: 1px solid rgba(26, 104, 255, 0.2);
+    font-size: 0.9rem;
 }
 
 .game-details .item:hover .info {
+    color: #acdbf5;
+    transform: scale(1.05);
+}
+
+/* Style spécifique pour les catégories multiples */
+.game-details .item .info.multiple {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.game-details .item .info.multiple span {
     background-color: rgba(26, 104, 255, 0.15);
-    color: #1557d6;
+    border: 1px solid rgba(26, 104, 255, 0.2);
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.game-details .item .info.multiple span:hover {
+    background-color: rgba(26, 104, 255, 0.2);
+    color: #acdbf5;
+    transform: translateY(-1px);
 }
 
 .comment-section {

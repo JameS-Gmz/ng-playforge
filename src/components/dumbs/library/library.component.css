@@ -78,25 +78,65 @@ h1 {
   font-weight: 500;
 }
 
+.game-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.category-tag {
+  background-color: rgba(26, 104, 255, 0.1);
+  color: #ffffff;
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid rgba(26, 104, 255, 0.2);
+  transition: all 0.2s ease;
+}
+
+.category-tag:hover {
+  background-color: rgba(26, 104, 255, 0.2);
+  transform: translateY(-1px);
+  color: #acdbf5;
+}
+
 .price {
   color: #a4d007;
   font-weight: bold;
-  margin: 0 0 15px 0;
+  margin: 10px 0;
   font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.price::before {
+  content: '€';
+  font-size: 0.9rem;
+  opacity: 0.8;
 }
 
 .description {
   color: #acdbf5;
   font-size: 0.9rem;
-  margin: 0 0 20px 0;
+  margin: 10px 0 20px 0;
   line-height: 1.5;
   flex-grow: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .game-actions {
   display: flex;
   gap: 10px;
   margin-top: auto;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .btn-play, .btn-remove {

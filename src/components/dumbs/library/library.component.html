@@ -26,8 +26,14 @@
       </div>
       <div class="game-info">
         <h2>{{ game.title }}</h2>
-        <p class="price">{{ game.price | currency }}</p>
-        <p class="description">{{ game.description | slice:0:150 }}...</p>
+        <div class="game-categories">
+          <span class="category-tag" *ngIf="game.status?.name">{{ game.status.name }}</span>
+          <span class="category-tag" *ngIf="game.language?.name">{{ game.language.name }}</span>
+          <span class="category-tag" *ngFor="let genre of game.genres">{{ genre.name }}</span>
+          <span class="category-tag" *ngFor="let platform of game.platforms">{{ platform.name }}</span>
+        </div>
+        <p class="price">{{ game.price }}</p>
+        <p class="description">{{ game.description }}</p>
         <div class="game-actions">
           <a [routerLink]="['/game/id', game.id]" class="btn-play">Jouer</a>
           <button (click)="removeFromLibrary(game.id)" class="btn-remove">Retirer</button>

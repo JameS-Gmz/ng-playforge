@@ -26,10 +26,18 @@
             <div class="item">Langue :<span class="info">{{game.language.name || 'Non spécifiée'}}</span></div>
             
             <!-- Catégories -->
-            <div class="item">Genres :<span class="info">{{getGenresNames()}}</span></div>
-            <div class="item">Tags :<span class="info">{{getTagsNames()}}</span></div>
-            <div class="item">Plateformes :<span class="info">{{platforms.length ? platforms.join(' / ') : 'Non spécifié'}}</span></div>
-            <div class="item">Contrôles :<span class="info">{{controllers.length ? controllers.join(' / ') : 'Non spécifié'}}</span></div>
+            <div class="item">Genres :<span class="info multiple">
+                <span *ngFor="let genre of game.genres">{{genre.name}}</span>
+            </span></div>
+            <div class="item">Tags :<span class="info multiple">
+                <span *ngFor="let tag of game.tags">{{tag.name}}</span>
+            </span></div>
+            <div class="item">Plateformes :<span class="info multiple">
+                <span *ngFor="let platform of game.platforms">{{platform.name}}</span>
+            </span></div>
+            <div class="item">Contrôles :<span class="info multiple">
+                <span *ngFor="let controller of game.controllers">{{controller.name}}</span>
+            </span></div>
             
             <!-- Informations techniques -->
             <div class="item">Créé avec :<span class="info">{{ game.madewith !== null ? game.madewith : 'Non spécifié' }}</span></div>

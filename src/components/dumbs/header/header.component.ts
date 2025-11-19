@@ -27,6 +27,7 @@ import { Subscription } from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy {
     isLoggedIn: boolean = false;
     isDeveloper: boolean = false;
+    isSuperAdmin: boolean = false;
     private authSubscription: Subscription | null = null;
     private roleSubscription: Subscription | null = null;
 
@@ -42,6 +43,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
         this.roleSubscription = this.authService.role$.subscribe(role => {
             this.isDeveloper = role === 'developer';
+            this.isSuperAdmin = role === 'superadmin';
         });
     }
 

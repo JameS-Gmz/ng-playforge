@@ -5,24 +5,31 @@
     gap: 0.2em;
 }
 
-.rating input {
-    display: none;
+.rating.readonly {
+    cursor: default;
 }
 
-.rating label {
+.rating .star {
     font-size: 2.5em;
     color: #ddd;
     cursor: pointer;
-    transition: color 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    user-select: none;
 }
 
-.rating label:hover,
-.rating label:hover ~ label,
-.rating input:checked ~ label {
+.rating.readonly .star {
+    cursor: default;
+}
+
+.rating .star.active {
     color: #ffb000;
 }
 
-.rating label:hover,
-.rating label:hover ~ label {
+.rating .star.hovered {
+    color: #ffc233;
+    transform: scale(1.1);
+}
+
+.rating .star:hover {
     transform: scale(1.1);
 }

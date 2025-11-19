@@ -1,12 +1,13 @@
-<div class="rating">
-    <input type="radio" name="rating" id="star5" value="5">
-    <label for="star5" title="5 stars">★</label>
-    <input type="radio" name="rating" id="star4" value="4">
-    <label for="star4" title="4 stars">★</label>
-    <input type="radio" name="rating" id="star3" value="3">
-    <label for="star3" title="3 stars">★</label>
-    <input type="radio" name="rating" id="star2" value="2">
-    <label for="star2" title="2 stars">★</label>
-    <input type="radio" name="rating" id="star1" value="1">
-    <label for="star1" title="1 star">★</label>
+<div class="rating" [class.readonly]="readonly">
+    <span 
+        *ngFor="let star of [5, 4, 3, 2, 1]; let i = index"
+        class="star"
+        [class.active]="getStarClass(star) === 'active'"
+        [class.hovered]="hoveredRating >= star && !readonly"
+        (click)="onStarClick(star)"
+        (mouseenter)="onStarHover(star)"
+        (mouseleave)="onStarLeave()"
+        [title]="star + ' étoile' + (star > 1 ? 's' : '')">
+        ★
+    </span>
 </div>

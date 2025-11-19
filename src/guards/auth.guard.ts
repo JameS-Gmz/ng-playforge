@@ -19,11 +19,11 @@ export const developerGuard = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  if (authService.isAuthenticated() && authService.isDeveloper()) {
+  if (authService.isAuthenticated() && (authService.isDeveloper() || authService.isSuperAdmin())) {
     return true;
   }
 
-  // Rediriger vers la page d'accueil si l'utilisateur n'est pas un développeur
+  // Rediriger vers la page d'accueil si l'utilisateur n'est pas un développeur ou superadmin
   return router.parseUrl('/');
 };
 
@@ -32,7 +32,7 @@ export const adminGuard = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  if (authService.isAuthenticated() && authService.isAdmin()) {
+  if (authService.isAuthenticated() && (authService.isAdmin() || authService.isSuperAdmin())) {
     return true;
   }
 

@@ -23,6 +23,7 @@ export class NotificationService {
   private notifications = new BehaviorSubject<Notification[]>([]);
   private lastGameId: number | null = null;
   private readonly STORAGE_KEY = 'notifications';
+  private readonly LAST_GAME_ID_KEY = 'lastGameId';
   private readonly MAX_NOTIFICATIONS = 50;
   private readonly NOTIFICATION_LIFETIME = 7 * 24 * 60 * 60 * 1000; // 7 jours
 
@@ -41,6 +42,12 @@ export class NotificationService {
         expiresAt: n.expiresAt ? new Date(n.expiresAt) : undefined
       }));
       this.notifications.next(notifications);
+    }
+    
+    // Charger le dernier gameId connu
+    const lastGameIdStored = localStorage.getItem(this.LAST_GAME_ID_KEY);
+    if (lastGameIdStored) {
+      this.lastGameId = parseInt(lastGameIdStored, 10);
     }
   }
 
@@ -77,15 +84,21 @@ export class NotificationService {
         );
         
         const latestGame = sortedGames[0];
-        this.addNewGameNotification(latestGame);
-        this.lastGameId = latestGame.id;
+        
+        // Initialiser lastGameId sans créer de notification
+        // La notification sera créée uniquement lors de la première vérification de nouveaux jeux
+        // Si lastGameId n'est pas déjà chargé depuis localStorage, l'initialiser
+        if (this.lastGameId === null) {
+          this.lastGameId = latestGame.id;
+          localStorage.setItem(this.LAST_GAME_ID_KEY, latestGame.id.toString());
+        }
       }
     } catch (error) {
       console.error('Error initializing notifications:', error);
     }
   }
 
-  private addNewGameNotification(game: any) {
+  private addNewGameNotification(game: any): boolean {
     const newNotification: Notification = {
       id: Date.now(),
       type: 'game',
@@ -98,15 +111,53 @@ export class NotificationService {
       expiresAt: new Date(Date.now() + this.NOTIFICATION_LIFETIME)
     };
 
-    this.addNotification(newNotification);
+    // Retourne true si la notification a été ajoutée, false si c'était un doublon
+    return this.addNotification(newNotification, true);
   }
 
-  addNotification(notification: Notification): void {
+  addNotification(notification: Notification, playSound: boolean = true): boolean {
     const currentNotifications = this.notifications.getValue();
+    
+    // Vérifier si une notification similaire existe déjà
+    const isDuplicate = this.isDuplicateNotification(notification, currentNotifications);
+    
+    if (isDuplicate) {
+      console.log('Notification dupliquée ignorée:', notification);
+      return false; // Notification non ajoutée
+    }
+    
     const updatedNotifications = [notification, ...currentNotifications].slice(0, this.MAX_NOTIFICATIONS);
     this.notifications.next(updatedNotifications);
     this.saveNotifications(updatedNotifications);
-    this.playNotificationSound();
+    
+    // Ne jouer le son que si demandé et si c'est une nouvelle notification
+    if (playSound) {
+      this.playNotificationSound();
+    }
+    
+    return true; // Notification ajoutée avec succès
+  }
+
+  private isDuplicateNotification(newNotification: Notification, existingNotifications: Notification[]): boolean {
+    // Pour les notifications de jeu, vérifier le gameId
+    if (newNotification.type === 'game' && newNotification.gameId) {
+      return existingNotifications.some(n => 
+        n.type === 'game' && 
+        n.gameId === newNotification.gameId &&
+        // Vérifier aussi que la notification n'est pas expirée
+        (!n.expiresAt || n.expiresAt > new Date())
+      );
+    }
+    
+    // Pour les autres types, vérifier le titre et le message (dans les 5 dernières minutes)
+    const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+    return existingNotifications.some(n => 
+      n.type === newNotification.type &&
+      n.title === newNotification.title &&
+      n.message === newNotification.message &&
+      n.createdAt > fiveMinutesAgo &&
+      (!n.expiresAt || n.expiresAt > new Date())
+    );
   }
 
   private playNotificationSound(): void {
@@ -169,9 +220,19 @@ export class NotificationService {
         
         const latestGame = sortedGames[0];
         
+        // Vérifier si c'est vraiment un nouveau jeu
         if (this.lastGameId !== latestGame.id) {
-          this.addNewGameNotification(latestGame);
+          const notificationAdded = this.addNewGameNotification(latestGame);
+          
+          // Mettre à jour lastGameId et le sauvegarder
           this.lastGameId = latestGame.id;
+          localStorage.setItem(this.LAST_GAME_ID_KEY, latestGame.id.toString());
+          
+          if (notificationAdded) {
+            console.log('Nouveau jeu détecté:', latestGame.title);
+          } else {
+            console.log('Jeu déjà notifié:', latestGame.title);
+          }
         }
       }
     } catch (error) {
@@ -179,7 +240,7 @@ export class NotificationService {
     }
   }
 
-  addSystemNotification(title: string, message: string): void {
+  addSystemNotification(title: string, message: string): boolean {
     const notification: Notification = {
       id: Date.now(),
       type: 'system',
@@ -190,10 +251,10 @@ export class NotificationService {
       createdAt: new Date(),
       expiresAt: new Date(Date.now() + this.NOTIFICATION_LIFETIME)
     };
-    this.addNotification(notification);
+    return this.addNotification(notification, true);
   }
 
-  addWarningNotification(title: string, message: string): void {
+  addWarningNotification(title: string, message: string): boolean {
     const notification: Notification = {
       id: Date.now(),
       type: 'warning',
@@ -204,6 +265,6 @@ export class NotificationService {
       createdAt: new Date(),
       expiresAt: new Date(Date.now() + this.NOTIFICATION_LIFETIME)
     };
-    this.addNotification(notification);
+    return this.addNotification(notification, true);
   }
 } 

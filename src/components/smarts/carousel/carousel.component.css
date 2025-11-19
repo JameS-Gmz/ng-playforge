@@ -111,7 +111,7 @@ button.next:disabled {
   z-index: 3;
 }
 
-/* Responsive pour les écrans de 768px (tablettes) */
+/* Responsive pour les écrans de 1024px (tablettes) */
 @media (max-width: 1024px) {
   .carousel-container {
     max-width: 800px;
@@ -122,14 +122,17 @@ button.next:disabled {
   }
 
   .carousel-slide img {
-    width: 800px;
+    width: 100%;
     height: 400px;
+    max-width: 800px;
   }
 }
 
+/* Responsive pour les écrans de 768px (tablettes portrait) */
 @media (max-width: 768px) {
   .carousel-container {
     max-width: 100%;
+    border-radius: 0;
   }
 
   .carousel-slide {
@@ -139,16 +142,17 @@ button.next:disabled {
   .carousel-slide img {
     width: 100%;
     height: 300px;
+    border-radius: 0;
   }
 
   .row {
-    padding: 0 10px;
+    padding: 0;
   }
 
   button.prev,
   button.next {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
   }
 
   button.prev {
@@ -165,7 +169,8 @@ button.next:disabled {
   }
 
   .carousel-dots {
-    bottom: 10px;
+    bottom: 15px;
+    gap: 6px;
   }
 
   .dot {
@@ -177,18 +182,124 @@ button.next:disabled {
     top: 10px;
     right: 10px;
     font-size: 12px;
+    padding: 4px 8px;
   }
 }
 
-@media (max-width: 1030px){
-  .carousel-slide img {
-    min-width: 800px;
-    max-width: 800px;
-    min-height: 400px;
-    max-height: 400px;
+/* Responsive pour les téléphones (max-width: 480px) */
+@media (max-width: 480px) {
+  .carousel-container {
+    max-width: 100%;
+    border-radius: 0;
+    margin: 0;
   }
 
-  .arrow{
-    width: 3em;
+  .carousel-slide {
+    height: 200px;
+    min-height: 200px;
+  }
+
+  .carousel-slide img {
+    width: 100%;
+    height: 200px;
+    min-height: 200px;
+    border-radius: 0;
+    object-fit: cover;
+  }
+
+  button.prev,
+  button.next {
+    width: 32px;
+    height: 32px;
+    background: rgba(29, 36, 55, 0.9);
+  }
+
+  button.prev {
+    left: 5px;
+  }
+
+  button.next {
+    right: 5px;
+  }
+
+  button.prev:hover,
+  button.next:hover {
+    background: rgba(255, 176, 0, 0.9);
+  }
+
+  .arrow {
+    width: 18px;
+    height: 18px;
+  }
+
+  .carousel-dots {
+    bottom: 10px;
+    gap: 5px;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .dot.active {
+    transform: scale(1.3);
+  }
+
+  .carousel-indicator {
+    top: 8px;
+    right: 8px;
+    font-size: 11px;
+    padding: 3px 7px;
+    border-radius: 12px;
+  }
+}
+
+/* Responsive pour les très petits téléphones (max-width: 360px) */
+@media (max-width: 360px) {
+  .carousel-slide {
+    height: 180px;
+    min-height: 180px;
+  }
+
+  .carousel-slide img {
+    height: 180px;
+    min-height: 180px;
+  }
+
+  button.prev,
+  button.next {
+    width: 28px;
+    height: 28px;
+  }
+
+  button.prev {
+    left: 5px;
+  }
+
+  button.next {
+    right: 5px;
+  }
+
+  .arrow {
+    width: 16px;
+    height: 16px;
+  }
+
+  .carousel-dots {
+    bottom: 8px;
+    gap: 4px;
+  }
+
+  .dot {
+    width: 5px;
+    height: 5px;
+  }
+
+  .carousel-indicator {
+    top: 5px;
+    right: 5px;
+    font-size: 10px;
+    padding: 2px 6px;
   }
 }

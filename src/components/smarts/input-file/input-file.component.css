@@ -5,7 +5,7 @@
   width: 100%;
   height: 100%;
   position: relative;
-  
+  z-index: 1; /* Assure que le conteneur reste en dessous du header */
 }
 
 .input-container::before {
@@ -39,7 +39,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   overflow: hidden;
-  z-index: 1;
+  z-index: 1; /* Reste en dessous du header (z-index: 500) */
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
@@ -80,6 +80,7 @@
   left: 0;
   opacity: 0;
   cursor: pointer;
+  z-index: 1; /* Assure que l'input reste dans son conteneur, en dessous du header (z-index: 500) */
 }
 
 /* Style pour l'aperçu de l'image */

@@ -11,12 +11,31 @@ export class GameService {
   private async getData(url: string): Promise<any> {
     try {
       const response = await fetch(url);
+      
+      // Vérifier le Content-Type pour s'assurer que c'est du JSON
+      const contentType = response.headers.get('content-type');
+      const isJson = contentType && contentType.includes('application/json');
+      
       if (!response.ok) {
-        throw new Error(`Erreur lors de la récupération des données : ${response.statusText}`);
+        if (isJson) {
+          const errorData = await response.json();
+          throw new Error(`Erreur ${response.status}: ${errorData.message || errorData.error || response.statusText}`);
+        } else {
+          const text = await response.text();
+          console.error(`❌ Réponse non-JSON reçue de ${url}:`, text.substring(0, 200));
+          throw new Error(`Erreur ${response.status}: ${response.statusText}`);
+        }
       }
+      
+      if (!isJson) {
+        const text = await response.text();
+        console.error(`❌ Réponse non-JSON reçue de ${url}:`, text.substring(0, 200));
+        throw new Error(`Erreur: la réponse n'est pas du JSON (${response.status} ${response.statusText})`);
+      }
+      
       return await response.json();
     } catch (error) {
-      console.error('Erreur lors de la récupération des données:', error);
+      console.error(`❌ Erreur lors de la récupération des données depuis ${url}:`, error);
       throw error;
     }
   }
@@ -132,51 +151,31 @@ export class GameService {
   }
 
   async getControllers(): Promise<any>{
-    return this.getData(`${this.baseUrl}/controllers/all`)
+    return this.getData(`${this.baseUrl}/controller/all`)
   }
 
   async getGenres(): Promise<any> {
-    const response = await fetch(`${this.baseUrl}/genres`);
-    if (!response.ok) {
-      throw new Error('Erreur lors de la récupération des genres');
-    }
-    return await response.json();
+    return this.getData(`${this.baseUrl}/genre/all`);
   }
 
   // Récupérer les plateformes
   async getPlatforms():  Promise<any> {
-    const response = await fetch(`${this.baseUrl}/platforms`);
-    if (!response.ok) {
-      throw new Error('Erreur lors de la récupération des plateformes');
-    }
-    return await response.json();
+    return this.getData(`${this.baseUrl}/platform/all`);
   }
 
   // Récupérer les langues
   async getLanguages():  Promise<any> {
-    const response = await fetch(`${this.baseUrl}/languages`);
-    if (!response.ok) {
-      throw new Error('Erreur lors de la récupération des langues');
-    }
-    return await response.json();
+    return this.getData(`${this.baseUrl}/language/all`);
   }
 
   // Récupérer les statuts
   async getStatuses(): Promise<any> {
-    const response = await fetch(`${this.baseUrl}/statuses/all`);
-    if (!response.ok) {
-      throw new Error('Erreur lors de la récupération des statuts');
-    }
-    return await response.json();
+    return this.getData(`${this.baseUrl}/status/all`);
   }
 
   // Récupérer les tags
   async getTags(): Promise<any> {
-    const response = await fetch(`${this.baseUrl}/tags`);
-    if (!response.ok) {
-      throw new Error('Erreur lors de la récupération des tags');
-    }
-    return await response.json();
+    return this.getData(`${this.baseUrl}/tag/all`);
   }
 
   getGamesByFilters(filters: any): Promise<any> {

@@ -266,20 +266,48 @@ export class UserService {
       throw new Error('Token non disponible. Veuillez vous connecter.');
     }
 
-    const response = await fetch(`${this.apiUrl}/current-developer-id`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-    });
+    try {
+      const response = await fetch(`${this.apiUrl}/current-developer-id`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      });
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Erreur lors de la récupération de l\'ID du développeur');
+      // Vérifier le Content-Type pour s'assurer que c'est du JSON
+      const contentType = response.headers.get('content-type');
+      const isJson = contentType && contentType.includes('application/json');
+
+      if (!response.ok) {
+        if (isJson) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || errorData.message || `Erreur ${response.status}: ${response.statusText}`);
+        } else {
+          const text = await response.text();
+          console.error(`❌ Réponse non-JSON reçue:`, text.substring(0, 200));
+          throw new Error(`Erreur ${response.status}: ${response.statusText}`);
+        }
+      }
+
+      if (!isJson) {
+        const text = await response.text();
+        console.error(`❌ Réponse non-JSON reçue:`, text.substring(0, 200));
+        throw new Error(`Erreur: la réponse n'est pas du JSON (${response.status} ${response.statusText})`);
+      }
+
+      const data = await response.json();
+      const developerId = data.developerId || data.id || data;
+      
+      if (!developerId || isNaN(developerId)) {
+        throw new Error('ID du développeur invalide dans la réponse');
+      }
+
+      return parseInt(developerId);
+    } catch (error) {
+      console.error('❌ Erreur lors de la récupération de l\'ID du développeur:', error);
+      throw error;
     }
-
-    return await response.json();
   }
 }
 

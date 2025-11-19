@@ -1,10 +1,10 @@
 <div class="card-two">
   <form class="card-form" #categoryCreateForm="ngForm">
     <div class="form-section">
-      <app-select-components tableName="Controllers" (selectionChange)="onControllersSelected($event)" [multiple]="true"></app-select-components>
-      <app-select-components tableName="Platforms" (selectionChange)="onPlatformsSelected($event)" [multiple]="true"></app-select-components>
-      <app-select-components tableName="Statuses" (selectionChange)="onStatusesSelected($event)"></app-select-components>
-      <app-select-components tableName="Languages" (selectionChange)="onLanguagesSelected($event)"></app-select-components>
+      <app-select-components #controllersSelect tableName="Controllers" (selectionChange)="onControllersSelected($event)" [multiple]="true"></app-select-components>
+      <app-select-components #platformsSelect tableName="Platforms" (selectionChange)="onPlatformsSelected($event)" [multiple]="true"></app-select-components>
+      <app-select-components #statusesSelect tableName="Statuses" (selectionChange)="onStatusesSelected($event)"></app-select-components>
+      <app-select-components #languagesSelect tableName="Languages" (selectionChange)="onLanguagesSelected($event)"></app-select-components>
     </div>
 
 <div class="form-list-input">

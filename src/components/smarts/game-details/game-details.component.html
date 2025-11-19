@@ -1,11 +1,11 @@
-<div class="head-game">
-    <h1>{{game.title}}</h1>
+<div class="head-game" *ngIf="game && game.id">
+    <h1>{{game?.title || 'Chargement...'}}</h1>
     <app-carousel [images]="images"></app-carousel>
     <div class="game-description">
-        <p>{{game.description}}</p>
-        <p>{{game.price | currency}}</p>
+        <p>{{game?.description || 'Aucune description disponible'}}</p>
+        <p>{{game?.price ? (game.price | currency) : 'Gratuit'}}</p>
         <div class="game-author">
-            <p>{{game.authorStudio}}</p>
+            <p>{{game?.authorStudio || 'Auteur non spécifié'}}</p>
             <button 
             class="library-button" 
             [class.in-library]="isInLibrary"
@@ -18,63 +18,71 @@
     </div>
 </div>
 
-<div class="foot-game">
+<div class="foot-game" *ngIf="game && game.id">
     <div class="game-details">
         <div class="container">
             <!-- Informations principales -->
             <div class="item" data-label="Auteur">
-                <span class="info">{{game.authorStudio}}</span>
+                <span class="info">{{game?.authorStudio || 'Non spécifié'}}</span>
             </div>
             <div class="item" data-label="Note">
-                <span class="info">{{ averageRating.toFixed(1) || 'Non noté'}}</span>
+                <span class="info">{{ (averageRating && averageRating > 0) ? averageRating.toFixed(1) : 'Non noté' }}/5</span>
             </div>
             <div class="item" data-label="Statut">
-                <span class="info">{{game.status.name || 'Non spécifié'}}</span>
+                <span class="info">{{getStatusName()}}</span>
             </div>
             <div class="item" data-label="Langue">
-                <span class="info">{{game.language.name || 'Non spécifiée'}}</span>
+                <span class="info">{{getLanguageName()}}</span>
             </div>
             
             <!-- Catégories -->
             <div class="item" data-label="Genres">
                 <span class="info multiple">
-                    <span *ngFor="let genre of game.genres">{{genre.name}}</span>
+                    <span *ngFor="let genre of getGenresList()">
+                        {{getGenreName(genre)}}
+                    </span>
+                    <span *ngIf="getGenresList().length === 0">Aucun genre</span>
                 </span>
             </div>
             <div class="item" data-label="Tags">
                 <span class="info multiple">
-                    <span *ngFor="let tag of game.tags">{{tag.name}}</span>
+                    <span *ngFor="let tag of getTagsList()">
+                        {{getTagName(tag)}}
+                    </span>
+                    <span *ngIf="getTagsList().length === 0">Aucun tag</span>
                 </span>
             </div>
             <div class="item" data-label="Plateformes">
                 <span class="info multiple">
-                    <span *ngFor="let platform of game.platforms">{{platform.name}}</span>
+                    <span *ngFor="let platform of getPlatformsList()">
+                        {{getPlatformName(platform)}}
+                    </span>
+                    <span *ngIf="getPlatformsList().length === 0">Aucune plateforme</span>
                 </span>
             </div>
             <div class="item" data-label="Contrôles">
                 <span class="info multiple">
-                    <span *ngFor="let controller of game.controllers">{{controller.name}}</span>
+                    <span *ngFor="let controller of getControllersList()">
+                        {{getControllerName(controller)}}
+                    </span>
+                    <span *ngIf="getControllersList().length === 0">Aucun contrôleur</span>
                 </span>
             </div>
             
             <!-- Informations techniques -->
             <div class="item" data-label="Créé avec">
-                <span class="info">{{ game.madewith !== null ? game.madewith : 'Non spécifié' }}</span>
+                <span class="info">{{getMadeWith() || 'Non spécifié'}}</span>
             </div>
             <div class="item" data-label="Session moyenne">
                 <span class="info">{{averageSession || 'Non spécifiée'}}</span>
             </div>
             <div class="item" data-label="Dernière mise à jour">
-                <span class="info">{{game.updatedAt | date:'mediumDate'}}</span>
+                <span class="info">{{game?.updatedAt ? (game.updatedAt | date:'mediumDate') : 'Non spécifiée'}}</span>
             </div>
         </div>
     </div>
     <!-- Section de notation et commentaires -->
     <div class="game-input-comment">
-        <div class="rating-summary" *ngIf="totalRatings > 0">
-            <h3>Note moyenne : {{ averageRating.toFixed(1) }} / 5</h3>
-            <p>{{ totalRatings }} note(s) sur {{ totalComments }} commentaire(s)</p>
-        </div>
         
         <div class="rating-stars" *ngIf="isLoggedIn">
             <h3 *ngIf="!currentUserComment">Donnez votre avis</h3>

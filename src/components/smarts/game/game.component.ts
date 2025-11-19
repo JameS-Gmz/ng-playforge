@@ -220,12 +220,37 @@ export class GameComponent implements AfterViewInit {
       return;
     }
 
-    const gameData = {
+    // Log pour déboguer madeWith
+    console.log('🔍 Debug madeWith:', {
+      'categoryCreateFormValues.madeWith': categoryCreateFormValues.madeWith,
+      'type': typeof categoryCreateFormValues.madeWith,
+      'is empty string': categoryCreateFormValues.madeWith === '',
+      'is null': categoryCreateFormValues.madeWith === null,
+      'is undefined': categoryCreateFormValues.madeWith === undefined
+    });
+
+    // Créer l'objet gameData sans les propriétés en camelCase pour éviter la duplication
+    // Exclure les propriétés qui seront mappées différemment
+    const { madeWith, ControllerIds, PlatformIds, selectedGenres, selectedTags, ...restCategoryData } = categoryCreateFormValues;
+    
+    const gameData: any = {
       ...postGameFormValues,
-      ...categoryCreateFormValues,
-      UserId: userId
+      ...restCategoryData,
+      UserId: userId,
+      // Mapper madeWith vers madewith pour correspondre au backend
+      madewith: categoryCreateFormValues.madeWith && categoryCreateFormValues.madeWith.trim() !== '' 
+        ? categoryCreateFormValues.madeWith.trim() 
+        : null,
+      // Mapper authorStudio si présent
+      authorStudio: categoryCreateFormValues.authorStudio || null,
+      // Mapper les IDs des catégories avec les noms attendus par le backend
+      controllerIds: categoryCreateFormValues.ControllerIds || [],
+      platformIds: categoryCreateFormValues.PlatformIds || [],
+      genreIds: categoryCreateFormValues.selectedGenres || [],
+      tagIds: categoryCreateFormValues.selectedTags || []
     };
     console.log('Données complètes du jeu à envoyer:', gameData);
+    console.log('🔍 madewith dans gameData:', gameData.madewith);
 
     try {
       // Envoyer les données du jeu
@@ -234,12 +259,13 @@ export class GameComponent implements AfterViewInit {
       console.log('Jeu créé avec succès:', result);
 
       const GameId = result.id;
-      const ControllerIds = gameData.ControllerIds;
-      const PlatformIds = gameData.PlatformIds;
+      // Utiliser les noms mappés depuis gameData
+      const ControllerIds = gameData.controllerIds || [];
+      const PlatformIds = gameData.platformIds || [];
       const StatusId = gameData.StatusId;
       const LanguageId = gameData.LanguageId;
-      const TagId = gameData.selectedTags;
-      const GenreId = gameData.selectedGenres;
+      const TagId = gameData.tagIds || [];
+      const GenreId = gameData.genreIds || [];
 
       console.log('Données pour l\'association des catégories:', {
         GameId,

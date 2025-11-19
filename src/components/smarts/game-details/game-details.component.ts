@@ -119,8 +119,17 @@ export class GameDetailsComponent implements OnInit {
     try {
       // Récupérer les détails du jeu
       this.game = await this.gameService.getGameById(id);
-      console.log('Game details:', this.game);
-      console.log('Made with:', this.game.madeWith);
+      console.log('📥 [loadGame] Game details reçus:', this.game);
+      console.log('🔍 [loadGame] Made with (camelCase):', this.game.madeWith);
+      console.log('🔍 [loadGame] Made with (lowercase):', this.game.madewith);
+      console.log('🔍 [loadGame] Made with (toutes variantes):', {
+        madeWith: this.game.madeWith,
+        madewith: this.game.madewith,
+        MadeWith: this.game.MadeWith,
+        MadeWithBracket: this.game['MadeWith']
+      });
+      console.log('🔍 [loadGame] All game keys:', Object.keys(this.game));
+      console.log('🔍 [loadGame] getMadeWith() retourne:', this.getMadeWith());
   
       // Récupérer les images associées au jeu
       const imageData = await this.fileService.getImagesURLS(this.game.id);
@@ -208,18 +217,152 @@ export class GameDetailsComponent implements OnInit {
     }
   }
 
-  getGenresNames(): string {
-    if (!this.game.genres || !Array.isArray(this.game.genres)) {
+  // Helper pour obtenir le nom du statut de manière sécurisée
+  getStatusName(): string {
+    try {
+      if (!this.game || !this.game.id) {
+        return 'Non spécifié';
+      }
+      if (this.game.status && typeof this.game.status === 'object' && this.game.status.name) {
+        return this.game.status.name;
+      }
+      if (this.status && typeof this.status === 'string') {
+        return this.status;
+      }
+      return 'Non spécifié';
+    } catch (error) {
+      console.error('Erreur dans getStatusName:', error);
       return 'Non spécifié';
     }
-    return this.game.genres.map((genre: any) => genre.name).join(' / ');
+  }
+
+  // Helper pour obtenir le nom de la langue de manière sécurisée
+  getLanguageName(): string {
+    try {
+      if (!this.game || !this.game.id) {
+        return 'Non spécifiée';
+      }
+      if (this.game.language && typeof this.game.language === 'object' && this.game.language.name) {
+        return this.game.language.name;
+      }
+      if (this.language && typeof this.language === 'string') {
+        return this.language;
+      }
+      return 'Non spécifiée';
+    } catch (error) {
+      console.error('Erreur dans getLanguageName:', error);
+      return 'Non spécifiée';
+    }
+  }
+
+  getGenresNames(): string {
+    if (!this.game?.genres || !Array.isArray(this.game.genres)) {
+      return 'Non spécifié';
+    }
+    return this.game.genres.map((genre: any) => genre?.name || 'N/A').join(' / ');
   }
 
   getTagsNames(): string {
-    if (!this.game.tags || !Array.isArray(this.game.tags)) {
+    if (!this.game?.tags || !Array.isArray(this.game.tags)) {
       return 'Non spécifié';
     }
-    return this.game.tags.map((tag: any) => tag.name).join(' / ');
+    return this.game.tags.map((tag: any) => tag?.name || 'N/A').join(' / ');
+  }
+
+  // Helper pour obtenir le nom d'un genre de manière sécurisée
+  getGenreName(genre: any): string {
+    if (!genre) return 'N/A';
+    if (typeof genre === 'string') return genre;
+    if (genre && genre.name) return genre.name;
+    return 'N/A';
+  }
+
+  // Helper pour obtenir le nom d'un tag de manière sécurisée
+  getTagName(tag: any): string {
+    if (!tag) return 'N/A';
+    if (typeof tag === 'string') return tag;
+    if (tag && tag.name) return tag.name;
+    return 'N/A';
+  }
+
+  // Helper pour obtenir le nom d'une plateforme de manière sécurisée
+  getPlatformName(platform: any): string {
+    if (!platform) return 'N/A';
+    if (typeof platform === 'string') return platform;
+    if (platform && platform.name) return platform.name;
+    return 'N/A';
+  }
+
+  // Helper pour obtenir le nom d'un contrôleur de manière sécurisée
+  getControllerName(controller: any): string {
+    if (!controller) return 'N/A';
+    if (typeof controller === 'string') return controller;
+    if (controller && controller.name) return controller.name;
+    return 'N/A';
+  }
+
+  // Helper pour obtenir les genres de manière sécurisée
+  getGenresList(): any[] {
+    if (this.game?.genres && Array.isArray(this.game.genres) && this.game.genres.length > 0) {
+      return this.game.genres.filter((g: any) => g != null);
+    }
+    if (this.genres && Array.isArray(this.genres) && this.genres.length > 0) {
+      return this.genres.filter((g: any) => g != null);
+    }
+    return [];
+  }
+
+  // Helper pour obtenir les tags de manière sécurisée
+  getTagsList(): any[] {
+    if (this.game?.tags && Array.isArray(this.game.tags) && this.game.tags.length > 0) {
+      return this.game.tags.filter((t: any) => t != null);
+    }
+    if (this.tags && Array.isArray(this.tags) && this.tags.length > 0) {
+      return this.tags.filter((t: any) => t != null);
+    }
+    return [];
+  }
+
+  // Helper pour obtenir les plateformes de manière sécurisée
+  getPlatformsList(): any[] {
+    if (this.game?.platforms && Array.isArray(this.game.platforms) && this.game.platforms.length > 0) {
+      return this.game.platforms.filter((p: any) => p != null);
+    }
+    if (this.platforms && Array.isArray(this.platforms) && this.platforms.length > 0) {
+      return this.platforms.filter((p: any) => p != null);
+    }
+    return [];
+  }
+
+  // Helper pour obtenir les contrôleurs de manière sécurisée
+  getControllersList(): any[] {
+    if (this.game?.controllers && Array.isArray(this.game.controllers) && this.game.controllers.length > 0) {
+      return this.game.controllers.filter((c: any) => c != null);
+    }
+    if (this.controllers && Array.isArray(this.controllers) && this.controllers.length > 0) {
+      return this.controllers.filter((c: any) => c != null);
+    }
+    return [];
+  }
+
+  // Helper pour obtenir le champ "Made With" de manière sécurisée
+  getMadeWith(): string {
+    if (!this.game) {
+      return 'Non spécifié';
+    }
+    
+    // Essayer toutes les variantes possibles du nom du champ
+    const madewith = this.game.madewith || this.game.madeWith || this.game.MadeWith || this.game['MadeWith'] || null;
+    
+    if (!madewith) {
+      return 'Non spécifié';
+    }
+    
+    if (typeof madewith === 'string' && madewith.trim() !== '') {
+      return madewith.trim();
+    }
+    
+    return 'Non spécifié';
   }
 
   // ============================================

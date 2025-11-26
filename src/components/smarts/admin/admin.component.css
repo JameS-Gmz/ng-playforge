@@ -1,8 +1,13 @@
 .admin-container {
-  padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 20px;
+}
 
+h1 {
+  color: white;
+  margin-bottom: 30px;
+  text-align: center;
 }
 
 h2 {
@@ -10,10 +15,6 @@ h2 {
   justify-content: center;
   align-items: center;
   text-align: center;
-}
-
-.admin-container h1 {
-  color: white;
 }
 
 .toggle-buttons {
@@ -31,19 +32,22 @@ h2 {
   cursor: pointer;
   font-size: 16px;
   transition: all 0.3s ease;
+  border: 2px solid #3A4255;
 }
 
 .toggle-button.active {
-  background-color: #4A90E2;
-  color: white;
+  background-color: #ffb000;
+  border-color: #ffb000;
+  color: #1D2437;
 }
 
 .toggle-button:hover {
   background-color: #3A4255;
+  border-color: #ffb000;
 }
 
 .toggle-button.active:hover {
-  background-color: #3A7BC8;
+  background-color: #ffc233;
 }
 
 .admin-sections {
@@ -53,9 +57,10 @@ h2 {
 
 .admin-column {
   flex: 1;
-  background-color: #2A3245;
+  background-color: #1D2437;
   border-radius: 8px;
   padding: 20px;
+  border: 2px solid #3A4255;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -69,85 +74,102 @@ h2 {
   border: 1px solid #3A4255;
   border-radius: 5px;
   font-size: 16px;
-  background-color: #1D2437;
+  background-color: #2A3245;
   color: #E0E0E0;
 }
 
 /* Users Section */
 .users-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
-  padding: 20px;
+  padding: 20px 0;
 }
 
 .user-card, .game-card {
-  background: #1D2437;
+  background-color: #1D2437;
+  border: 2px solid #3A4255;
   border-radius: 8px;
-  padding: 15px;
-  margin: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  width: 250px;
+  padding: 20px;
+  transition: transform 0.3s ease;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.user-info {
-  margin-bottom: 10px;
+.user-card:hover, .game-card:hover {
+  transform: translateY(-5px);
+  border-color: #ffb000;
 }
 
-.user-info h3 {
-  margin: 0;
+.user-header, .game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.user-info h3, .game-info h3 {
   color: #E0E0E0;
-  font-size: 1.1rem;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.user-info {
+  margin-bottom: 10px;
+  color: #A0A0A0;
 }
 
 .user-info p {
-  margin: 0.25rem 0;
+  margin: 8px 0;
+  line-height: 1.6;
   color: #A0A0A0;
   font-size: 0.9rem;
 }
 
-.user-actions {
+.user-actions, .game-actions {
   display: flex;
   gap: 10px;
+  margin-top: 10px;
 }
 
-.edit, .delete {
-  padding: 8px 15px;
-  border: none;
+.edit, .edit-btn {
+  padding: 8px 16px;
   border-radius: 5px;
+  border: none;
   cursor: pointer;
-  font-size: 14px;
+  transition: all 0.3s ease;
+  background-color: #2A3245;
+  color: #E0E0E0;
+  border: 2px solid #3A4255;
 }
 
-.edit {
-  background-color: #4CAF50;
+.edit:hover, .edit-btn:hover {
+  background-color: #ffb000;
+  border-color: #ffb000;
+  color: #1D2437;
+}
+
+.delete, .delete-btn {
+  padding: 8px 16px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #dc3545;
   color: white;
 }
 
-.delete {
-  background-color: #F44336;
-  color: white;
-}
-
-.edit:hover {
-  background-color: #45A049;
-}
-
-.delete:hover {
-  background-color: #D32F2F;
+.delete:hover, .delete-btn:hover {
+  background-color: #c82333;
 }
 
 /* Games Section */
 .games-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
-  padding: 20px;
+  padding: 20px 0;
   max-height: 500px;
   overflow-y: auto;
 }
@@ -172,33 +194,75 @@ h2 {
 
 .game-info {
   margin-bottom: 10px;
-}
-
-.game-info h3 {
-  margin: 0;
-  color: #E0E0E0;
-  font-size: 1.1rem;
+  color: #A0A0A0;
 }
 
 .game-info p {
-  margin: 0.25rem 0;
+  margin: 8px 0;
+  line-height: 1.6;
   color: #A0A0A0;
   font-size: 0.9rem;
 }
 
-.game-actions {
+.info-section {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #3A4255;
+}
+
+.info-section:last-child {
+  border-bottom: none;
+}
+
+.info-row {
   display: flex;
-  gap: 10px;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.info-row p {
+  flex: 1;
+  min-width: 150px;
+  margin: 5px 0;
+}
+
+.votes-section {
+  background-color: #2A3245;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.votes-section p {
+  margin: 5px 0;
+}
+
+.loading, .error, .no-games {
+  text-align: center;
+  padding: 20px;
+  color: #E0E0E0;
+  background-color: #1D2437;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.error {
+  color: #dc3545;
 }
 
 /* Common Form Styles */
 .edit-form {
-  background-color: #2A3245;
-  border-radius: 8px;
+  background-color: #1D2437;
   padding: 20px;
-  margin-top: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  border: 1px solid #3A4255;
+  border-radius: 8px;
+  margin: 20px 0;
+  border: 1px solid #ffb000;
+}
+
+.edit-form h2 {
+  color: #ffb000;
+  margin-bottom: 20px;
 }
 
 .form-group {
@@ -207,9 +271,8 @@ h2 {
 
 .form-group label {
   display: block;
+  color: #fff;
   margin-bottom: 5px;
-  font-weight: bold;
-  color: #E0E0E0;
 }
 
 .form-group input,
@@ -218,9 +281,14 @@ h2 {
   width: 100%;
   padding: 8px;
   border: 1px solid #3A4255;
-  border-radius: 5px;
-  background-color: #1D2437;
-  color: #E0E0E0;
+  border-radius: 4px;
+  background-color: #2A3245;
+  color: #fff;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
 }
 
 .form-actions {
@@ -229,68 +297,61 @@ h2 {
   margin-top: 20px;
 }
 
-.save, .cancel {
-  padding: 10px 20px;
+.save, .btn-save {
+  background-color: #ffb000;
+  color: #1D2437;
   border: none;
-  border-radius: 5px;
+  padding: 8px 16px;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
 }
 
-.save {
-  background-color: #4CAF50;
-  color: white;
+.save:hover, .btn-save:hover {
+  background-color: #ffc233;
 }
 
-.cancel {
-  background-color: #607D8B;
-  color: white;
+.cancel, .btn-cancel {
+  background-color: #3A4255;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.save:hover {
-  background-color: #45A049;
+.cancel:hover, .btn-cancel:hover {
+  background-color: #4A5265;
 }
 
-.cancel:hover {
-  background-color: #546E7A;
-}
-
-.loading {
-  text-align: center;
-  padding: 20px;
-  color: #A0A0A0;
-}
-
-.error {
-  text-align: center;
-  padding: 20px;
-  color: #F44336;
-  background-color: #2A3245;
-  border-radius: 5px;
-  margin-bottom: 20px;
-  border: 1px solid #3A4255;
-}
-
+/* Responsive Design */
 @media (max-width: 768px) {
   .admin-container {
     padding: 1rem;
   }
-  
-  .admin-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-  
-  .user-card,
-  .game-card {
+
+  .admin-sections {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
   }
-  
-  .user-actions,
-  .game-actions {
+
+  .users-list, .games-list {
+    grid-template-columns: 1fr;
+  }
+
+  .user-header, .game-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .user-actions, .game-actions {
     width: 100%;
-    justify-content: flex-end;
+    justify-content: space-between;
+  }
+
+  .edit-form {
+    margin: 20px 0;
+    padding: 15px;
   }
 }

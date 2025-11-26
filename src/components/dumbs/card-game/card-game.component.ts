@@ -12,7 +12,7 @@ import { FileService } from '../../../services/file-service.service';
 })
 export class CardGameComponent implements OnInit {
   @Input() game: any = {};  // Données du jeu
-  imageUrl: string = '/230213-jeux-video.jpg';
+  imageUrl: string = '/Independant gaming.svg';
 
   // Injecter le FileService dans le constructeur
   constructor(private fileService: FileService) {}

@@ -3,7 +3,7 @@
   display: inline-block;
   border-radius: 15px;
   padding: 2px;
-  background: linear-gradient(45deg, #1a68ff, #ffb000, #1a68ff);
+  background: linear-gradient(45deg, rgba(26, 104, 255, 0.8), rgba(255, 176, 0, 0.8), rgba(26, 104, 255, 0.8));
   width: 300px;
 }
 
@@ -26,12 +26,17 @@
   transform: scale(1.05);
 }
 
+.card-wrapper:hover {
+  opacity: 0.8;
+}
+
 
 .image {
   width: 100%;
   height: 200px;
   position: relative;
   overflow: hidden;
+  opacity: 1;
 }
 
 img {
@@ -41,6 +46,7 @@ img {
   border-radius: 15px 15px 0 0;
   object-fit: cover;
   object-position: center;
+  opacity: 1;
 }
 
 .content-game {
@@ -67,6 +73,7 @@ img {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  opacity: 1;
 }
 
 .description {
@@ -87,6 +94,7 @@ img {
   font-size: 0.9em;
   line-height: 1.4;
   overflow-y: auto;
+  opacity: 1;
 }
 
 /* Style de la barre de défilement */
@@ -112,6 +120,7 @@ img {
   width: 100%;
   color: #acdbf5;
   padding: 8px;
+  opacity: 1;
 }
 
 .authorStudio h3 {
@@ -126,6 +135,7 @@ img {
   text-align: center;
   margin: 5px 0;
   color: #a4d007;
+  opacity: 1;
 }
 
 .price h3 {
@@ -134,11 +144,12 @@ img {
 }
 
 a {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 1);
   text-decoration: none;
   height: 100%;
   display: flex;
   flex-direction: column;
+  opacity: 1;
 }
 
 @media (max-width: 1600px) {

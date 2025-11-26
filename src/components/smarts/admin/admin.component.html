@@ -21,6 +21,9 @@
           <h3>{{ user.username }}</h3>
           <p>Email: {{ user.email }}</p>
           <p>Rôle: {{ user.role|| 'Non défini' }}</p>
+          <p>Bio: {{ user.bio }}</p>
+          <p>Avatar: {{ user.avatar }}</p>
+          <p>Birthday: {{ user.birthday }}</p>
         </div>
         <div class="user-actions" *ngIf="isSuperAdmin || (isAdmin && user.role !== 'superadmin')">
           <input type="button" class="edit" (click)="editUser(user)" value="Modifier">
@@ -30,7 +33,7 @@
     </div>
 
     <div *ngIf="selectedUser" class="edit-form">
-      <h2>Modifier l'utilisateur</h2> 
+      <h2 id="editUserForm">Modifier l'utilisateur</h2> 
       <div class="form-group">
         <label>Nom d'utilisateur</label>
         <input type="text" [(ngModel)]="selectedUser.username">
@@ -78,7 +81,7 @@
     </div>
 
     <div *ngIf="selectedGame" class="edit-form">
-      <h2>Modifier le jeu</h2>
+      <h2 id="editGameForm">Modifier le jeu</h2>
       <div class="form-group">
         <label>Titre</label>
         <input type="text" [(ngModel)]="selectedGame.title">

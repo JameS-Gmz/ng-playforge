@@ -78,15 +78,23 @@ export class DeveloperComponent implements OnInit {
   editGame(game: any) {
     this.selectedGame = { ...game };
     this.isEditing = true;
+    this.scrollToEditForm();
   }
 
   scrollToEditForm() {
+    // Utiliser setTimeout pour s'assurer que le DOM est mis à jour
     setTimeout(() => {
       const element = document.getElementById('editForm');
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        element.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start',
+          inline: 'nearest'
+        });
+        // Optionnel: ajouter une ancre dans l'URL
+        window.location.hash = 'editForm';
       }
-    }, 100);
+    }, 200);
   }
 
   cancelEdit() {

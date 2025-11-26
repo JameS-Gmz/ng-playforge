@@ -209,10 +209,44 @@ export class AdminComponent implements OnInit {
       ...user,
       RoleId: user.role?.id || user.RoleId
     };
+    this.scrollToEditUserForm();
   }
 
   editGame(game: any) {
     this.selectedGame = { ...game };
+    this.scrollToEditGameForm();
+  }
+
+  scrollToEditUserForm() {
+    // Utiliser setTimeout pour s'assurer que le DOM est mis à jour
+    setTimeout(() => {
+      const element = document.getElementById('editUserForm');
+      if (element) {
+        element.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start',
+          inline: 'nearest'
+        });
+        // Ajouter une ancre dans l'URL
+        window.location.hash = 'editUserForm';
+      }
+    }, 200);
+  }
+
+  scrollToEditGameForm() {
+    // Utiliser setTimeout pour s'assurer que le DOM est mis à jour
+    setTimeout(() => {
+      const element = document.getElementById('editGameForm');
+      if (element) {
+        element.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start',
+          inline: 'nearest'
+        });
+        // Ajouter une ancre dans l'URL
+        window.location.hash = 'editGameForm';
+      }
+    }, 200);
   }
 
   async updateUser() {

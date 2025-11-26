@@ -82,6 +82,41 @@ h1 {
 
 .game-info p {
   margin: 8px 0;
+  line-height: 1.6;
+}
+
+.info-section {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #3A4255;
+}
+
+.info-section:last-child {
+  border-bottom: none;
+}
+
+.info-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.info-row p {
+  flex: 1;
+  min-width: 150px;
+  margin: 5px 0;
+}
+
+.votes-section {
+  background-color: #2A3245;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.votes-section p {
+  margin: 5px 0;
 }
 
 .loading, .error, .no-games {

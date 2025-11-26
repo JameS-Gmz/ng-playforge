@@ -16,14 +16,16 @@
 }
 
 h1 {
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
     grid-column: 1 / -1;
     color: #E0E0E0;
     margin-bottom: 20px;
-    font-size: 1.8rem;
-    font-weight: 500;
     text-align: center;
     padding: 20px 0;
-    border-bottom: 2px solid #2C3E50;
+    border-bottom: 3px solid #ffb000;
 }
 
 .loading {

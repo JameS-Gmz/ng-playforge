@@ -22,7 +22,8 @@
       <div class="game-info">
         <p><strong>Description:</strong> {{ game.description }}</p>
         <p><strong>Prix:</strong> {{ game.price | currency }}</p>
-        <p><strong>Statut:</strong> {{ game.status }}</p>
+        <p><strong>Studio:</strong> {{ game.authorStudio }}</p>
+        <p><strong>Technologie:</strong> {{ game.madewith }}</p>
         <p><strong>Dernière mise à jour:</strong> {{ game.updatedAt | date:'mediumDate' }}</p>
       </div>
     </div>
@@ -31,8 +32,8 @@
       Vous n'avez pas encore créé de jeux.
     </div>
 
-    <div *ngIf="isEditing && selectedGame" class="edit-form" id="editForm">
-      <h2>Modifier le jeu</h2>
+    <div *ngIf="isEditing && selectedGame" class="edit-form" >
+      <h2 id="editForm">Modifier le jeu</h2>
       <form (ngSubmit)="updateGame()">
         <div class="form-group">
           <label for="title">Titre</label>

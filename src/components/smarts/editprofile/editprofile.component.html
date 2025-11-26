@@ -1,7 +1,8 @@
 <div class="background">
-
     <div class="card-edit-profile">
-        <h2>Edit Profile</h2>
+        <div class="card-header">
+            
+        </div>
         
         <!-- Image de profil -->
         <div class="profile-picture-container">
@@ -14,29 +15,36 @@
         <form class="card-form" #editProfileForm="ngForm">
             <!-- Nom d'utilisateur -->
             <label class="input-label" for="username">
+                <span class="field-label">Nom d'utilisateur</span>
                 <input type="text" id="username" name="username" [(ngModel)]="user.username" class="input-field" placeholder="Nom d'utilisateur" required/>
             </label>
             <!-- Email -->
             <label class="input-label" for="email">
+                <span class="field-label">Email</span>
                 <input type="email" id="email" name="email" [(ngModel)]="user.email" class="input-field" placeholder="Email" required/>
             </label>
             
             <!-- Bio -->
             <label class="input-label" for="bio">
+                <span class="field-label">Bio</span>
                 <textarea id="bio" name="bio" [(ngModel)]="user.bio" class="input-field" placeholder="Écrivez votre bio..." maxlength="100"></textarea>
             </label>
             
             <!-- Date d'anniversaire -->
             <label class="input-label" for="birthday">
+                <span class="field-label">Date de naissance</span>
                 <input type="date" id="birthday" name="birthday" [(ngModel)]="user.birthday" class="input-field" placeholder="Date de naissance"/>
             </label>
             
-            <!-- Boutons d'action -->
-            <button type="submit" (click)="onSubmit()" class="action-button" [disabled]="!editProfileForm.form.valid">Sauvegarder</button>
-            <button type="button" (click)="cancel()" class="cancel-button">Annuler</button>
+            <!-- Messages -->
             <div *ngIf="successMessage" class="success-message">{{successMessage}}</div>
             <div *ngIf="errorMessage" class="error-message">{{errorMessage}}</div>
+            
+            <!-- Boutons d'action -->
+            <div class="button-group">
+                <button type="submit" (click)="onSubmit()" class="action-button" [disabled]="!editProfileForm.form.valid">Sauvegarder</button>
+                <button type="button" (click)="cancel()" class="cancel-button">Annuler</button>
+            </div>
         </form>
     </div>
-    
 </div>

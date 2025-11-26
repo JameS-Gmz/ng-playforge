@@ -6,6 +6,13 @@
   min-height: 100vh;
   width: 100%;
   box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  padding: 20px;
 }
 
 /* Card */
@@ -16,7 +23,8 @@
   padding-bottom: 200px;
   border-radius: 12px;
   box-shadow: 0 10px 25px 5px rgba(0, 0, 0, 0.4);
-  background: #2A3245;
+  background-color: #2A3245 80%;
+  backdrop-filter: blur(8px);
   overflow: hidden;
   animation: fadeIn 0.5s ease-in;
 }
@@ -352,11 +360,6 @@
     padding: 8px 4px;
   }
 
-  .ds-info .ds h6 {
-  }
-
-  .ds-info .ds p {
-  }
 
   .ds-skill {
     bottom: 150px;
@@ -382,8 +385,6 @@
     top: 175px;
   }
 
-  .name h2 {
-  }
 
   .button {
     top: 250px;
@@ -404,8 +405,6 @@
     margin-bottom: 5px;
   }
 
-  .ds-info .ds p {
-  }
 
   .ds-skill {
     bottom: 140px;

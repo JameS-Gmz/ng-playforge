@@ -1,0 +1,193 @@
+/* Profile Container */
+.profile-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+  padding: 3% 3% 100px 3%;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.profile-container h2 {
+  color: #E0E0E0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3rem;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+/* Profile Image */
+.profile-container img {
+  width: 15vh;
+  height: 15vh;
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 50%;
+  border: 4px solid #1A68FF;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  padding: 4px;
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out;
+}
+
+.profile-container img:hover {
+  transform: scale(1.05);
+}
+
+/* Profile Info Section */
+.profile-info {
+  width: 50%;
+  min-width: 400px;
+  max-width: 800px;
+  padding: 2%;
+  background-color: #2A3245;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  color: #E0E0E0;
+  display: grid;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+.profile-info p {
+  text-align: left;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+/* Grid Layout */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  width: 100%;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Form Elements */
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  background-color: #1D2437;
+  color: #E0E0E0;
+  border: 1px solid #1A68FF;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #1A68FF;
+}
+
+/* Buttons */
+.action-button {
+  width: 70%;
+  padding: 3%;
+  margin-top: 5%;
+  background-color: #1A68FF;
+  color: #E0E0E0;
+  border: none;
+  border-radius: 6px;
+  font-size: larger;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.action-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 10px 2px #1A68FF;
+}
+
+.action-button.logout {
+  background-color: #FF5C5C;
+}
+
+.action-button.logout:hover {
+  background-color: #FF5C5C;
+  box-shadow: 0 0 10px 2px #FF5C5C;
+}
+
+.admin-button {
+  background-color: #28a745;
+}
+
+.admin-button:hover {
+  background-color: #28a745;
+  box-shadow: 0 0 10px 2px #28a745;
+}
+
+.developer-button {
+  background-color: #ffb000;
+}
+
+.developer-button:hover {
+  background-color: #ffb000;
+  box-shadow: 0 0 10px 2px #ffb000;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .profile-container {
+    padding: 20px 20px 100px 20px;
+  }
+
+  .profile-info {
+    width: 60%;
+    min-width: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 15px 15px 100px 15px;
+  }
+
+  .profile-container h2 {
+    font-size: 2.5rem;
+  }
+
+  .profile-info {
+    width: 80%;
+    min-width: 300px;
+  }
+
+  .action-button {
+    width: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-container {
+    padding: 10px 10px 100px 10px;
+  }
+
+  .profile-container h2 {
+    font-size: 2rem;
+  }
+
+  .profile-info {
+    width: 95%;
+    min-width: 240px;
+  }
+
+  .action-button {
+    width: 90%;
+  }
+
+  .profile-container img {
+    width: 12vh;
+    height: 12vh;
+  }
+}

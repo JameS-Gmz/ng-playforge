@@ -1,0 +1,30 @@
+<div class="profile-container">
+  <div class="profile-info">
+
+    <!-- Image de profil de l'utilisateur -->
+    <div class="profile-pic">
+      <img [src]="user.avatar || '/Ago-Que-es-un-gamer_2 - Copie.jpg'" alt="Avatar de l'utilisateur" class="profile-avatar">
+    </div>
+
+      <!-- Informations de profil de l'utilisateur -->
+      <h2>{{ user.username }}</h2>
+      <p><strong>Email : </strong> {{ user.email }}</p>
+      <p><strong>Rôle : </strong> {{ user.role }}</p>
+      <p><strong>Bio : </strong> {{ user.bio || 'Aucune biographie ajoutée' }}</p>
+      <p><strong>Birthday : </strong>{{user.birthday}}</p>
+      <div class="grid">
+        <!-- Bouton pour modifier le profil -->
+        <button class="action-button" (click)="editProfile()">Modifier le profil</button>
+        
+        <!-- Bouton pour accéder au panneau d'administration (visible uniquement pour les admins) -->
+        <button *ngIf="isAdmin" class="action-button admin-button" (click)="goToAdmin()">Panneau d'administration</button>
+        
+        <!-- Bouton pour accéder au panneau développeur (visible uniquement pour les développeurs) -->
+        <button *ngIf="isDeveloper" class="action-button developer-button" (click)="goToDeveloper()">Panneau développeur</button>
+        
+        <!-- Bouton pour se déconnecter -->
+        <button class="action-button logout" (click)="logout()">Se déconnecter</button>
+      </div>
+    </div>
+</div>
+

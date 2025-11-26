@@ -1,0 +1,249 @@
+.developer-panel {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  color: white;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.games-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.game-card {
+  background-color: #1D2437;
+  border: 2px solid #3A4255;
+  border-radius: 8px;
+  padding: 20px;
+  transition: transform 0.3s ease;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+  border-color: #ffb000;
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.game-header h2 {
+  color: #E0E0E0;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.game-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-btn, .delete-btn {
+  padding: 8px 16px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.edit-btn {
+  background-color: #2A3245;
+  color: #E0E0E0;
+  border: 2px solid #3A4255;
+}
+
+.edit-btn:hover {
+  background-color: #ffb000;
+  border-color: #ffb000;
+  color: #1D2437;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}
+
+.game-info {
+  color: #A0A0A0;
+}
+
+.game-info p {
+  margin: 8px 0;
+}
+
+.loading, .error, .no-games {
+  text-align: center;
+  padding: 20px;
+  color: #E0E0E0;
+  background-color: #1D2437;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.error {
+  color: #dc3545;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .games-list {
+    grid-template-columns: 1fr;
+  }
+
+  .game-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .game-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .edit-form {
+    margin: 20px 0;
+    padding: 15px;
+  }
+}
+
+.edit-form {
+  background-color: #1D2437;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  border: 1px solid #ffb000;
+  grid-column: 1 / -1;
+}
+
+.edit-form h2 {
+  color: #ffb000;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #3A4255;
+  border-radius: 4px;
+  background-color: #2A3245;
+  color: #fff;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-save {
+  background-color: #ffb000;
+  color: #1D2437;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-save:hover {
+  background-color: #ffc233;
+}
+
+.btn-cancel {
+  background-color: #3A4255;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-cancel:hover {
+  background-color: #4A5265;
+}
+
+.games-list {
+  margin-top: 20px;
+}
+
+.game-card {
+  background-color: #1D2437;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #3A4255;
+}
+
+.game-card h3 {
+  color: #ffb000;
+  margin-bottom: 10px;
+}
+
+.game-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-edit {
+  background-color: #ffb000;
+  color: #1D2437;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.loading {
+  color: #ffb000;
+  text-align: center;
+  padding: 20px;
+}
+
+.error {
+  color: #dc3545;
+  text-align: center;
+  padding: 20px;
+  background-color: #1D2437;
+  border-radius: 8px;
+  margin: 20px 0;
+}

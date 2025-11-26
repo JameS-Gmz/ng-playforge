@@ -1,0 +1,52 @@
+<div class="card-two">
+  <form class="card-form" #categoryCreateForm="ngForm">
+    <div class="form-section">
+      <app-select-components #controllersSelect tableName="Controllers" (selectionChange)="onControllersSelected($event)" [multiple]="true"></app-select-components>
+      <app-select-components #platformsSelect tableName="Platforms" (selectionChange)="onPlatformsSelected($event)" [multiple]="true"></app-select-components>
+      <app-select-components #statusesSelect tableName="Statuses" (selectionChange)="onStatusesSelected($event)"></app-select-components>
+      <app-select-components #languagesSelect tableName="Languages" (selectionChange)="onLanguagesSelected($event)"></app-select-components>
+    </div>
+
+<div class="form-list-input">
+  <div class="form-input">
+    <label class="input-label" for="author-studio" required>
+      <input type="text" id="author-studio" class="input-field"  [(ngModel)]="formData.authorStudio" name="authorStudio"
+        placeholder="write here..." >
+        Author / Studio
+    </label>
+  </div>
+
+  <div class="form-input">
+    <label class="input-label" for="madewith" required>
+      <input type="text" id="madewith" class="input-field"
+        placeholder="write here..." [(ngModel)]="formData.madeWith" name="madewith"/>
+      <p>Made with</p>
+    </label>
+  </div>
+</div>
+
+    <fieldset class="genre">
+      <legend>Genre</legend>
+      <div class="genre-column" *ngFor="let genre of genreList">
+        <app-checkbox-template
+          [text]="genre.name" 
+          [ngModelOptions]="{standalone: true}"
+          [(ngModel)]="formData.genres[genre.id]"
+          (checkedChange)="onGenreCheckedChange(genre.id, $event)">
+        </app-checkbox-template>
+      </div>
+    </fieldset>
+
+    <fieldset class="tags">
+      <legend>Tags</legend>
+      <div class="tags-column" *ngFor="let tag of tagList">
+        <app-checkbox-template 
+          [text]="tag.name" 
+          [ngModelOptions]="{standalone: true}"
+          [(ngModel)]="formData.tags[tag.id]"
+          (checkedChange)="onTagCheckedChange(tag.id, $event)">
+        </app-checkbox-template>
+      </div>
+    </fieldset>
+  </form>
+</div>

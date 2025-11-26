@@ -1,0 +1,173 @@
+<div class="head-game" *ngIf="game && game.id">
+    <h1>{{game?.title || 'Chargement...'}}</h1>
+    <app-carousel [images]="images"></app-carousel>
+    <div class="game-description">
+        <p>{{game?.description || 'Aucune description disponible'}}</p>
+        <p>{{game?.price ? (game.price | currency) : 'Gratuit'}}</p>
+        <div class="game-author">
+            <p>{{game?.authorStudio || 'Auteur non spécifié'}}</p>
+            <button 
+            class="library-button" 
+            [class.in-library]="isInLibrary"
+            [disabled]="loading"
+            (click)="toggleLibrary()">
+            {{isInLibrary ? 'Retirer de la bibliothèque' : 'Ajouter à la bibliothèque'}}
+            <span *ngIf="loading" class="loading-spinner"></span>
+        </button>
+    </div>
+    </div>
+</div>
+
+<div class="foot-game" *ngIf="game && game.id">
+    <div class="game-details">
+        <div class="container">
+            <!-- Informations principales -->
+            <div class="item" data-label="Auteur">
+                <span class="info">{{game?.authorStudio || 'Non spécifié'}}</span>
+            </div>
+            <div class="item" data-label="Note">
+                <span class="info">{{ (averageRating && averageRating > 0) ? averageRating.toFixed(1) : 'Non noté' }}/5</span>
+            </div>
+            <div class="item" data-label="Statut">
+                <span class="info">{{getStatusName()}}</span>
+            </div>
+            <div class="item" data-label="Langue">
+                <span class="info">{{getLanguageName()}}</span>
+            </div>
+            
+            <!-- Catégories -->
+            <div class="item" data-label="Genres">
+                <span class="info multiple">
+                    <span *ngFor="let genre of getGenresList()">
+                        {{getGenreName(genre)}}
+                    </span>
+                    <span *ngIf="getGenresList().length === 0">Aucun genre</span>
+                </span>
+            </div>
+            <div class="item" data-label="Tags">
+                <span class="info multiple">
+                    <span *ngFor="let tag of getTagsList()">
+                        {{getTagName(tag)}}
+                    </span>
+                    <span *ngIf="getTagsList().length === 0">Aucun tag</span>
+                </span>
+            </div>
+            <div class="item" data-label="Plateformes">
+                <span class="info multiple">
+                    <span *ngFor="let platform of getPlatformsList()">
+                        {{getPlatformName(platform)}}
+                    </span>
+                    <span *ngIf="getPlatformsList().length === 0">Aucune plateforme</span>
+                </span>
+            </div>
+            <div class="item" data-label="Contrôles">
+                <span class="info multiple">
+                    <span *ngFor="let controller of getControllersList()">
+                        {{getControllerName(controller)}}
+                    </span>
+                    <span *ngIf="getControllersList().length === 0">Aucun contrôleur</span>
+                </span>
+            </div>
+            
+            <!-- Informations techniques -->
+            <div class="item" data-label="Créé avec">
+                <span class="info">{{getMadeWith() || 'Non spécifié'}}</span>
+            </div>
+            <div class="item" data-label="Session moyenne">
+                <span class="info">{{averageSession || 'Non spécifiée'}}</span>
+            </div>
+            <div class="item" data-label="Dernière mise à jour">
+                <span class="info">{{game?.updatedAt ? (game.updatedAt | date:'mediumDate') : 'Non spécifiée'}}</span>
+            </div>
+        </div>
+    </div>
+    <!-- Section de notation et commentaires -->
+    <div class="game-input-comment">
+        
+        <div class="rating-stars" *ngIf="isLoggedIn">
+            <h3 *ngIf="!currentUserComment">Donnez votre avis</h3>
+            <h3 *ngIf="currentUserComment">Modifier votre avis</h3>
+            
+            <app-rating-component 
+                [rating]="commentRating"
+                [readonly]="false"
+                (ratingChange)="onRatingChange($event)">
+            </app-rating-component>
+            
+            <div class="comment-section">
+                <textarea 
+                    [(ngModel)]="commentContent"
+                    placeholder="Écrivez votre avis ici..." 
+                    rows="4" 
+                    class="review-textarea"
+                    [disabled]="isSubmitting">
+                </textarea>
+                
+                <div class="error-message" *ngIf="errorMessage">
+                    {{ errorMessage }}
+                </div>
+                
+                <div class="comment-actions">
+                    <button 
+                        class="submit-review" 
+                        (click)="submitComment()"
+                        [disabled]="isSubmitting">
+                        <span *ngIf="!isSubmitting">{{ currentUserComment ? 'Modifier' : 'Envoyer' }} l'avis</span>
+                        <span *ngIf="isSubmitting">Envoi en cours...</span>
+                    </button>
+                    
+                    <button 
+                        *ngIf="currentUserComment"
+                        class="delete-review" 
+                        (click)="deleteComment(currentUserComment!.id)"
+                        [disabled]="isSubmitting">
+                        Supprimer
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="login-prompt" *ngIf="!isLoggedIn">
+            <p>Vous devez être connecté pour laisser un commentaire.</p>
+        </div>
+    </div>
+    
+    <!-- Liste des commentaires -->
+    <div class="game-commentary">
+        <h3>Commentaires ({{ totalComments }})</h3>
+        
+        <div class="comments-list" *ngIf="comments.length > 0">
+            <div class="comment-item" *ngFor="let comment of comments">
+                <div class="comment-header">
+                    <div class="comment-user">
+                        <img 
+                            [src]="getAvatarUrl(comment.user.avatar)" 
+                            [alt]="comment.user.username"
+                            class="user-avatar"
+                            (error)="onImageError($event)">
+                        <span class="username">{{ comment.user.username }}</span>
+                    </div>
+                    <div class="comment-meta">
+                        <app-rating-component 
+                            [rating]="comment.rating || 0"
+                            [readonly]="true">
+                        </app-rating-component>
+                        <span class="comment-date">{{ formatDate(comment.createdAt) }}</span>
+                    </div>
+                </div>
+                
+                <div class="comment-content" *ngIf="comment.content">
+                    <p>{{ comment.content }}</p>
+                </div>
+                
+                <div class="comment-footer" *ngIf="comment.rating && !comment.content">
+                    <p class="rating-only">Note uniquement ({{ comment.rating }}/5)</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="no-comments" *ngIf="comments.length === 0">
+            <p>Aucun commentaire pour le moment. Soyez le premier à commenter !</p>
+        </div>
+    </div>
+</div>

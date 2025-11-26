@@ -1,0 +1,85 @@
+<div class="developer-panel">
+  <h1>Mes Jeux</h1>
+  
+  <div *ngIf="loading" class="loading">
+    Chargement en cours...
+  </div>
+
+  <div *ngIf="error" class="error">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && !error" class="games-list">
+    <div *ngFor="let game of games" class="game-card">
+      <div class="game-header">
+        <h2>{{ game.title }}</h2>
+        <div class="game-actions">
+          <button class="edit-btn" (click)="editGame(game)">Modifier</button>
+          <button class="delete-btn" (click)="deleteGame(game.id)">Supprimer</button>
+        </div>
+      </div>
+      
+      <div class="game-info">
+        <p><strong>Description:</strong> {{ game.description }}</p>
+        <p><strong>Prix:</strong> {{ game.price | currency }}</p>
+        <p><strong>Statut:</strong> {{ game.status }}</p>
+        <p><strong>Dernière mise à jour:</strong> {{ game.updatedAt | date:'mediumDate' }}</p>
+      </div>
+    </div>
+
+    <div *ngIf="games.length === 0" class="no-games">
+      Vous n'avez pas encore créé de jeux.
+    </div>
+
+    <div *ngIf="isEditing && selectedGame" class="edit-form" id="editForm">
+      <h2>Modifier le jeu</h2>
+      <form (ngSubmit)="updateGame()">
+        <div class="form-group">
+          <label for="title">Titre</label>
+          <input type="text" id="title" [(ngModel)]="selectedGame.title" name="title" required>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" [(ngModel)]="selectedGame.description" name="description" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Prix</label>
+          <input type="number" id="price" [(ngModel)]="selectedGame.price" name="price" required>
+        </div>
+
+        <div class="form-group">
+          <label for="authorStudio">Studio</label>
+          <input type="text" id="authorStudio" [(ngModel)]="selectedGame.authorStudio" name="authorStudio" required>
+        </div>
+
+        <div class="form-group">
+          <label for="madewith">Technologie</label>
+          <input type="text" id="madewith" [(ngModel)]="selectedGame.madewith" name="madewith" required>
+        </div>
+
+        <div class="form-group">
+          <label for="status">Statut</label>
+          <select id="status" [(ngModel)]="selectedGame.StatusId" name="status" required>
+            <option *ngFor="let status of categories.statuses" [value]="status.id">{{ status.name }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="language">Langue</label>
+          <select id="language" [(ngModel)]="selectedGame.LanguageId" name="language" required>
+            <option *ngFor="let language of categories.languages" [value]="language.id">{{ language.name }}</option>
+          </select>
+        </div>
+
+     
+
+        <div class="form-actions">
+          <button type="submit" class="btn-save">Enregistrer</button>
+          <button type="button" class="btn-cancel" (click)="cancelEdit()">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="rating" [class.readonly]="readonly">
+    <span 
+        *ngFor="let star of [5, 4, 3, 2, 1]; let i = index"
+        class="star"
+        [class.active]="getStarClass(star) === 'active'"
+        [class.hovered]="hoveredRating >= star && !readonly"
+        (click)="onStarClick(star)"
+        (mouseenter)="onStarHover(star)"
+        (mouseleave)="onStarLeave()"
+        [title]="star + ' étoile' + (star > 1 ? 's' : '')">
+        ★
+    </span>
+</div>

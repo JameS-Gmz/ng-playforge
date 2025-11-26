@@ -1,0 +1,30 @@
+/* Structure de la page */
+.page {
+    width: 100vw;
+    min-height: 100vh; /* Hauteur minimum de la fenêtre */
+    display: flex;
+    flex-direction: column;
+    background: #141e30;
+}
+
+/* En-tête fixe */
+.header-app {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+}
+
+/* Contenu principal sous l'en-tête */
+.router-app {
+    flex: 1;
+    width: 100%;
+    padding: 5%;
+    margin-bottom: 2rem;
+}
+
+/* Pied de page toujours en bas */
+.footer-app {
+    width: 100%;
+    margin-top: auto;
+}

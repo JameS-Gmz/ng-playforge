@@ -1,0 +1,18 @@
+<div class="auth">
+  <div class="form">
+    <div *ngIf="isLoginMode; else signupTemplate">
+      <!-- Composant de connexion -->
+      <app-sign-in></app-sign-in>
+    </div>
+    
+    <!-- Template pour le composant d'inscription -->
+    <ng-template #signupTemplate>
+      <app-sign-up></app-sign-up>
+    </ng-template>
+    <!-- Bouton pour basculer entre le mode de connexion et d'inscription -->
+  </div>
+
+  <a (click)="toggleMode($event)">
+    {{ isLoginMode ? 'Pas de compte ? créez en un ici !' : 'Déjà un compte ?' }}
+  </a> <!-- Correct closing of the anchor tag -->
+</div>

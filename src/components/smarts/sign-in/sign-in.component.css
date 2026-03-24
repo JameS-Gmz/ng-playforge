@@ -42,7 +42,7 @@
 }
 
 .sign-in-column--form {
-  flex: 1 1 58%;
+  flex: 1 1 50%;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -52,8 +52,8 @@
 
 .sign-in-column--brand {
   position: relative;
-  flex: 0 0 38%;
-  max-width: 280px;
+  flex: 0 0 50%;
+  max-width: 580px; /* Augmente la taille du bloc image */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -78,10 +78,8 @@
 
 .sign-in-column--brand img {
   width: 100%;
-  max-width: 260px;
+  max-width: 1100px; /* Augmente la taille maxi de l'image */
   height: auto;
-  max-height: min(48vh, 340px);
-  object-fit: contain;
   filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.35));
 }
 
@@ -236,8 +234,7 @@ form h2 {
   }
 
   .sign-in-column--brand img {
-    max-width: 200px;
-    max-height: 20vh;
+    max-width: 96vw; /* Agrandit aussi l'image sur mobile */
   }
 
   .card-user {

@@ -9,6 +9,7 @@ import { UserService } from '../../../services/user.service';
 import { jwtDecode } from 'jwt-decode';
 import { CommonModule } from '@angular/common';
 
+/** Erreurs de validation du formulaire de création de jeu. */
 interface FormErrors {
   title?: string;
   price?: string;
@@ -24,6 +25,7 @@ interface FormErrors {
   general?: string;
 }
 
+/** Création de jeu : formulaire composé, validation et envoi vers l’API puis le service d’upload. */
 @Component({
   selector: 'app-game',
   standalone: true,
@@ -54,6 +56,7 @@ export class GameComponent implements AfterViewInit {
 
   ngAfterViewInit(): void { }
 
+  /** userId vient du claim JWT (même logique que le back au moment du signin). */
   private getUserIdFromToken(): number | null {
     const token = localStorage.getItem('token');
     if (!token) return null;
@@ -71,7 +74,6 @@ export class GameComponent implements AfterViewInit {
     this.formErrors = errors;
     this.hasErrors = true;
     this.isSuccess = false;
-    // Faire disparaître les messages d'erreur après 5 secondes
     setTimeout(() => {
       this.hasErrors = false;
       this.formErrors = {};
@@ -82,7 +84,6 @@ export class GameComponent implements AfterViewInit {
     this.successMessage = message;
     this.isSuccess = true;
     this.hasErrors = false;
-    // Faire disparaître le message de succès après 5 secondes
     setTimeout(() => {
       this.isSuccess = false;
       this.successMessage = '';
@@ -91,16 +92,12 @@ export class GameComponent implements AfterViewInit {
 
   private validateForm(postGameFormValues: any, categoryCreateFormValues: any): FormErrors {
     const errors: FormErrors = {};
-    console.log('Début de la validation du formulaire');
-
-    // Validation des champs du jeu
     if (!postGameFormValues.title?.trim()) {
       errors.title = 'Le titre du jeu est obligatoire';
     } else if (postGameFormValues.title.length > 100) {
       errors.title = 'Le titre ne doit pas dépasser 100 caractères';
     }
 
-    // Validation améliorée du prix
     const price = postGameFormValues.price;
     if (price === undefined || price === null || price === '') {
       errors.price = 'Le prix est obligatoire';
@@ -121,46 +118,31 @@ export class GameComponent implements AfterViewInit {
       errors.description = 'La description ne doit pas dépasser 1500 caractères';
     }
 
-    // Validation des catégories
     const categoryErrors: any = {};
-    console.log('Validation des catégories:', {
-      ControllerIds: categoryCreateFormValues.ControllerIds,
-      PlatformIds: categoryCreateFormValues.PlatformIds,
-      StatusId: categoryCreateFormValues.StatusId,
-      LanguageId: categoryCreateFormValues.LanguageId,
-      selectedTags: categoryCreateFormValues.selectedTags,
-      selectedGenres: categoryCreateFormValues.selectedGenres
-    });
-
-    // Validation du contrôleur
     if (!categoryCreateFormValues.ControllerIds?.length) {
       categoryErrors.controller = 'Au moins un contrôleur est obligatoire';
     } else if (!Array.isArray(categoryCreateFormValues.ControllerIds)) {
       categoryErrors.controller = 'Le format des contrôleurs sélectionnés est invalide';
     }
 
-    // Validation de la plateforme
     if (!categoryCreateFormValues.PlatformIds?.length) {
       categoryErrors.platform = 'Au moins une plateforme est obligatoire';
     } else if (!Array.isArray(categoryCreateFormValues.PlatformIds)) {
       categoryErrors.platform = 'Le format des plateformes sélectionnées est invalide';
     }
 
-    // Validation du statut
     if (!categoryCreateFormValues.StatusId) {
       categoryErrors.status = 'Le statut est obligatoire';
     } else if (typeof categoryCreateFormValues.StatusId !== 'number') {
       categoryErrors.status = 'Le statut sélectionné est invalide';
     }
 
-    // Validation de la langue
     if (!categoryCreateFormValues.LanguageId) {
       categoryErrors.language = 'La langue est obligatoire';
     } else if (typeof categoryCreateFormValues.LanguageId !== 'number') {
       categoryErrors.language = 'La langue sélectionnée est invalide';
     }
 
-    // Validation des tags
     if (!categoryCreateFormValues.selectedTags?.length) {
       categoryErrors.tags = 'Au moins un tag est obligatoire';
     } else if (!Array.isArray(categoryCreateFormValues.selectedTags)) {
@@ -169,7 +151,6 @@ export class GameComponent implements AfterViewInit {
       categoryErrors.tags = 'Vous ne pouvez pas sélectionner plus de 3 tags';
     }
 
-    // Validation des genres
     if (!categoryCreateFormValues.selectedGenres?.length) {
       categoryErrors.genres = 'Au moins un genre est obligatoire';
     } else if (!Array.isArray(categoryCreateFormValues.selectedGenres)) {
@@ -178,18 +159,14 @@ export class GameComponent implements AfterViewInit {
       categoryErrors.genres = 'Vous ne pouvez pas sélectionner plus de 5 genres';
     }
 
-    // N'ajouter les erreurs de catégories que s'il y en a
     if (Object.keys(categoryErrors).length > 0) {
       errors.categories = categoryErrors;
     }
 
-    console.log('Erreurs de validation trouvées:', errors);
     return errors;
   }
 
   async onSubmit() {
-    console.log('Début de la soumission du formulaire');
-    
     if (!this.postGameForm || !this.categoryCreateForm) {
       console.error('Formulaires non initialisés:', {
         postGameForm: !!this.postGameForm,
@@ -201,65 +178,42 @@ export class GameComponent implements AfterViewInit {
 
     const postGameFormValues = this.postGameForm.getFormValues();
     const categoryCreateFormValues = this.categoryCreateForm.getFormValues();
-    console.log('Valeurs du formulaire de jeu:', postGameFormValues);
-    console.log('Valeurs du formulaire de catégories:', categoryCreateFormValues);
 
     const userId = this.getUserIdFromToken();
-    console.log('UserID récupéré:', userId);
 
     if (!userId) {
       this.showError({ general: 'Erreur: Vous devez être connecté pour créer un jeu' });
       return;
     }
 
-    // Validation du formulaire
     const errors = this.validateForm(postGameFormValues, categoryCreateFormValues);
     if (Object.keys(errors).length > 0) {
-      console.log('Erreurs de validation:', errors);
       this.showError(errors);
       return;
     }
 
-    // Log pour déboguer madeWith
-    console.log('🔍 Debug madeWith:', {
-      'categoryCreateFormValues.madeWith': categoryCreateFormValues.madeWith,
-      'type': typeof categoryCreateFormValues.madeWith,
-      'is empty string': categoryCreateFormValues.madeWith === '',
-      'is null': categoryCreateFormValues.madeWith === null,
-      'is undefined': categoryCreateFormValues.madeWith === undefined
-    });
-
-    // Créer l'objet gameData sans les propriétés en camelCase pour éviter la duplication
-    // Exclure les propriétés qui seront mappées différemment
-    const { madeWith, ControllerIds, PlatformIds, selectedGenres, selectedTags, ...restCategoryData } = categoryCreateFormValues;
+    // Exclusion de `madeWith` du spread : l’API attend la propriété `madewith` (convention backend).
+    const { madeWith: _omitMadeWith, ControllerIds, PlatformIds, selectedGenres, selectedTags, ...restCategoryData } = categoryCreateFormValues;
     
     const gameData: any = {
       ...postGameFormValues,
       ...restCategoryData,
       UserId: userId,
-      // Mapper madeWith vers madewith pour correspondre au backend
       madewith: categoryCreateFormValues.madeWith && categoryCreateFormValues.madeWith.trim() !== '' 
         ? categoryCreateFormValues.madeWith.trim() 
         : null,
-      // Mapper authorStudio si présent
       authorStudio: categoryCreateFormValues.authorStudio || null,
-      // Mapper les IDs des catégories avec les noms attendus par le backend
       controllerIds: categoryCreateFormValues.ControllerIds || [],
       platformIds: categoryCreateFormValues.PlatformIds || [],
       genreIds: categoryCreateFormValues.selectedGenres || [],
       tagIds: categoryCreateFormValues.selectedTags || []
     };
-    console.log('Données complètes du jeu à envoyer:', gameData);
-    console.log('🔍 madewith dans gameData:', gameData.madewith);
 
     try {
-      // Envoyer les données du jeu
-      console.log('Tentative d\'envoi des données du jeu...');
+      // Création du jeu, association des catégories, puis envoi des fichiers vers le service d’upload (port 9091).
       const result = await this.gameService.sendGameData(gameData);
-      console.log('Jeu créé avec succès:', result);
 
       const GameId = result.id;
-      // Utiliser les noms mappés depuis gameData
       const ControllerIds = gameData.controllerIds || [];
       const PlatformIds = gameData.platformIds || [];
       const StatusId = gameData.StatusId;
@@ -267,19 +221,7 @@ export class GameComponent implements AfterViewInit {
       const TagId = gameData.tagIds || [];
       const GenreId = gameData.genreIds || [];
 
-      console.log('Données pour l\'association des catégories:', {
-        GameId,
-        ControllerIds,
-        PlatformIds,
-        StatusId,
-        LanguageId,
-        TagId,
-        GenreId
-      });
-
-      // Associer l'élément sélectionné au jeu
       if (GameId) {
-        console.log('Tentative d\'association des catégories...');
         await this.gameService.associateGameWithCategories(
           GameId,
           ControllerIds,
@@ -290,15 +232,15 @@ export class GameComponent implements AfterViewInit {
           GenreId
         );
 
-        // Si un fichier est sélectionné, upload le fichier
-        if (this.postGameForm.selectedFile) {
-          console.log('Tentative d\'upload du fichier...');
-          await this.fileService.uploadFile(this.postGameForm.selectedFile, GameId);
+        const files = this.postGameForm.selectedFiles;
+        if (files?.length) {
+          for (const file of files) {
+            await this.fileService.uploadFile(file, GameId);
+          }
         }
 
         this.showSuccess('Jeu créé avec succès !');
         
-        // Réinitialiser les formulaires
         this.postGameForm.resetForm();
         this.categoryCreateForm.resetForm();
       }

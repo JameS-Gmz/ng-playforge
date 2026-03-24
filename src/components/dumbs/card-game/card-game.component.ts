@@ -19,11 +19,18 @@ export class CardGameComponent implements OnInit {
 
   async ngOnInit() {
     try {
-      const gameId = this.game.id;  // Récupère l'ID du jeu
+      const gameId = Number(this.game?.id);
+      if (!gameId) {
+        return;
+      }
       this.imageUrl = await this.fileService.getImageUrl(gameId);  // Récupérer l'URL de l'image
-      console.log(this.imageUrl)
     } catch (error) {
       console.error('Erreur lors de la récupération de l\'image:', error);
     }
+  }
+
+  onImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    img.src = '/230213-jeux-video.jpg';
   }
 }

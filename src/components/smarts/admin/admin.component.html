@@ -13,7 +13,13 @@
     </div>
 
     <div *ngIf="isUserLoading" class="loading">Chargement...</div>
-    <div *ngIf="userErrorMessage" class="error">{{ userErrorMessage }}</div>
+    <div
+      *ngIf="userErrorMessage && !selectedUser"
+      class="error"
+      role="alert"
+    >
+      {{ userErrorMessage }}
+    </div>
 
     <div class="users-list">
       <div *ngFor="let user of filteredUsers" class="user-card">
@@ -45,9 +51,16 @@
       <div class="form-group">
         <label>Rôle</label>
         <select [(ngModel)]="selectedUser.RoleId">
-          <option *ngFor="let role of roles" [value]="role.id">{{ role.
-          name }}</option>
+          <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
         </select>
+      </div>
+      <div
+        *ngIf="userErrorMessage"
+        class="error error--edit-user"
+        role="alert"
+        aria-live="polite"
+      >
+        {{ userErrorMessage }}
       </div>
       <div class="form-actions">
         <button class="save" (click)="updateUser()">Enregistrer</button>

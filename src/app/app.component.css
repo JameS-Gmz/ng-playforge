@@ -30,12 +30,27 @@
     width: 100%;
 }
 
-/* Contenu principal sous l'en-tête */
+/* Contenu principal sous l'en-tête : étire les pages routées pour centrer verticalement */
 .router-app {
     flex: 1;
     width: 100%;
     position: relative;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.router-app > router-outlet {
+    flex: 0 0 auto;
+}
+
+.router-app > :not(router-outlet) {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    width: 100%;
 }
 
 /* Pied de page toujours en bas */

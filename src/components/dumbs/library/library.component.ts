@@ -40,12 +40,10 @@ export class LibraryComponent implements OnInit, OnDestroy {
     }
     this.redirectTimer = setInterval(() => {
       this.timeLeft--;
-      console.log('Temps restant:', this.timeLeft);
       if (this.timeLeft <= 0) {
         clearInterval(this.redirectTimer);
-        console.log('Redirection vers /auth');
         this.router.navigate(['/auth']).then(
-          () => console.log('Navigation réussie'),
+          () => null,
           err => console.error('Erreur de navigation:', err)
         );
       }
@@ -60,9 +58,7 @@ export class LibraryComponent implements OnInit, OnDestroy {
         clearInterval(this.redirectTimer);
       }
       
-      console.log('Chargement des jeux de la bibliothèque...');
       const libraryGames = await this.libraryService.getLibraryGames();
-      console.log('Jeux reçus:', libraryGames);
       
       if (!libraryGames || !Array.isArray(libraryGames) || libraryGames.length === 0) {
         this.games = [];
@@ -72,8 +68,7 @@ export class LibraryComponent implements OnInit, OnDestroy {
       this.games = await Promise.all((libraryGames as any[]).map(async (game: any) => {
         let imageUrl = '230213-jeux-video.jpg'; // Image par défaut
         try {
-          console.log('Chargement des images pour le jeu:', game.id);
-          const imageData = await this.fileService.getImagesURLS(game.id);
+          const imageData = await this.fileService.getImagesUrls(game.id);
           if (imageData && imageData.length > 0 && imageData[0]?.url) {
             imageUrl = imageData[0].url;
           }
@@ -86,8 +81,6 @@ export class LibraryComponent implements OnInit, OnDestroy {
           imageUrl
         };
       }));
-
-      console.log('Jeux avec images:', this.games);
     } catch (error: any) {
       console.error('Erreur lors du chargement des jeux:', error);
       // Ne pas déclencher le timer si la bibliothèque est simplement vide
@@ -117,9 +110,8 @@ export class LibraryComponent implements OnInit, OnDestroy {
   }
 
   goToAuth() {
-    console.log('Redirection manuelle vers /auth');
     this.router.navigate(['/auth']).then(
-      () => console.log('Navigation manuelle réussie'),
+      () => null,
       err => console.error('Erreur de navigation manuelle:', err)
     );
   }

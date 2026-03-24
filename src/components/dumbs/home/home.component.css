@@ -1,37 +1,111 @@
-.title {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-weight: bold;
-}
-
 .games-container {
   width: 100%;
   margin: 0 auto;
-  padding: 20px;
+  padding: 1.25rem 1.25rem 2rem;
   box-sizing: border-box;
 }
 
+/* Bloc d’introduction : colonne étroite centrée, sans bordure */
+.home-intro {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2.75rem;
+  padding-inline: 0.5rem;
+}
+
+.explanatory-text {
+  width: 100%;
+  max-width: 60rem;
+  text-align: center;
+  padding: 2rem 1.75rem;
+  border-radius: 1.25rem;
+  border: none;
+  backdrop-filter: blur(48px) saturate(1.15);
+  -webkit-backdrop-filter: blur(48px) saturate(1.15);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 12px 40px -8px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.explanatory-text h2 {
+  margin: 0 0 0.9rem;
+  font-size: clamp(1.45rem, 3.5vw, 1.85rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  line-height: 1.15;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+.explanatory-text h2::after {
+  display: none;
+}
+
+.home-intro-lead {
+  margin: 0 0 1.25rem;
+  font-size: clamp(1.05rem, 2.2vw, 1.2rem);
+  line-height: 1.55;
+  color: #f0f0f5;
+  font-weight: 600;
+}
+
+.home-intro-body {
+  margin: 0;
+  max-width: none;
+  margin-inline: auto;
+  font-size: clamp(0.95rem, 1.9vw, 1.05rem);
+  line-height: 1.65;
+  color: #d8d8e4;
+  font-weight: 500;
+}
+
+.home-intro-body strong {
+  color: #ffcc4d;
+  font-weight: 700;
+}
+
 .games-section {
-  margin-bottom: 40px;
+  margin-bottom: 2.5rem;
 }
 
 .games-section h2 {
-  color: #E0E0E0;
-  margin-bottom: 20px;
+  color: #e0e0e0;
+  margin-bottom: 1.25rem;
   font-size: 1.5rem;
   font-weight: 500;
 }
 
 @media (max-width: 768px) {
   .games-container {
-    padding: 10px;
+    padding: 0.75rem 0.75rem 1.5rem;
   }
-  
+
+  .home-intro {
+    margin-bottom: 2rem;
+    padding-inline: 0.25rem;
+  }
+
+  .explanatory-text {
+    max-width: 24rem;
+    padding: 1.5rem 1.25rem;
+    border-radius: 1rem;
+  }
+
+  .home-intro-lead {
+    font-size: 1.08rem;
+  }
+
+  .home-intro-body {
+    font-size: 0.98rem;
+  }
+
+  .games-section {
+    margin-bottom: 2rem;
+  }
+
   .games-section h2 {
     font-size: 1.2rem;
-    margin-bottom: 15px;
+    margin-bottom: 0.95rem;
   }
 }

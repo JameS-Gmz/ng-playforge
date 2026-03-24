@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { async, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 interface Role {
   id: number;
@@ -17,6 +17,10 @@ interface User {
   RoleId?: number;
 }
 
+/**
+ * Service HTTP vers l’API utilisateur (Express, port 9090).
+ * Les routes protégées requièrent un en-tête `Authorization: Bearer <token>`.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -26,27 +30,39 @@ export class UserService {
 
   constructor() {}
 
+  /**
+   * Valide la réponse des routes d’assignation de rôle : lecture du corps en texte puis parsing JSON optionnel.
+   */
+  private async assertAssignResponseOk(response: Response): Promise<void> {
+    const text = await response.text();
+    let payload: { message?: string; error?: string } = {};
+    if (text) {
+      try {
+        payload = JSON.parse(text);
+      } catch {
+        /* ignore */
+      }
+    }
+    if (response.ok) {
+      return;
+    }
+    const msg =
+      payload.message ||
+      payload.error ||
+      `Impossible d’assigner le rôle (${response.status} ${response.statusText}).`;
+    throw new Error(msg);
+  }
+
   private getHeaders(): Headers {
     const token = localStorage.getItem('token');
-    console.log('Current token:', token);
-    
     if (!token) {
-      console.error('No token found in localStorage');
       throw new Error('No token found');
     }
 
-    const headers = new Headers({
+    return new Headers({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-
-    // Convert headers to a plain object for logging
-    const headersObj: { [key: string]: string } = {};
-    headers.forEach((value, key) => {
-      headersObj[key] = value;
-    });
-    console.log('Request headers:', headersObj);
-    return headers;
   }
 
   async getAllUsers(): Promise<User[]> {
@@ -60,7 +76,6 @@ export class UserService {
       }
       
       const users = await response.json();
-      console.log('Users fetched:', users);
       return users;
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -151,19 +166,15 @@ export class UserService {
 
   async getRoles(): Promise<Role[]> {
     try {
-      console.log('Fetching roles from API...');
       const response = await fetch(`http://localhost:9090/role/all`, {
         headers: this.getHeaders()
       });
-      
-      console.log('Roles API response status:', response.status);
       
       if (!response.ok) {
         throw new Error(`Failed to fetch roles: ${response.statusText}`);
       }
       
       const roles = await response.json();
-      console.log('Roles API response data:', roles);
       return roles;
     } catch (error) {
       console.error('Error fetching roles:', error);
@@ -172,91 +183,35 @@ export class UserService {
   }
 
   async assignUserRole(userId: number): Promise<void> {
-    try {
-      console.log('Assigning user role - userId:', userId);
-      const headers = this.getHeaders();
-      const response = await fetch(`${this.apiUrl}/assign-user/${userId}`, {
-        method: 'POST',
-        headers: headers
-      });
-
-      console.log('Response status:', response.status);
-      const responseData = await response.json();
-      console.log('Response data:', responseData);
-
-      if (!response.ok) {
-        throw new Error(`Failed to assign role: ${response.statusText}`);
-      }
-    } catch (error) {
-      console.error('Error assigning user role:', error);
-      throw error;
-    }
+    const response = await fetch(`${this.apiUrl}/assign-user/${userId}`, {
+      method: 'POST',
+      headers: this.getHeaders(),
+    });
+    await this.assertAssignResponseOk(response);
   }
 
   async assignDeveloperRole(userId: string): Promise<void> {
-    try {
-      console.log('Assigning developer role - userId:', userId);
-      const headers = this.getHeaders();
-      const response = await fetch(`${this.apiUrl}/assign-developer/${userId}`, {
-        method: 'POST',
-        headers: headers
-      });
-
-      console.log('Response status:', response.status);
-      const responseData = await response.json();
-      console.log('Response data:', responseData);
-
-      if (!response.ok) {
-        throw new Error(`Failed to assign role: ${response.statusText}`);
-      }
-    } catch (error) {
-      console.error('Error assigning developer role:', error);
-      throw error;
-    }
+    const response = await fetch(`${this.apiUrl}/assign-developer/${userId}`, {
+      method: 'POST',
+      headers: this.getHeaders(),
+    });
+    await this.assertAssignResponseOk(response);
   }
 
   async assignAdminRole(userId: string): Promise<void> {
-    try {
-      console.log('Assigning admin role - userId:', userId);
-      const headers = this.getHeaders();
-      const response = await fetch(`${this.apiUrl}/assign-admin/${userId}`, {
-        method: 'POST',
-        headers: headers
-      });
-
-      console.log('Response status:', response.status);
-      const responseData = await response.json();
-      console.log('Response data:', responseData);
-
-      if (!response.ok) {
-        throw new Error(`Failed to assign role: ${response.statusText}`);
-      }
-    } catch (error) {
-      console.error('Error assigning admin role:', error);
-      throw error;
-    }
+    const response = await fetch(`${this.apiUrl}/assign-admin/${userId}`, {
+      method: 'POST',
+      headers: this.getHeaders(),
+    });
+    await this.assertAssignResponseOk(response);
   }
 
   async assignSuperAdminRole(userId: string): Promise<void> {
-    try {
-      console.log('Assigning superadmin role - userId:', userId);
-      const headers = this.getHeaders();
-      const response = await fetch(`${this.apiUrl}/assign-superadmin/${userId}`, {
-        method: 'POST',
-        headers: headers
-      });
-
-      console.log('Response status:', response.status);
-      const responseData = await response.json();
-      console.log('Response data:', responseData);
-
-      if (!response.ok) {
-        throw new Error(`Failed to assign role: ${response.statusText}`);
-      }
-    } catch (error) {
-      console.error('Error assigning superadmin role:', error);
-      throw error;
-    }
+    const response = await fetch(`${this.apiUrl}/assign-superadmin/${userId}`, {
+      method: 'POST',
+      headers: this.getHeaders(),
+    });
+    await this.assertAssignResponseOk(response);
   }
 
   async getCurrentDeveloperId(): Promise<number> {
@@ -267,6 +222,7 @@ export class UserService {
     }
 
     try {
+      // Vérification du Content-Type avant parsing JSON (réponse d’erreur non JSON possible).
       const response = await fetch(`${this.apiUrl}/current-developer-id`, {
         method: 'GET',
         headers: {
@@ -275,7 +231,6 @@ export class UserService {
         },
       });
 
-      // Vérifier le Content-Type pour s'assurer que c'est du JSON
       const contentType = response.headers.get('content-type');
       const isJson = contentType && contentType.includes('application/json');
 

@@ -1,21 +1,51 @@
-/* Conteneur principal pour centrer le formulaire */
+:host {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 2rem 1rem 2.5rem;
+  box-sizing: border-box;
+}
+
 .auth {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-.auth a {
+  width: 100%;
+  max-width: 32rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.auth .form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth a,
+.auth .auth-toggle-link {
   color: white;
-  padding: 1%;
+  padding: 0.75rem 0.5rem;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
-.auth a:hover {
+.auth-toggle-link {
+  display: block;
+  margin-top: 0.35rem;
+  width: 100%;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+
+.auth a:hover,
+.auth .auth-toggle-link:hover {
   color: #1a6fb0;
-  padding: 1%;
 }
-
- 
-  

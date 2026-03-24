@@ -2,7 +2,7 @@
 <div class="card">
         <a class="nav-link active" [routerLink]="['/game/id', game.id]">
             <div class="image" *ngIf="imageUrl">
-                <img [src]="imageUrl" alt="Image du jeu">
+                <img [src]="imageUrl" alt="Image du jeu" (error)="onImageError($event)">
             </div>
             <div class="content-game">
                 <div class="title">

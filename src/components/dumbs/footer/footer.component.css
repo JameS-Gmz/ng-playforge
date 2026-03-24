@@ -1,5 +1,6 @@
 .footer {
-    background-color: #161c34;
+    background-color: transparent;
+    backdrop-filter: blur(10px);
     color: white;
     padding: 2rem 0 0.5rem 0;
     border-top: 2px solid #ffb000;

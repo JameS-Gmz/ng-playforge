@@ -1,3 +1,16 @@
+:host {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1.25rem 1.5rem 2rem;
+}
+
+@media (max-width: 768px) {
+  :host {
+    padding: 1rem;
+  }
+}
+
 .row-one {
 	display: flex;
 	justify-content: center;
@@ -89,8 +102,7 @@ strong {
 	padding: 12px 20px;
 	font-size: 1.1rem;
 	width: 100%;
-	background-color: #2A3245;
-	border: 2px solid #3A4255;
+	background-color: #1a68ff;
 	border-radius: 5px;
 	color: #E0E0E0;
 	cursor: pointer;
@@ -100,8 +112,7 @@ strong {
 
 .action-button:hover {
 	background-color: #ffb000;
-	border-color: #ffb000;
-	color: #1D2437;
+		color: #1D2437;
 }
 
 /* Responsive Design */

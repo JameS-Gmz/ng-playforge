@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -18,7 +18,11 @@ export class SignInComponent {
   errorMessage: string | undefined;
   
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
 
   async onSubmit() {
@@ -34,7 +38,12 @@ export class SignInComponent {
 
     try {
       await this.authService.signIn(userData);
-    this.router.navigate(['/profile']);  // Redirection après connexion
+      const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+      if (returnUrl) {
+        await this.router.navigateByUrl(returnUrl);
+      } else {
+        await this.router.navigate(['/profile']);  // Redirection par défaut après connexion
+      }
     } catch (error) {
       console.error('Erreur lors de la connexion', error);
       this.errorMessage = 'Adresse mail ou mot de passe incorrect';

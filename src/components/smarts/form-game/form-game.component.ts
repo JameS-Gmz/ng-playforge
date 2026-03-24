@@ -1,6 +1,6 @@
-import { booleanAttribute, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { InputFileComponent } from "../input-file/input-file.component";
-import { FormBuilder, FormsModule, NgForm } from "@angular/forms";
+import { FormsModule, NgForm } from "@angular/forms";
 import { CategoryCreateComponent } from '../category-create/category-create.component';
 @Component({
   selector: 'app-form-game',
@@ -13,7 +13,10 @@ export class FormGameComponent {
 
 
   @ViewChild('postGameForm') postGameForm!: NgForm;
-  selectedFile: File | null = null;
+  @ViewChild(InputFileComponent) inputFileComponent?: InputFileComponent;
+
+  /** Fichiers choisis (upload multiple après création du jeu) */
+  selectedFiles: File[] = [];
   previewImageUrl: string | null = null;
   
   form = {
@@ -36,19 +39,23 @@ export class FormGameComponent {
 
   resetForm() {
     if (this.postGameForm) {
-      this.postGameForm.resetForm(); // Réinitialiser le formulaire
+      this.postGameForm.resetForm();
     }
+    this.selectedFiles = [];
+    this.previewImageUrl = null;
+    this.inputFileComponent?.clear();
   }
 
-  onFileSelected(file: File) {
-    this.selectedFile = file;
-    // Créer une URL pour l'aperçu de l'image
-    if (file) {
+  onFilesSelected(files: File[]) {
+    this.selectedFiles = files;
+    if (files.length > 0) {
       const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.previewImageUrl = e.target.result;
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        this.previewImageUrl = e.target?.result as string;
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(files[0]);
+    } else {
+      this.previewImageUrl = null;
     }
   }
 }

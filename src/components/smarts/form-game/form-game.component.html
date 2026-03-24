@@ -1,7 +1,13 @@
 <div class="card">
   <div class="card-image" [style.background-image]="previewImageUrl ? 'url(' + previewImageUrl + ')' : ''" [style.background-size]="'cover'" [style.background-position]="'center'">
     <div class="image">
-        <app-input-file (fileSelected)="onFileSelected($event)" text="Upload Image"></app-input-file>
+        <app-input-file
+          [multiple]="true"
+          [maxFiles]="12"
+          (filesSelected)="onFilesSelected($event)"
+          text="Images du jeu"
+          description="Glissez-déposez ou cliquez — plusieurs fichiers possibles"
+        ></app-input-file>
     </div>
   </div>
 

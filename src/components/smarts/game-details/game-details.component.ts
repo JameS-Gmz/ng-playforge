@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GameService } from '../../../services/game.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -52,6 +52,7 @@ export class GameDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private gameService: GameService,
     private fileService: FileService,
     private libraryService: LibraryService,
@@ -99,6 +100,13 @@ export class GameDetailsComponent implements OnInit {
 
   async toggleLibrary() {
     if (this.loading) return;
+
+    if (!this.isLoggedIn) {
+      await this.router.navigate(['/auth'], {
+        queryParams: { returnUrl: this.router.url }
+      });
+      return;
+    }
     
     this.loading = true;
     try {
@@ -119,20 +127,9 @@ export class GameDetailsComponent implements OnInit {
     try {
       // Récupérer les détails du jeu
       this.game = await this.gameService.getGameById(id);
-      console.log('📥 [loadGame] Game details reçus:', this.game);
-      console.log('🔍 [loadGame] Made with (camelCase):', this.game.madeWith);
-      console.log('🔍 [loadGame] Made with (lowercase):', this.game.madewith);
-      console.log('🔍 [loadGame] Made with (toutes variantes):', {
-        madeWith: this.game.madeWith,
-        madewith: this.game.madewith,
-        MadeWith: this.game.MadeWith,
-        MadeWithBracket: this.game['MadeWith']
-      });
-      console.log('🔍 [loadGame] All game keys:', Object.keys(this.game));
-      console.log('🔍 [loadGame] getMadeWith() retourne:', this.getMadeWith());
   
       // Récupérer les images associées au jeu
-      const imageData = await this.fileService.getImagesURLS(this.game.id);
+      const imageData = await this.fileService.getImagesUrls(this.game.id);
       this.images = imageData.map((image: { url: string }) => image.url);
 
       // Récupérer les informations des relations
@@ -150,7 +147,6 @@ export class GameDetailsComponent implements OnInit {
         const platform = platforms.find((p: any) => p.id === this.game.PlatformId);
         if (platform) {
           this.platforms = [platform.name];
-          console.log('Platform found:', platform.name);
         }
       }
 
@@ -158,7 +154,6 @@ export class GameDetailsComponent implements OnInit {
         const genre = genres.find((g: any) => g.id === this.game.GenreId);
         if (genre) {
           this.genres = [genre.name];
-          console.log('Genre found:', genre.name);
         }
       }
 
@@ -166,7 +161,6 @@ export class GameDetailsComponent implements OnInit {
         const tag = tags.find((t: any) => t.id === this.game.TagId);
         if (tag) {
           this.tags = [tag.name];
-          console.log('Tag found:', tag.name);
         }
       }
 
@@ -174,7 +168,6 @@ export class GameDetailsComponent implements OnInit {
         const controller = controllers.find((c: any) => c.id === this.game.ControllerId);
         if (controller) {
           this.controllers = [controller.name];
-          console.log('Controller found:', controller.name);
         }
       }
 
@@ -182,7 +175,6 @@ export class GameDetailsComponent implements OnInit {
         const status = statuses.find((s: any) => s.id === this.game.StatusId);
         if (status) {
           this.status = status.name;
-          console.log('Status found:', status.name);
         }
       }
 
@@ -190,7 +182,6 @@ export class GameDetailsComponent implements OnInit {
         const language = languages.find((l: any) => l.id === this.game.LanguageId);
         if (language) {
           this.language = language.name;
-          console.log('Language found:', language.name);
         }
       }
 
@@ -201,17 +192,6 @@ export class GameDetailsComponent implements OnInit {
         this.averageSession = `${hours}h${minutes > 0 ? ` ${minutes}min` : ''}`;
       }
 
-      console.log('Final component data:', {
-        platforms: this.platforms,
-        genres: this.genres,
-        tags: this.tags,
-        controllers: this.controllers,
-        status: this.status,
-        language: this.language,
-        averageSession: this.averageSession
-        
-      });
-  
     } catch (error) {
       console.error("Erreur lors de la récupération des détails du jeu:", error);
     }
@@ -377,13 +357,6 @@ export class GameDetailsComponent implements OnInit {
       this.totalComments = response.totalComments;
       this.totalRatings = response.totalRatings;
 
-      // Debug: afficher les avatars reçus
-      console.log('Commentaires chargés:', this.comments.map(c => ({
-        username: c.user.username,
-        avatar: c.user.avatar,
-        avatarUrl: this.getAvatarUrl(c.user.avatar)
-      })));
-
       // Trouver le commentaire de l'utilisateur actuel s'il existe
       if (this.currentUserId) {
         this.currentUserComment = this.comments.find(c => c.user.id === this.currentUserId) || null;
@@ -515,6 +488,5 @@ export class GameDetailsComponent implements OnInit {
   onImageError(event: Event): void {
     const img = event.target as HTMLImageElement;
     img.src = '/Ago-Que-es-un-gamer_2.jpg';
-    console.log('Erreur de chargement d\'image, utilisation de l\'avatar par défaut');
   }
 }

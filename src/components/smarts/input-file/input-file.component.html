@@ -1,24 +1,51 @@
-<div class="input-image" 
+<div
+  class="input-image"
   [class.drag-over]="isDragOver"
+  [class.has-files]="items.length > 0"
   (dragover)="onDragOver($event)"
   (dragleave)="onDragLeave($event)"
-  (drop)="onDrop($event)">
-  
-  <input 
-    type="file" 
-    id="file-upload" 
+  (drop)="onDrop($event)"
+  (click)="!items.length && triggerFileInput($event)"
+>
+  <input
+    #fileInput
+    type="file"
+    [attr.multiple]="multiple ? '' : null"
     (change)="onFileSelected($event)"
-    accept="image/jpeg,image/png,image/gif,image/webp">
+    (click)="$event.stopPropagation()"
+    accept="image/jpeg,image/png,image/gif,image/webp"
+  />
 
-  <ng-container *ngIf="selectedFile && previewUrl">
-    <div class="preview-container">
-      <img [src]="previewUrl" [alt]="selectedFile.name">
-      <div class="file-overlay">
-        <span class="file-name">{{ selectedFile.name }}</span>
-        <button class="change-file" (click)="triggerFileInput($event)">Changer l'image</button>
-      </div>
+  <div class="preview-grid" *ngIf="items.length > 0">
+    <div *ngFor="let item of items; let i = index" class="preview-tile">
+      <img [src]="item.previewUrl" [alt]="item.file.name" />
+      <button
+        type="button"
+        class="remove-tile"
+        (click)="removeAt(i); $event.stopPropagation()"
+        [attr.aria-label]="'Retirer ' + item.file.name"
+      >
+        ×
+      </button>
     </div>
-  </ng-container>
+  </div>
+
+  <div
+    class="drop-hint"
+    *ngIf="items.length === 0"
+  >
+    <span class="drop-hint__emoji">📸</span>
+    <span class="drop-hint__title">{{ text }}</span>
+    <span class="drop-hint__desc">{{ description }}</span>
+  </div>
+
+  <div
+    class="add-more"
+    *ngIf="items.length > 0 && multiple && items.length < maxFiles"
+    (click)="triggerFileInput($event)"
+  >
+    + Ajouter des images ({{ items.length }}/{{ maxFiles }})
+  </div>
 
   <div *ngIf="errorMessage" class="error-message">
     {{ errorMessage }}

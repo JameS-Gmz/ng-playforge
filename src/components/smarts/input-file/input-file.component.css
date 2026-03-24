@@ -1,78 +1,41 @@
-.input-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  z-index: 1; /* Assure que le conteneur reste en dessous du header */
-}
-
-.input-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(29, 36, 55, 0.3);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 0;
-}
-
 .input-image {
   position: relative;
   width: 100%;
-  height: 100%;
-  max-width: 150px;
-  max-height: 150px;
+  min-height: 120px;
+  max-width: 100%;
   background-color: rgba(29, 36, 55, 0.7);
-  border: 2px dashed #1A68FF;
+  border: 2px dashed #1a68ff;
   border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
+  padding: 12px;
+  margin-bottom: 12px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
-  cursor: pointer;
+  cursor: default;
   transition: all 0.3s ease;
   overflow: hidden;
-  z-index: 1; /* Reste en dessous du header (z-index: 500) */
+  z-index: 1;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
 
-.input-image::before {
-  content: '📸';
-  font-size: 2.5rem;
-  margin-bottom: 15px;
-}
-
-.input-image::after {
-  content: 'cliquez ou glissez pour déposer votre image';
-  color: #ffffff;
-  font-size: 1rem;
-  text-align: center;
-  
-  pointer-events: none;
+.input-image:not(.has-files) {
+  cursor: pointer;
 }
 
 .input-image:hover {
   background-color: rgba(42, 50, 69, 0.8);
   border-color: #ffffff;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .input-image.drag-over {
   background-color: rgba(42, 50, 69, 0.9);
   border-color: #ffffff;
-  transform: scale(1.02);
+  transform: scale(1.01);
 }
 
-.input-image input[type="file"] {
+.input-image input[type='file'] {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -80,138 +43,125 @@
   left: 0;
   opacity: 0;
   cursor: pointer;
-  z-index: 1; /* Assure que l'input reste dans son conteneur, en dessous du header (z-index: 500) */
+  z-index: 2;
 }
 
-/* Style pour l'aperçu de l'image */
-.preview-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(29, 36, 55, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  overflow: hidden;
+.input-image.has-files input[type='file'] {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
 }
 
-.preview-container img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-
-/* Overlay pour l'image sélectionnée */
-.file-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(29, 36, 55, 0.8);
+.drop-hint {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  text-align: center;
+  padding: 16px 8px;
+  pointer-events: none;
 }
 
-.preview-container:hover .file-overlay {
-  opacity: 1;
+.drop-hint__emoji {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
 }
 
-.file-name {
-  color: white;
-  margin-bottom: 10px;
-  font-size: 0.9rem;
-  max-width: 90%;
+.drop-hint__title {
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+
+.drop-hint__desc {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+.preview-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 8px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.preview-tile {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  border-radius: 8px;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 176, 0, 0.45);
+  flex-shrink: 0;
 }
 
-.change-file {
-  background-color: #ffb000;
-  color: #1D2437;
+.preview-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.remove-tile {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  line-height: 20px;
   border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
+  border-radius: 50%;
+  background: rgba(220, 53, 69, 0.95);
+  color: #fff;
+  font-size: 16px;
   cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease;
+  z-index: 3;
 }
 
-.change-file:hover {
-  background-color: #ffc233;
-  transform: translateY(-2px);
+.remove-tile:hover {
+  background: #dc3545;
 }
 
-/* Animation de pulsation pour l'état de glisser-déposer */
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    border-color: #ffffff;
-  }
-  50% {
-    transform: scale(1.02);
-    border-color: #ffb000;
-  }
-  100% {
-    transform: scale(1);
-    border-color: #ffffff;
-  }
+.add-more {
+  text-align: center;
+  padding: 10px 12px;
+  font-size: 0.88rem;
+  color: #ffb000;
+  border: 1px dashed rgba(255, 176, 0, 0.5);
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  z-index: 4;
 }
 
-.input-image.drag-over {
-  animation: pulse 1.5s infinite;
+.add-more:hover {
+  background: rgba(255, 176, 0, 0.12);
 }
 
-/* Style responsive */
-@media (max-width: 768px) {
-  .input-container {
-    padding: 10px;
-  }
-
-  .input-image {
-    width: 90%;
-    min-height: 200px;
-  }
-
-  .input-image::before {
-    font-size: 2rem;
-  }
-
-  .input-image::after {
-    font-size: 0.9rem;
-  }
-
-  .file-name {
-    font-size: 0.8rem;
-  }
-
-  .change-file {
-    padding: 6px 12px;
-    font-size: 0.9rem;
-  }
-}
-
-/* Style pour les messages d'erreur */
 .error-message {
   color: #ff4444;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   margin-top: 8px;
   text-align: center;
   background-color: rgba(255, 68, 68, 0.1);
   padding: 8px;
   border-radius: 6px;
   width: 100%;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+}
+
+@media (max-width: 768px) {
+  .input-image {
+    min-height: 160px;
+  }
+
+  .preview-tile {
+    width: 64px;
+    height: 64px;
+  }
 }

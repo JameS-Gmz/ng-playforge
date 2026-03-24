@@ -1,20 +1,23 @@
 import { Injectable } from '@angular/core';
 
+/**
+ * Client HTTP vers le service de fichiers (port 9091).
+ * Ne pas définir manuellement l’en-tête `Content-Type` sur `FormData` : le navigateur ajoute le boundary requis.
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class FileService {
+  private readonly uploadApiUrl = 'http://localhost:9091/game/upload/file';
+  private readonly imageApiBaseUrl = 'http://localhost:9091/game';
 
-  private fileApiUrl = 'http://localhost:9091/game/upload/file';  // URL de l'API des fichiers
-
-  // Fonction pour uploader un fichier avec l'ID du jeu
   async uploadFile(file: File, gameId: number): Promise<any> {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('gameId', gameId.toString());  // Associe l'image au jeu via l'ID
+    formData.append('gameId', gameId.toString());
 
     try {
-      const response = await fetch(this.fileApiUrl, {
+      const response = await fetch(this.uploadApiUrl, {
         method: 'POST',
         body: formData,
         credentials: 'include'
@@ -26,7 +29,7 @@ export class FileService {
         throw new Error(errorMessage);
       }
 
-      const fileData = await response.json(); // Retourne les détails du fichier uploadé
+      const fileData = await response.json();
       return fileData;
     } catch (error) {
       console.error('Erreur durant le processus d\'upload', error);
@@ -35,28 +38,32 @@ export class FileService {
   }
 
   async getImageUrl(gameId: number): Promise<string> {
-    const response = await fetch(`http://localhost:9091/game/image/${gameId}`);
+    const response = await fetch(`${this.imageApiBaseUrl}/image/${gameId}`);
 
     if (!response.ok) {
       throw new Error('Erreur lors de la récupération de l\'image');
     }
 
     const data = await response.json();
-    return data.fileUrl;  // Retourne l'URL de l'image
+    return data.fileUrl;
   };
 
-  async getImagesURLS(gameId: number): Promise<any> {
-    const response = await fetch(`http://localhost:9091/game/images/${gameId}`);
+  async getImagesUrls(gameId: number): Promise<Array<{ url: string }>> {
+    const response = await fetch(`${this.imageApiBaseUrl}/images/${gameId}`);
   
     if (!response.ok) {
       throw new Error('Erreur lors de la récupération des images');
     }
   
     const data = await response.json();
-    console.log("Données d'image récupérées :", data);  // Ajoutez ceci pour inspecter les données
   
-    return data.files;  // Assurez-vous que cela retourne le format attendu
+    // L'API renvoie { images: [{ url }] } pour cette route.
+    return data.images ?? [];
   }
-  
+
+  // Compatibilité rétroactive avec l'ancien nom.
+  async getImagesURLS(gameId: number): Promise<Array<{ url: string }>> {
+    return this.getImagesUrls(gameId);
+  }
 
 }

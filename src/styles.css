@@ -13,4 +13,10 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Share Tech', system-ui, sans-serif !important;
+}
+
+*::before,
+*::after {
+  font-family: 'Share Tech', system-ui, sans-serif !important;
 }

@@ -1,9 +1,11 @@
-// auth.service.ts
-
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 
+/**
+ * Gestion de l’authentification côté client : stockage du JWT dans `localStorage`.
+ * Les observables `isLoggedIn$` et `role$` notifient l’interface (menus, garde de navigation).
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -24,18 +26,18 @@ export class AuthService {
     this.isLoggedInSubject.next(!!token);
     this.roleSubject.next(role);
 
-    // Démarrer la vérification périodique du token
     this.startTokenCheck();
   }
 
   private startTokenCheck() {
-    // Vérifier le token toutes les minutes
+    // Vérification périodique (60 s) : en cas d’expiration du JWT, déconnexion et redirection vers l’authentification.
+    // Aucun mécanisme de rafraîchissement de token : reconnexion manuelle requise.
     this.tokenCheckInterval = setInterval(() => {
       if (!this.checkTokenExpiration()) {
         this.logout();
         this.router.navigate(['/auth']);
       }
-    }, 60000); // 60000 ms = 1 minute
+    }, 60000);
   }
 
   private stopTokenCheck() {
@@ -46,8 +48,6 @@ export class AuthService {
 
   async signUp(userData: any): Promise<any> {
     try {
-      console.log('Envoi des données d\'inscription:', userData); // Vérifier les données envoyées
-
       const response = await fetch('http://localhost:9090/user/signup', {
         method: 'POST',
         headers: {
@@ -57,13 +57,20 @@ export class AuthService {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        console.log('Réponse API échouée:', errorData);
-        throw new Error(errorData.message || 'Erreur lors de l\'inscription');
+        let errorData: { message?: string; error?: string } = {};
+        try {
+          errorData = await response.json();
+        } catch {
+          /* ignore */
+        }
+        const msg =
+          errorData.message ||
+          errorData.error ||
+          'Erreur lors de l\'inscription';
+        throw new Error(msg);
       }
 
       const data = await response.json();
-      console.log('Réponse API réussie:', data);
 
       localStorage.setItem('token', data.token);
       localStorage.setItem('role', data.role);
@@ -71,12 +78,15 @@ export class AuthService {
       this.isLoggedInSubject.next(true);
       this.roleSubject.next(data.role);
 
-      // Retourner l'ID de l'utilisateur depuis le token
+      // Le payload JWT est en base64url (2e segment) — on décode à la main pour récupérer userId sans lib ici.
       const tokenPayload = JSON.parse(atob(data.token.split('.')[1]));
       return tokenPayload.userId;
     } catch (error) {
       console.error('Erreur lors de l\'inscription:', error);
-      throw error;
+      if (error instanceof Error) {
+        throw error;
+      }
+      throw new Error("Erreur lors de l'inscription");
     }
   }
 
@@ -91,25 +101,21 @@ export class AuthService {
       });
 
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Erreur lors de la connexion');
+        let errBody: { message?: string; error?: string } = {};
+        try {
+          errBody = await response.json();
+        } catch {
+          /* ignore */
+        }
+        throw new Error(
+          errBody.message || errBody.error || 'Erreur lors de la connexion'
+        );
       }
 
       const data = await response.json();
       const token = data.token;
 
       if (token) {
-        // Décoder le token pour vérifier son contenu
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        console.log('Contenu du token après connexion:', payload);
-        
-        // Vérifier si la date est présente dans le token
-        if (payload.birthday) {
-          console.log('Date d\'anniversaire dans le token:', payload.birthday);
-        } else {
-          console.log('Aucune date d\'anniversaire dans le token');
-        }
-
         localStorage.setItem('token', token);
         localStorage.setItem('role', data.role);
       }
@@ -125,10 +131,8 @@ export class AuthService {
   }
 
   async updateProfile(userData: any): Promise<any> {
-    const token = localStorage.getItem('token'); 
+    const token = localStorage.getItem('token');
     const userId = userData.id;
-    console.log('User data:', userData);
-    console.log('User token:', token);
     if (!token) {
       throw new Error('Token non disponible. Veuillez vous connecter.');
     }
@@ -137,7 +141,7 @@ export class AuthService {
     }
 
     try {
-      // Convertir la date en format ISO si elle existe
+      // L’API attend une chaîne ISO 8601 pour la date de naissance.
       const formattedUserData = {
         ...userData,
         birthday: userData.birthday ? new Date(userData.birthday).toISOString() : null
@@ -153,18 +157,24 @@ export class AuthService {
       });
 
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Erreur lors de la mise à jour du profil');
+        let errBody: { message?: string; error?: string } = {};
+        try {
+          errBody = await response.json();
+        } catch {
+          /* ignore */
+        }
+        throw new Error(
+          errBody.message ||
+            errBody.error ||
+            'Erreur lors de la mise à jour du profil'
+        );
       }
 
-      const data = await response.json(); 
+      const data = await response.json();
 
-      // Met à jour le token dans le localStorage avec les nouvelles données
+      // Mise à jour du jeton si le serveur en renvoie un nouveau (ex. modification du profil ou du rôle).
       if (data.token) {
         localStorage.setItem('token', data.token);
-        // Vérifier que la date est bien dans le nouveau token
-        const payload = JSON.parse(atob(data.token.split('.')[1]));
-        console.log('Nouveau token payload:', payload);
       }
 
       return data;
@@ -186,12 +196,10 @@ export class AuthService {
     return !!localStorage.getItem('token');
   }
 
-  // Ajout d'une méthode pour vérifier le contenu du token
   checkTokenContent() {
     const token = localStorage.getItem('token');
     if (token) {
       const payload = JSON.parse(atob(token.split('.')[1]));
-      console.log('Contenu actuel du token:', payload);
       return payload;
     }
     return null;
@@ -232,7 +240,8 @@ export class AuthService {
 
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
-      const expirationTime = payload.exp * 1000; // Convert to milliseconds
+      // Champ `exp` du JWT exprimé en secondes ; `Date.now()` en millisecondes.
+      const expirationTime = payload.exp * 1000;
       const currentTime = Date.now();
       
       if (currentTime > expirationTime) {

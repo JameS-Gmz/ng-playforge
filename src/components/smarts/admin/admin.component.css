@@ -251,6 +251,13 @@ h2 {
   color: #dc3545;
 }
 
+.edit-form .error--edit-user {
+  margin: 0 0 12px;
+  padding: 12px 14px;
+  text-align: left;
+  border: 1px solid rgba(220, 53, 69, 0.45);
+}
+
 /* Common Form Styles */
 .edit-form {
   background-color: #1D2437;

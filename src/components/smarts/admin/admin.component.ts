@@ -204,7 +204,9 @@ export class AdminComponent implements OnInit {
     if (!this.checkSuperAdminPermissions(user)) {
       return;
     }
-    
+
+    this.userErrorMessage = null;
+
     this.selectedUser = { 
       ...user,
       RoleId: user.role?.id || user.RoleId
@@ -252,6 +254,7 @@ export class AdminComponent implements OnInit {
   async updateUser() {
     if (!this.selectedUser) return;
 
+    this.userErrorMessage = null;
     this.isUserLoading = true;
     try {
       const userToModify = await this.userService.getUserById(this.selectedUser.id);
@@ -302,8 +305,12 @@ export class AdminComponent implements OnInit {
       await this.loadUsers();
       this.userErrorMessage = null;
     } catch (error: unknown) {
-      console.error('Error updating user:', error);
-      this.userErrorMessage = 'Error updating user: ' + (error instanceof Error ? error.message : 'Unknown error');
+      const msg =
+        error instanceof Error
+          ? error.message
+          : 'Erreur lors de la mise à jour de l’utilisateur.';
+      console.warn('[Admin] Rôle / utilisateur :', msg);
+      this.userErrorMessage = msg;
     } finally {
       this.isUserLoading = false;
     }

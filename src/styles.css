@@ -1,13 +1,25 @@
+html {
+  height: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
-  padding: 0px !important;
-  margin: 0% !important;
-  justify-items: center;
-  align-items: center;
+  padding: 0 !important;
+  margin: 0 !important;
   background: #141e30;
-  width: 100vw;
-  height: 100vh;
-  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  min-height: 100dvh;
+  overflow-x: clip;
   position: relative;
+}
+
+app-root {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100dvh;
 }
 * {
   margin: 0;

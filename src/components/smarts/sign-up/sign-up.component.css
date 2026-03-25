@@ -5,7 +5,7 @@
 }
 
 .card-user {
-  padding: 1.5rem 1.65rem 1.65rem;
+  padding: 2rem clamp(1.5rem, 4vw, 2.75rem) 2.25rem;
   width: min(100%, 64rem);
   border-radius: 12px;
   box-sizing: border-box;
@@ -15,23 +15,30 @@
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid #FFB000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .sign-up-layout {
   display: flex;
   flex-direction: row;
-  align-items: stretch;
-  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.25rem, 3vw, 2rem);
   width: 100%;
+  max-width: 100%;
 }
 
 .sign-up-column--form {
   flex: 1 1 58%;
   min-width: 0;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
-  align-items: stretch;
+  gap: 0.72rem;
+  align-items: center;
+  width: 100%;
 }
 
 .sign-up-column--brand {
@@ -88,23 +95,25 @@ form h2 {
 .input-label {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0.32rem;
+  align-items: center;
+  gap: 0.42rem;
   color: rgba(255, 255, 255, 0.88);
   width: 100%;
-  font-size: 0.95rem;
+  font-size: 1.02rem;
   box-sizing: border-box;
+  text-align: center;
 }
 
 .input-field {
-  padding: 0.45rem 0.4rem;
+  padding: 0.6rem 0.75rem;
   border: 0;
   background-color: transparent;
   border-bottom: 2px solid rgba(238, 238, 238, 0.65);
   border-radius: 6px 6px 0 0;
   color: white;
   width: 100%;
-  min-height: 1.85rem;
+  min-height: 2.45rem;
+  font-size: 1.02rem;
   box-sizing: border-box;
   transition:
     border-color 0.25s ease,
@@ -129,8 +138,8 @@ form h2 {
 
 .action-button {
   margin-top: 0.45rem;
-  padding: 0.62rem 1rem;
-  font-size: 1.05rem;
+  padding: 0.72rem 1.2rem;
+  font-size: 1.06rem;
   font-weight: 600;
   width: 100%;
   max-width: 100%;
@@ -168,17 +177,18 @@ form h2 {
 
 .password-hint {
   margin: -0.15rem 0 0.35rem;
-  font-size: 0.82rem;
-  line-height: 1.35;
+  font-size: 0.88rem;
+  line-height: 1.4;
   color: rgba(255, 200, 120, 0.95);
   width: 100%;
+  text-align: center;
 }
 
 .error-message {
   color: #ff6b6b;
-  font-size: 0.84rem;
+  font-size: 0.88rem;
   margin-top: 0.35rem;
-  text-align: left;
+  text-align: center;
   width: 100%;
   line-height: 1.35;
 }
@@ -195,20 +205,39 @@ form h2 {
 }
 
 @media (max-width: 700px) {
+  :host {
+    flex: 1 1 auto;
+    align-self: stretch;
+    min-height: 0;
+    width: 100%;
+  }
+
   .card-user {
-    min-height: auto;
+    width: 100%;
+    max-width: none;
+    flex: 1 1 auto;
+    min-height: 0;
+    border-radius: 12px;
+    padding: 1rem clamp(0.85rem, 3.5vw, 1.35rem) 1.35rem;
+    border: 1px solid #ffb000;
   }
 
   .sign-up-layout {
     flex-direction: column;
+    flex: 1 1 auto;
     gap: 1rem;
   }
 
+  .sign-up-column--form {
+    order: 1;
+  }
+
   .sign-up-column--brand {
+    order: -1;
     flex: 0 0 auto;
     max-width: none;
     width: 100%;
-    padding: 0.85rem 0 0;
+    padding: 0.35rem 0 0.85rem;
   }
 
   .sign-up-column--brand::before {
@@ -220,7 +249,8 @@ form h2 {
     position: absolute;
     left: 0;
     right: 0;
-    top: 0;
+    top: auto;
+    bottom: 0;
     height: 1px;
     background: linear-gradient(
       to right,
@@ -232,20 +262,17 @@ form h2 {
   }
 
   .sign-up-column--brand img {
-    max-width: 180px;
-    max-height: 22vh;
-  }
-
-  .card-user {
-    width: 92%;
-    padding: 0.85rem 1rem 1rem;
+    max-width: min(240px, 82vw);
+    max-height: min(32vh, 240px);
+    margin: 0 auto;
+    display: block;
+    object-fit: contain;
   }
 }
 
 @media (max-width: 480px) {
   .card-user {
-    width: 94%;
-    padding: 0.75rem 0.85rem 0.9rem;
+    padding: 0.85rem clamp(0.65rem, 3vw, 1rem) 1rem;
   }
 
   .sign-up-column--form {

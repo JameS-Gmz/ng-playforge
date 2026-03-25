@@ -1,31 +1,44 @@
 .games-container {
     width: 100%;
+    max-width: 100%;
+    margin-inline: auto;
     padding: 20px;
+    box-sizing: border-box;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 20px;
     animation: fadeIn 0.5s ease-in-out;
+    justify-items: stretch;
 }
 
-.games-container > div {
+.games-grid {
     grid-column: 1 / -1;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 20px;
     justify-items: center;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.games-error {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #ff6b6b;
+    padding: 0.5rem;
 }
 
 h1 {
-    width: 80%;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto 20px;
     grid-column: 1 / -1;
     color: #E0E0E0;
-    margin-bottom: 20px;
     text-align: center;
     padding: 20px 0;
     border-bottom: 3px solid #ffb000;
+    box-sizing: border-box;
 }
 
 .loading {
@@ -33,7 +46,10 @@ h1 {
     text-align: center;
     color: #E0E0E0;
     font-size: 1.2rem;
-    padding: 40px;
+    padding: 40px 16px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 /* Animation pour le chargement */
@@ -50,33 +66,54 @@ h1 {
 
 /* Responsive Design */
 @media (max-width: 1200px) {
-    .games-container,
-    .games-container > div {
+    .games-container {
         grid-template-columns: repeat(3, 1fr);
         gap: 15px;
         padding: 15px;
     }
+
+    .games-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
 }
 
 @media (max-width: 768px) {
-    .games-container,
-    .games-container > div {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        padding: 10px;
+    .games-container {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: max(12px, env(safe-area-inset-left, 0px))
+            max(12px, env(safe-area-inset-right, 0px))
+            16px;
+        justify-items: center;
+    }
+
+    .games-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        justify-items: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
     }
 
     h1 {
         font-size: 1.5rem;
         margin-bottom: 15px;
+        padding-left: 4px;
+        padding-right: 4px;
     }
 }
 
 @media (max-width: 480px) {
-    .games-container,
-    .games-container > div {
-        grid-template-columns: 1fr;
-        gap: 15px;
+    .games-container {
+        padding-inline: max(10px, env(safe-area-inset-left, 0px))
+            max(10px, env(safe-area-inset-right, 0px));
+    }
+
+    .games-grid {
+        gap: 18px;
     }
 
     h1 {

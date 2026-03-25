@@ -1,7 +1,7 @@
 <div class="games-container">
   <h1>All Games</h1>
   <div class="loading" *ngIf="isLoading">Chargement...</div>
-  <div #container></div>
+  <div #container class="games-grid"></div>
 
-  <p>{{errorMessage}}</p>
+  <p class="games-error" *ngIf="errorMessage">{{ errorMessage }}</p>
 </div>

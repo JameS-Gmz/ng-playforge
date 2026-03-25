@@ -5,13 +5,17 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 2rem 1rem 2.5rem;
+  padding: clamp(1.25rem, 4vh, 2.75rem) clamp(1rem, 5vw, 2.25rem)
+    clamp(1.5rem, 4.5vh, 3rem);
+  padding-left: max(env(safe-area-inset-left, 0px), clamp(1rem, 5vw, 2.25rem));
+  padding-right: max(env(safe-area-inset-right, 0px), clamp(1rem, 5vw, 2.25rem));
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), clamp(1.5rem, 4.5vh, 3rem));
   box-sizing: border-box;
 }
 
 .auth {
   width: 100%;
-  max-width: 32rem;
+  max-width: min(100%, 46rem);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -48,4 +52,49 @@
 .auth a:hover,
 .auth .auth-toggle-link:hover {
   color: #1a6fb0;
+}
+
+@media (max-width: 700px) {
+  :host {
+    flex: 1;
+    align-self: stretch;
+    min-height: 0;
+    width: 100%;
+    max-width: none;
+    padding: clamp(0.75rem, 3vh, 1.35rem) clamp(0.75rem, 4.5vw, 1.35rem)
+      clamp(1rem, 3.5vh, 1.75rem);
+    padding-left: max(env(safe-area-inset-left, 0px), clamp(0.75rem, 4.5vw, 1.35rem));
+    padding-right: max(env(safe-area-inset-right, 0px), clamp(0.75rem, 4.5vw, 1.35rem));
+    padding-bottom: max(env(safe-area-inset-bottom, 0px), clamp(1rem, 3.5vh, 1.75rem));
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+
+  .auth {
+    max-width: none;
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 0;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+  }
+
+  .auth .form {
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 0;
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+
+  /* Enveloppe *ngIf / template : étire sign-in / sign-up sur toute la zone */
+  .auth .form > * {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    width: 100%;
+    align-self: stretch;
+  }
 }

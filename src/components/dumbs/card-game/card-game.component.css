@@ -1,10 +1,21 @@
+:host {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin-inline: auto;
+  box-sizing: border-box;
+}
+
 .card-wrapper {
   position: relative;
-  display: inline-block;
+  display: block;
   border-radius: 15px;
   padding: 2px;
   background: linear-gradient(45deg, rgba(26, 104, 255, 0.8), rgba(255, 176, 0, 0.8), rgba(26, 104, 255, 0.8));
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
+  margin-inline: auto;
+  box-sizing: border-box;
 }
 
 .card {
@@ -158,8 +169,12 @@ a {
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 768px) {
+  :host {
+    max-width: min(300px, 100%);
+  }
+
   .card-wrapper {
-    width: 100%;
+    max-width: 100%;
   }
 }

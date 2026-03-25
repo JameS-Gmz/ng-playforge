@@ -3,7 +3,9 @@
     backdrop-filter: blur(50px);
     color: white;
     padding: 2rem 0 0.5rem 0;
-    border-top: 2px solid #ffb000;
+    border-top: 2px solid;
+    border-image: linear-gradient(to right, #ffb000, #1a68ff 100%);
+    border-image-slice: 1;
     box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
     width: 100%;
     position: fixed;

@@ -14,5 +14,5 @@ import { NavItemComponent } from "../components/smarts/nav-item/nav-item.compone
     imports: [RouterOutlet, RouterLink, HeaderComponent, FooterComponent, RouterModule, NavItemComponent]
 })
 export class AppComponent {
-  title = 'PlayForge';
+  title = 'Sharegames';
 }

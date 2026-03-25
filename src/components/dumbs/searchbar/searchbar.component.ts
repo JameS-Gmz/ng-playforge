@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, OnInit, OnDestroy, HostListener, ElementRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, OnDestroy, HostListener, ElementRef } from '@angular/core';
 import { GameService } from '../../../services/game.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -24,6 +24,9 @@ export class SearchbarComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   
   @Output() searchResults = new EventEmitter<any[]>();
+
+  /** Résultats en flux (ex. menu mobile) au lieu du dropdown absolu */
+  @Input() drawerMode = false;
 
   constructor(
     private gameService: GameService, 

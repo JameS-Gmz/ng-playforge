@@ -1,17 +1,120 @@
+<div class="mobile-menu">
+  <div class="mobile-menu__brand">
+    <img
+      class="mobile-menu__brand-img"
+      src="/Sharegame.gif"
+      alt="Sharegames"
+      loading="lazy"
+    />
+    <span class="mobile-menu__brand-name">ShareGames</span>
+  </div>
+  <button
+    type="button"
+    class="mobile-menu__trigger"
+    (click)="open()"
+    [attr.aria-expanded]="isOpen"
+    aria-controls="mobile-menu-panel"
+    aria-label="Open menu"
+  >
+    <span class="mobile-menu__burger" aria-hidden="true"></span>
+  </button>
 
-<input class="menu-icon" type="checkbox" id="menu-icon" name="menu-icon" />
-<label for="menu-icon"></label>
-<nav class="nav">
-    <ul class="pt-5">
-        <li><app-nav-item text="Home" img="/ion_home.svg"
-                routerLink="/"></app-nav-item></li>
-        <li><app-nav-item text="Profile" img="/ion_profile.svg"
-                routerLink="/profile"></app-nav-item></li>
-                <li><app-nav-item text="Library" img="/ion_library.svg"
-                    routerLink="/library"></app-nav-item></li>
-        <li><app-nav-item text="All Games" img="/ion_network.svg"
-                routerLink="/all-games"></app-nav-item></li>
-        <li><app-nav-item text="Privacy Policy" img="/ion_privacy.svg"
-                routerLink="/privacy"></app-nav-item></li>
-    </ul>
-</nav>
+  <div
+    class="mobile-menu__overlay"
+    [class.mobile-menu__overlay--visible]="isOpen"
+    (click)="close()"
+    aria-hidden="true"
+  ></div>
+
+  <nav
+    id="mobile-menu-panel"
+    class="mobile-menu__panel"
+    [class.mobile-menu__panel--open]="isOpen"
+    [attr.aria-hidden]="!isOpen"
+  >
+    <div class="mobile-menu__head">
+      <span class="mobile-menu__title">Menu</span>
+      <button
+        type="button"
+        class="mobile-menu__close"
+        (click)="close()"
+        aria-label="Close menu"
+      >
+        ×
+      </button>
+    </div>
+
+    <div class="mobile-menu__search">
+      <p class="mobile-menu__section-label">Search</p>
+      <app-searchbar [drawerMode]="true"></app-searchbar>
+    </div>
+
+    <div class="mobile-menu__links">
+      <a
+        class="mobile-menu__link"
+        routerLink="/"
+        routerLinkActive="mobile-menu__link--active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="close()"
+      >
+        <img src="/ion_home.svg" alt="" width="22" height="22" />
+        <span>Home</span>
+      </a>
+      <a
+        class="mobile-menu__link"
+        routerLink="/all-games"
+        routerLinkActive="mobile-menu__link--active"
+        (click)="close()"
+      >
+        <img src="/ion_network.svg" alt="" width="22" height="22" />
+        <span>All Games</span>
+      </a>
+      <a
+        *ngIf="isLoggedIn && (isDeveloper || isSuperAdmin)"
+        class="mobile-menu__link"
+        routerLink="/game"
+        routerLinkActive="mobile-menu__link--active"
+        (click)="close()"
+      >
+        <img src="/ion_upload.svg" alt="" width="22" height="22" />
+        <span>Upload</span>
+      </a>
+      <a
+        class="mobile-menu__link"
+        routerLink="/library"
+        routerLinkActive="mobile-menu__link--active"
+        (click)="close()"
+      >
+        <img src="/ion_library.svg" alt="" width="22" height="22" />
+        <span>Library</span>
+      </a>
+      <a
+        *ngIf="isSuperAdmin"
+        class="mobile-menu__link"
+        routerLink="/admin"
+        routerLinkActive="mobile-menu__link--active"
+        (click)="close()"
+      >
+        <img src="/ion_network.svg" alt="" width="22" height="22" />
+        <span>Admin</span>
+</a>
+      <a
+        class="mobile-menu__link"
+        [routerLink]="isLoggedIn ? '/profile' : '/auth'"
+        routerLinkActive="mobile-menu__link--active"
+        (click)="close()"
+      >
+        <img src="/ion_profile color.svg" alt="" width="22" height="22" />
+        <span>{{ isLoggedIn ? 'Profile' : 'Sign In' }}</span>
+      </a>
+    </div>
+
+    <div class="mobile-menu__notif-block notification-nav-item" *ngIf="isLoggedIn">
+      <p class="mobile-menu__notif-title">Notifications</p>
+      <div class="mobile-menu__notif-slot">
+        <img class="mobile-menu__notif-decor" src="/ion_notification.svg" alt="" width="24" height="24" />
+        <app-notification></app-notification>
+      </div>
+    </div>
+  </nav>
+</div>

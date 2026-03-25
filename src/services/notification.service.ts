@@ -103,7 +103,7 @@ export class NotificationService {
       id: Date.now(),
       type: 'game',
       title: 'Nouveau jeu disponible !',
-      message: `Le jeu "${game.title}" est maintenant disponible sur PlayForge.`,
+      message: `Le jeu "${game.title}" est maintenant disponible sur Sharegames.`,
       time: 'Maintenant',
       isRead: false,
       gameId: game.id,

@@ -1,88 +1,91 @@
-# Planning — Gantt & lien avec Git (Sharegames)
+# Planning — Gantt calé sur Git (Sharegames)
 
-Ce fichier sert de **support visuel** pour la diapo *« Gestion de projet »* (point 14 de `FICHE-DIAPO-ORAL-CCP-SHAREGAMES.md`).
+Support pour la diapo *« Gestion de projet »* (`FICHE-DIAPO-ORAL-CCP-SHAREGAMES.md`, point 14).
 
-**Limite actuelle :** le workspace local n’est **pas** un dépôt Git (`git` absent), donc les diagrammes ci‑dessous sont des **modèles cohérents** avec ton stack (Angular, API Express, service upload, MySQL). Tu remplaces les dates par celles de **ton** historique GitHub (voir § 3).
+Les données ci‑dessous proviennent des dépôts **`api-Rest`**, **`api-upload`** et **`ng-playforge`** (commandes exécutées le 2026-03-25).
 
 ---
 
-## 1. Diagramme de Gantt — phases projet (périmètre CCP)
+## 1. Fréquence des commits par mois (aperçu charge)
 
-Basé sur les blocs habituels : besoins → conception → front → API → médias → tests → préparation oral / dossier.
+| Mois (YYYY-MM) | api-Rest | api-upload | ng-playforge |
+|----------------|----------|------------|--------------|
+| 2024-06 | 44 | — | 1 |
+| 2024-07 | 106 | — | 10 |
+| 2024-08 | 3 | — | 6 |
+| 2024-09 | 18 | 7 | 9 |
+| 2024-10 | 3 | 2 | 3 |
+| 2025-02 | 1 | 1 | 2 |
+| 2025-04 | 4 | 1 | 8 |
+| 2025-05 | 1 | 1 | 7 |
+| 2025-11 | 13 | 4 | 8 |
+| 2026-03 | 2 | 3 | 5 |
+| *Autres mois* | *0* | *0* | *0* |
+
+**Lecture rapide :** pic d’activité sur **api-Rest en juillet 2024** (docs / README / diagrammes + démarrage API) ; **vague 2025-11** (migration Drizzle, commentaires, déploiement, refactors Angular) ; **2026-03** (Sharegames, tests, finitions).
+
+---
+
+## 2. Diagramme de Gantt — vagues dérivées des trois dépôts
+
+Chaque barre = **période réelle** entre le **premier** et le **dernier** commit de la vague (durée en jours). Les intitulés résument les thèmes vus dans les messages de commit.
 
 ```mermaid
 gantt
-    title Sharegames — phases (exemple de calendrier à ajuster)
+    title Sharegames — vagues d’activité (git : api-Rest, api-upload, ng-playforge)
     dateFormat  YYYY-MM-DD
-    axisFormat  %d/%m
+    axisFormat  %b %y
 
-    section Cadrage
-    Expression des besoins & périmètre     :a1, 2025-10-01, 14d
-    Maquettes / charte UI                  :a2, after a1, 21d
+    section api-Rest
+    2024 H2 — API Game, jointures, search, catégories, auth JWT   :rest_a, 2024-06-17, 107d
+    2025 — admin, profil, filtres, stats, rôles                     :rest_b, 2025-02-04, 112d
+    2025-11 — Drizzle, commentaires, déploiement Render             :rest_c, 2025-11-19, 7d
+    2026-03 — Sharegames, config BDD, nettoyage                     :rest_d, 2026-03-24, 1d
 
-    section Réalisation
-    Auth & comptes (front + API)           :b1, 2025-11-01, 21d
-    Catalogue jeux & fiches détaillées       :b2, after b1, 28d
-    Admin & formulaires (création jeu)     :b3, after b2, 21d
-    Service upload & médias                :b4, after b3, 14d
+    section api-upload
+    2024-09→10 — POST fichiers, GET images, token                  :up_a, 2024-09-14, 19d
+    2025-02→05 — scripts démarrage, dépendances                     :up_b, 2025-02-04, 112d
+    2025-11 — CORS, README upload, checks BDD                       :up_c, 2025-11-20, 6d
+    2026-03 — deps, extraction jeux, renommage Sharegames           :up_d, 2026-03-24, 1d
 
-    section Qualité & livrables
-    Tests unitaires (services Angular)     :c1, 2026-02-01, 14d
-    Plan de tests & jeu d’essai (dossier)  :c2, after c1, 14d
-    Doc déploiement / variables d’env      :c3, after c2, 10d
-
-    section Clôture
-    Dossier papier & préparation oral CCP   :d1, 2026-03-15, 12d
+    section ng-playforge
+    2024 H2 — UI jeu, responsive, search, auth, rôles               :ng_a, 2024-06-17, 107d
+    2025 — admin, bibliothèque, notifications, thème               :ng_b, 2025-02-04, 112d
+    2025-11 — commentaires, notes, ng build                         :ng_c, 2025-11-19, 7d
+    2026-03 — rebrand Sharegames, tests HttpClient                  :ng_d, 2026-03-24, 1d
 ```
+
+*Remarque :* `api-upload` démarre en **2024-09-14** (pas de commits en juin–août dans ce dépôt) : la barre `up_a` est plus courte que `rest_a` / `ng_a`, ce qui se voit sur le diagramme.
 
 ---
 
-## 2. Diagramme de Gantt « rythme de livraison » (lié aux commits)
+## 3. Commandes Git (réutilisables)
 
-Même sans tes vrais pushs, on peut montrer au jury **comment** le planning suit des **jalons** (features livrées par vague). Exemple de découpage par **sprints / lots** — à recaler sur tes dates Git réelles.
-
-```mermaid
-gantt
-    title Jalons type « vagues de commits » (à personnaliser avec ton GitHub)
-    dateFormat  YYYY-MM-DD
-    axisFormat  %d/%m
-
-    section Lot 1 — socle
-    Repo & structure monorepo                :m1, 2025-10-15, 10d
-    Auth JWT & routes utilisateur          :m2, after m1, 12d
-
-    section Lot 2 — métier jeu
-    CRUD jeux & routes API                   :m3, after m2, 18d
-    Intégration front (liste, détail)        :m4, after m3, 14d
-
-    section Lot 3 — fichiers & finitions
-    API upload & affichage médias            :m5, after m4, 12d
-    Tests & correctifs (fix)                 :m6, after m5, 10d
-```
-
-Pour l’oral : une capture **GitHub → Insights → Contributors** ou **Network**, + ce Gantt, montre la **cohérence** entre planning et historique.
-
----
-
-## 3. Récupérer *tes* dates depuis GitHub (à exécuter sur ta machine)
-
-Dans le clone de **ton** dépôt (celui qui est sur GitHub) :
+### Liste des commits avec date (ordre chronologique)
 
 ```bash
-# Liste des commits avec date (pour recaler le Gantt ou un tableau Excel)
 git log --reverse --format="%ad | %s" --date=short
+```
 
-# Fréquence par semaine (aperçu charge de travail)
+À lancer dans chaque dossier : `api-Rest`, `api-upload`, `ng-playforge`.
+
+### Fréquence par mois (équivalent `cut | uniq -c`)
+
+**PowerShell (Windows) :**
+
+```powershell
+git log --format="%ad" --date=format:%Y-%m | Sort-Object | Group-Object | Sort-Object Name | ForEach-Object { "$($_.Count) $($_.Name)" }
+```
+
+**Git Bash / Linux / macOS :**
+
+```bash
 git log --format="%ad" --date=short | cut -c1-7 | sort | uniq -c
 ```
 
-Tu copies les **premières / dernières dates** de grosses features dans le `gantt` (sections et `start` / `duration`), ou tu exportes vers Excel / Project / Notion Gantt.
-
 ---
 
-## 4. « UML » utile pour la même diapo (pas un Gantt)
-
-Le **Gantt n’est pas un diagramme UML**. En revanche, pour compléter le dossier, un **diagramme de packages** ou **déploiement** est souvent attendu. Exemple minimal **packages** (front / API / BDD) :
+## 4. Architecture (rappel — pas du Gantt)
 
 ```mermaid
 flowchart LR
@@ -94,7 +97,7 @@ flowchart LR
         C[Upload — api-upload]
     end
     subgraph Données
-        D[(MySQL)]
+        D[(MySQL / PostgreSQL selon env)]
     end
     A -->|HTTP REST JSON| B
     A -->|fichiers / images| C
@@ -102,8 +105,6 @@ flowchart LR
     C --> D
 ```
 
-Si ton RE exige du **UML strict** (cas d’utilisation, séquences), réutilise plutôt les diagrammes déjà prévus dans le dossier (CU, séquences auth, etc.).
-
 ---
 
-*Fichier généré comme base de travail — à ajuster avec ton planning réel et ton export GitHub.*
+*Généré à partir de l’historique Git local des trois dossiers — à recopier ou exporter en image depuis un viewer Mermaid (VS Code, mermaid.live) pour la diapo.*

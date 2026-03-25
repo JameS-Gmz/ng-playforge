@@ -1,4 +1,8 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { lastValueFrom } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 /**
  * Client HTTP vers le service de fichiers (port 9091).
@@ -11,59 +15,60 @@ export class FileService {
   private readonly uploadApiUrl = 'http://localhost:9091/game/upload/file';
   private readonly imageApiBaseUrl = 'http://localhost:9091/game';
 
-  async uploadFile(file: File, gameId: number): Promise<any> {
+  constructor(private http: HttpClient) {}
+
+  uploadFile(file: File, gameId: number): Promise<{ fileUrl?: string } & Record<string, unknown>> {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('gameId', gameId.toString());
 
-    try {
-      const response = await fetch(this.uploadApiUrl, {
-        method: 'POST',
-        body: formData,
-        credentials: 'include'
-      });
-
-         if (!response.ok) {
-        const errorMessage = `Erreur HTTP: ${response.status} - ${response.statusText}`;
-        console.error('Erreur lors de l\'upload du fichier:', errorMessage);
-        throw new Error(errorMessage);
-      }
-
-      const fileData = await response.json();
-      return fileData;
-    } catch (error) {
-      console.error('Erreur durant le processus d\'upload', error);
-      throw error;
-    }
+    return lastValueFrom(
+      this.http
+        .post<{ fileUrl?: string } & Record<string, unknown>>(this.uploadApiUrl, formData, {
+          withCredentials: true
+        })
+        .pipe(
+          catchError((err: unknown) => {
+            if (err instanceof HttpErrorResponse) {
+              const errorMessage = `Erreur HTTP: ${err.status} - ${err.statusText}`;
+              console.error('Erreur lors de l\'upload du fichier:', errorMessage);
+              return throwError(() => new Error(errorMessage));
+            }
+            console.error('Erreur durant le processus d\'upload', err);
+            return throwError(() =>
+              err instanceof Error ? err : new Error('Erreur durant le processus d\'upload')
+            );
+          })
+        )
+    );
   }
 
-  async getImageUrl(gameId: number): Promise<string> {
-    const response = await fetch(`${this.imageApiBaseUrl}/image/${gameId}`);
+  getImageUrl(gameId: number): Promise<string> {
+    return lastValueFrom(
+      this.http.get<{ fileUrl: string }>(`${this.imageApiBaseUrl}/image/${gameId}`).pipe(
+        map((data) => data.fileUrl),
+        catchError(() =>
+          throwError(() => new Error('Erreur lors de la récupération de l\'image'))
+        )
+      )
+    );
+  }
 
-    if (!response.ok) {
-      throw new Error('Erreur lors de la récupération de l\'image');
-    }
-
-    const data = await response.json();
-    return data.fileUrl;
-  };
-
-  async getImagesUrls(gameId: number): Promise<Array<{ url: string }>> {
-    const response = await fetch(`${this.imageApiBaseUrl}/images/${gameId}`);
-  
-    if (!response.ok) {
-      throw new Error('Erreur lors de la récupération des images');
-    }
-  
-    const data = await response.json();
-  
-    // L'API renvoie { images: [{ url }] } pour cette route.
-    return data.images ?? [];
+  getImagesUrls(gameId: number): Promise<Array<{ url: string }>> {
+    return lastValueFrom(
+      this.http
+        .get<{ images?: Array<{ url: string }> }>(`${this.imageApiBaseUrl}/images/${gameId}`)
+        .pipe(
+          map((data) => data.images ?? []),
+          catchError(() =>
+            throwError(() => new Error('Erreur lors de la récupération des images'))
+          )
+        )
+    );
   }
 
   // Compatibilité rétroactive avec l'ancien nom.
-  async getImagesURLS(gameId: number): Promise<Array<{ url: string }>> {
+  getImagesURLS(gameId: number): Promise<Array<{ url: string }>> {
     return this.getImagesUrls(gameId);
   }
-
 }
